@@ -1,0 +1,4 @@
+// rgb(14,49,146) // --> THIS IS MAYO CLINIC'S PRIMARY COLOR.
+// rgb(0,0,0) // --> THIS IS ANOTHER ONE OF MAYO CLINIC'S COLORS.
+// rgb(255, 255, 255) // --> THIS IS ANOTHER ONE OF MAYO CLINIC'S COLORS.
+https://www.mayoclinic.org/documents/mayo-effect-10-things-pdf/doc-20079459.#:~:text=The%20three%20shields%20in%20the,workforce%20needs%20for%20the%20institution.

@@ -190,6 +190,8 @@ html {
         color: var(--black-font);
         text-align: center;
         overflow-wrap: break-word;
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
     .home-buttons {
@@ -297,9 +299,20 @@ html {
     }
 
     .about-text {
+        font-size: 20px;
         padding: 50px;
         padding-top: 20px;
         margin-bottom: 0;
+    }
+
+    .pcm-link {
+        color: var(--black-font);
+        text-decoration: underline;
+    }
+
+    .pcm-link:hover {
+        color: var(--blue-font);
+        text-decoration: underline;
     }
 
     .about-info {

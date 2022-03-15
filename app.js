@@ -118,6 +118,13 @@ app.get("/departments", function(req, res) {
     res.render("departments");
 });
 
+// Creat a route to render the urgent page.
+app.get("/urgent", function(req, res) {
+
+    // Render the departments page.
+    res.render("urgent");
+});
+
 // Create a route to render the about page.
 app.get("/about", function(req, res){
 
@@ -232,27 +239,28 @@ app.post("/remove_department", function(req, res){
     // ADD MORE...
 });
 
-// ------------ CRUD Operations for Urgent ------------
-// Create a post request for when the user wants to 
-// create a new urgent case.
-app.post("/new_urgent", function(req, res){
+// --> MAY END UP NOT USING IT THIS WAY!!!
+// // ------------ CRUD Operations for Urgent ------------
+// // Create a post request for when the user wants to 
+// // create a new urgent case.
+// app.post("/new_urgent", function(req, res){
 
-    // ADD MORE...
-}); // --> MAYBE HAVE THIS...MAYBE NOT!!!
+//     // ADD MORE...
+// }); // --> MAYBE HAVE THIS...MAYBE NOT!!!
 
-// Create a post request for when the user wants to
-// update a given urgent case.
-app.post("/update_urgent", function(req, res){
+// // Create a post request for when the user wants to
+// // update a given urgent case.
+// app.post("/update_urgent", function(req, res){
 
-    // ADD MORE...
-});
+//     // ADD MORE...
+// });
 
-// Create a post request for when the user wants to
-// remove a given urgent case.
-app.post("/remove_urgent", function(req, res){
+// // Create a post request for when the user wants to
+// // remove a given urgent case.
+// app.post("/remove_urgent", function(req, res){
 
-    // ADD MORE...
-});
+//     // ADD MORE...
+// });
 
 // Create a post request for when the user wants to
 // access the about page of the website.

@@ -1,0 +1,580 @@
+/**
+ * The CSS in this file provides universal styles
+ * for the entire Mayo Clinic web application. 
+ * The styles are applied to all ejs files to make
+ * the web application appear in a simple, clean 
+ * format. 
+ *
+ * NOTE:
+ * The file styles the website in a desktop view. In 
+ * the future, additional CSS files along wth CSS
+ * media queries will be used to make the web app
+ * responsive so it can be viewed on smaller screens
+ * (such as the screens of mobile devices).
+ *
+ * Author: Andrew Krause
+ * Date: 05/10/2022
+ *
+ */
+
+ @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap');
+
+ /* ====================================================================
+                    INITIAL/UNIVERSAL SETTINGS Section
+ ==================================================================== */
+
+/* Create the root of the CSS file to make dynamic variables. */
+:root {
+    /* --> Navbar colors */
+    --navbar-bg-color: rgb(255, 255, 255);
+    --navbar-text-color: rgb(0, 0, 0); 
+    --navbar-text-color-hover: rgb(0,87,184);
+
+    /* --> Border colors */
+    --white-border: rgb(255, 255, 255);
+    --black-border: rgb(0, 0, 0); 
+    --blue-border: rgb(0,87,184);
+    --gray-color: rgb(230,230,230);
+    
+    /* --> Background colors */
+    --white-background: rgb(255, 255, 255);
+    --black-background: rgb(0, 0, 0); 
+    --blue-background: rgb(0,87,184);
+    
+    /* --> Card styles */
+    --card-black: rgb(34, 33, 33);
+    --card-white: white;
+    
+    /* --> Font colors */
+    --white-font: rgb(255, 255, 255);
+    --black-font: rgb(0, 0, 0); 
+    --blue-font: rgb(0,87,184);
+   
+    /* --> Card shadows */
+    --card-shadow: 5px 5px 1em gray;
+    --card-shadow-hover: 5px 5px 2em gray;
+
+    /* --> Hover effects */
+    --hover-scale: scale(1.01);
+
+    /* --> Nav and card spacing */
+    --nav-spacing: 0.35em;
+    --card-padding: clamp(1em, 1vw, 2em);
+
+    /* --> Transitions */
+    --main-transition: all 0.25s;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Set the background color as well as some additional attributes of the website. */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5; 
+    margin: auto;
+    background-color: var(--white-background);
+    color: var(--black-font);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 120%;
+    scroll-behavior: smooth; /* KEEP AN EYE ON THIS!!! */
+}
+
+/* Ensure that the footer always sticks to the bottom of the screen. */
+footer {
+    margin-top: 0;
+}
+
+/* Make the scroll behavior of the website smoother. */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Prevents scrolling in cases like when a modal is open. */
+.overflowHidden {
+    height: 100%;
+    touch-action: none;
+    -ms-touch-action: none;
+    position: inherit;
+    overflow: hidden;
+}
+
+/* @media (min-width: 1000px) { */ /* --> LATER ON THIS MAY BE CHANGED!!! */
+
+    /* ====================================================================
+                        NAVBAR Section (All Pages)
+    ==================================================================== */
+    
+    .navbar-container {
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    .nav-heading {
+        color: var(--black-font);
+        font-size: 30px;
+        display: inline-block;
+        margin-top: 3px;
+        margin-left: 3.5px;
+    }
+
+    .nav-heading-text {
+        color: var(--black-font);
+        text-decoration: none;
+    }
+
+    .nav-heading:hover {
+        color: var(--blue-font);
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 99;
+        background-color: var(--white-color);
+        padding: 8px 32px;
+        border-bottom: 2px solid var(--gray-color);
+        color: var(--black-font);
+    }
+
+    .menu {
+        margin-top: 0px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: flex-end;
+        margin-right: 0;
+    }
+
+    .menu-link {
+        font-size: 22px;
+        font-weight: bold;
+        text-decoration: none;
+        color: var(--black-font);
+        position: relative;
+        margin-left: 30px;
+    }
+
+    .menu-link:hover {
+        color: var(--blue-font);
+    }
+
+    .menu-about {
+        margin-left: 0 !important;
+    }
+
+    /* ====================================================================
+                                HOME/MAIN Page
+    ==================================================================== */
+    
+    .home-section {
+        margin: auto;
+    }
+
+    .home-text {
+        font-size: 75px;
+        color: var(--black-font);
+        text-align: center;
+        overflow-wrap: break-word;
+    }
+
+    .home-buttons {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        margin: 0;
+    }
+
+    .buttons-container-one {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border-top: 2px solid var(--gray-color);
+        border-bottom: 2px solid var(--gray-color);
+        border-left: 2px solid var(--gray-color);
+        border-right: 1px solid var(--gray-color);
+    }
+
+    .buttons-container-one:hover {
+        background-color: var(--gray-color);
+        color: var(--blue-font);
+    }
+
+    .buttons-container-two {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border-top: 2px solid var(--gray-color);
+        border-bottom: 2px solid var(--gray-color);
+        border-left: 1px solid var(--gray-color);
+        border-right: 2px solid var(--gray-color);
+    }
+
+    .buttons-container-two:hover {
+        background-color: var(--gray-color);
+        color: var(--blue-font);
+    }
+
+    #first-arrow span i {
+        display: inline-block;
+        transition: 0.1s;
+    }
+    
+    #first-arrow:hover span i {
+        color: var(--blue-font);
+        transform: translateX(30%);
+    }
+
+    #second-arrow span i {
+        display: inline-block;
+        transition: 0.1s;
+    }
+    
+    #second-arrow:hover span i {
+        color: var(--blue-font);
+        transform: translateX(30%);
+    }
+
+
+
+
+
+
+
+
+    /* ====================================================================
+                                    ABOUT Page
+    ==================================================================== */
+
+    #about {
+        padding-top: 80px;
+        height: 100%;  
+    }
+
+    .slide-from-left {
+        -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+        -moz-animation: fadein 1s; /* Firefox < 16 */
+        -ms-animation: fadein 1s; /* Internet Explorer */
+        -o-animation: fadein 1s; /* Opera < 12.1 */
+        animation: fadein 1s;
+    }
+      
+    @keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+    
+    /* Firefox < 16 */
+    @-moz-keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+    
+    /* Safari, Chrome and Opera > 12.1 */
+    @-webkit-keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+    
+    /* Internet Explorer */
+    @-ms-keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+    
+    /* Opera < 12.1 */
+    @-o-keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    .container {
+        padding: 1.5rem;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: start;
+        justify-content: flex-start;
+    }
+    
+    .about-column {
+        height: fit-content;
+        flex: 60%;
+    }
+
+    .about-heading {
+        text-align: left;
+        font-size: 3rem; 
+        margin-bottom: 1rem;
+    }
+    
+    .pic-column {
+        display: block;
+        margin-top: 0;
+        align-items: start;
+        padding: 1rem;
+        flex: 30%;
+    }
+
+    .profile-pic {
+        width: 15rem;
+    }
+
+    .header-icon {
+        text-decoration: none;
+    }
+
+    b.about-content {
+        display: block;
+        margin-bottom: 1rem;
+    }
+
+    .about-content {
+        margin-bottom: 1rem;
+        line-height: 1.5;
+    }
+
+    ul {
+        text-align: center !important;
+        margin-bottom: 0;
+        list-style-type: none;
+        text-decoration: none;
+        padding: 0 !important;
+    }
+
+    ul li {
+        display: inline;
+        list-style-type: none;
+        text-decoration: none;
+        margin: 0.25rem;
+    }
+
+    .fas {
+        color: var(--whiter-color);
+    }
+
+    .fas:hover {
+        color: var(--bluer-color);
+    }
+
+    .fab {
+        color: var(--whiter-color);
+    }
+
+    .fas .mail {
+        color: var(--black-color);
+    }
+
+    .fab:hover {
+        color: var(--bluer-color);
+    }
+
+    .about-links {
+        margin-top: 15px;
+        min-width: fit-content;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: left;
+    }
+
+    .about-me-link {
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        color: var(--bluer-color);
+        vertical-align: central;
+        align-items: center;
+        text-align: center;
+        line-height: 1.5; 
+    }
+
+    .about-me-link:hover {
+        text-decoration: underline;
+    }
+
+    /* ====================================================================
+                            EXAMPLE...
+    ==================================================================== */
+
+    #resume {
+        padding-top: 60px;
+        color: var(--whiter-color);
+        background-color: var(--black-color);
+        /* height: 100vh; */
+    }
+
+    .resume-container {
+        max-width: 900px;
+        padding: 1.5rem;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: var(--black-color);
+    }
+
+    .resume-section-heading {
+        text-align: center;
+    }
+
+    .resume-center {
+        text-align: center;
+    }
+
+    .resume-heading {
+        margin-top: 1rem;
+        font-size: 3rem;
+        text-align: center;
+        margin-bottom: 0.5rem;
+    }
+
+    .resume-content {
+        text-align: left;
+        margin-bottom: 1rem;
+    }
+
+    .resume-top-content {
+        text-align: center;
+    }
+
+    .resume-page-link {
+        color: var(--bluer-color);
+        text-decoration: none;
+    }
+
+    .resume-row {
+        display: flex;
+        flex-wrap: wrap; 
+        flex-direction: column;
+        min-width: fit-content;
+    }
+
+    .fas.black-file {
+        color: var(--black-color);
+    }
+
+    .resume-courses {
+        margin-top: 15px;
+        min-width: fit-content;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .resume-file {
+        display: inline-block;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-right: 10px;
+        height: 60px; /* Should match line-height attribute */
+        width: 200px;
+        background-color: var(--bluer-color);
+        text-decoration: none;
+        color: var(--black-color);
+        border-radius: 0.5em;
+        border-style: none;
+        vertical-align: central;
+        align-items: center;
+        text-align: center;
+        line-height: 60px; /* Should match height attribute */
+    }
+
+    .resume-file:hover {
+        background-color: var(--whiter-color);
+    }
+
+    /* ====================================================================
+                            FOOTER Section (All Pages)
+    ==================================================================== */
+
+    #footer {
+        width: 100%;
+        border-top: 2px solid var(--gray-color);
+        text-align: center;
+        padding: 8px 32px;
+        bottom: 0;
+    }
+
+    .footer-row {
+        /* max-width: 1000px; */
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .footer-content {
+        flex: 30%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-bottom: 12px;
+    }
+
+    .footer-icons {
+        flex: 30%;
+        width: 200px;
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 12px;
+    }
+
+    /* .footer-links-list {
+        flex: 30%;
+        text-align: center;
+        margin-bottom: 24px;
+    } */
+
+    /* .footer-link {
+        margin-right: 2px;
+        margin-left: 2px;
+        text-decoration: none;
+        color: var(--bluer-color);
+    } */
+
+    /* .footer-link:hover {
+        text-decoration: underline;
+    } */
+
+    .footer-icon {
+        color: var(--navbar-text-color);
+    }
+
+    .footer-icon:hover {
+        color: var(--navbar-text-color-hover);
+    }
+/* } // --> LEAVE COMMENTED OUT FOR NOW */

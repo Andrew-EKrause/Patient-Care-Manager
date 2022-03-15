@@ -1,0 +1,42 @@
+<!-- 
+    The home.ejs file displays the content that the
+    user will see first when they access the website.
+    The home page contains the title of the web app 
+    as well as two buttons. The first button, the
+    "View" button, brings the user to the database
+    view page. The second button, the "About" button,
+    brings the user to the about page of the website.
+    ...
+    Project: Mayo Clinic Patient Care Manager 
+             (PCM) Web Application
+    Author: Andrew Krause
+    Class: Introduction to Database 
+           Management Systems (CS 364)
+    Date: 5/10/2022
+    ...
+-->
+
+<%- include('./partials/header.ejs') %>
+
+    <div class="home-section">
+        <!-- <div class="background"></div> -->
+
+        <!-- Section for the picture on the webpage -->
+        <section>
+            <header>
+                <h1 class="home-text">Patient Care Manager</h1>
+            </header>
+
+            <!-- Create forms to process when user clicks the "View" button and the "About" button -->
+            <div class="home-buttons">
+                <a id="first-arrow" class="buttons-container-one" href="/patients">
+                    View Database <span class="arrow-icon"><i class="fa-solid fa-arrow-right-long"></i></span>
+                </a>
+                <a id="second-arrow" class="buttons-container-two" href="/about">
+                    About <span class="arrow-icon"><i class="fa-solid fa-arrow-right-long"></i></span>
+                </a>
+            </div>
+        </section>
+    </div>
+
+<%- include('./partials/footer.ejs') %>

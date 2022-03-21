@@ -145,7 +145,7 @@ html {
         right: 0;
         z-index: 99;
         background-color: var(--navbar-bg-color);
-        padding: 8px 32px;
+        padding: 12px 32px;
         border-bottom: 2px solid var(--gray-color);
         color: var(--black-font);
     }
@@ -185,6 +185,11 @@ html {
         margin: auto; 
     }
 
+    .home-section {
+        margin-top: 150px;
+        margin-bottom: 150px;
+    }
+
     .home-text {
         font-size: 75px;
         color: var(--black-font);
@@ -210,6 +215,8 @@ html {
         padding-bottom: 30px;
         padding-right: 30px;
         padding-left: 30px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
         border-top: 2px solid var(--gray-color);
         border-bottom: 2px solid var(--gray-color);
         border-left: 2px solid var(--gray-color);
@@ -231,6 +238,8 @@ html {
         padding-bottom: 30px;
         padding-right: 30px;
         padding-left: 30px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
         border-top: 2px solid var(--gray-color);
         border-bottom: 2px solid var(--gray-color);
         border-left: 1.5px solid var(--gray-color);
@@ -282,6 +291,7 @@ html {
     .about-card {
         max-width: 800px;
         min-width: 400px;
+        border-radius: 20px;
         border-top: 2px solid var(--gray-color);
         border-bottom: 2px solid var(--gray-color);
         border-left: 2px solid var(--gray-color);
@@ -328,7 +338,7 @@ html {
         text-decoration: none;
         color: var(--white-font);
         border-radius: 56px;
-        font-size: clamp(1rem, 2.5vw, 1.75rem); 
+        font-size: clamp(1.25rem, 2.5vw, 1.5rem); 
         transition: 0.1s ease, color 50ms ease;
     }
 
@@ -486,7 +496,7 @@ html {
         width: 100%;
         border-top: 2px solid var(--gray-color);
         text-align: center;
-        padding: 8px 32px;
+        padding: 12px 32px;
         bottom: 0;
         /* margin-top: auto; */
     }
@@ -511,7 +521,8 @@ html {
 
     .footer-icons {
         flex: 30%;
-        width: 200px;
+        /* width: 200px; */
+        width: 50;
         display: flex;
         justify-content: space-evenly;
         margin-bottom: 12px;

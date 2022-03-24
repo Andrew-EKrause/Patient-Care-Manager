@@ -8,7 +8,7 @@ CREATE TABLE EmployeeTest (
 
 CREATE TABLE Project (
     ID INTEGER PRIMARY KEY AUTOINCREMENT, -- This ensures that the database fills in the values for us.
-    Descritpion NVARCHAR(255)
+    Description NVARCHAR(255)
 );
 
 CREATE TABLE Works_On (
@@ -19,7 +19,7 @@ CREATE TABLE Works_On (
     CONSTRAINT fk_employee_ssn FOREIGN KEY (SSN) REFERENCES Employee(SSN)
 );
 
--- Insert into the Emplyee table.
+-- Insert into the Employee table.
 INSERT INTO EmployeeTest(SSN, Salary, FirstName, MiddleName, LastName) VALUES ('123-45-6789', 12345.00, 'John', 'Carton', 'Smith');
 INSERT INTO EmployeeTest(SSN, Salary, FirstName, MiddleName, LastName) VALUES ('421-64-6888', 54321.00, 'James', 'Tom', 'Lee');
 

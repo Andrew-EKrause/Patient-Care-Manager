@@ -11,19 +11,10 @@
  * functionalities. To understand the code, read
  * the comments throughout the app.js file and
  * analyze the information section by section.
- * 
- * ----------------------------------------------------------------------------------
- * The sections present in the code are listed
- * below in order in all caps:
  *
- * 1. SECTION: DESCRIPTION...
- * ----------------------------------------------------------------------------------
- *
- * Project: Mayo Clinic Patient Care Manager 
- *          (PCM) Web Application
+ * Project: Mayo Clinic (PCM) Web Application
  * Author: Andrew Krause
- * Class: Introduction to Database 
- *        Management Systems (CS 364)
+ * Class: CS 364
  * Date: 5/10/2022
  * 
  */
@@ -37,242 +28,87 @@ const express = require("express");
 const flash = require("connect-flash");
 const ejs = require("ejs");
 const _ = require("lodash");
-var mysql = require("mysql");
 
 // Require additional security packages for login information
 const session = require('express-session');
 const passport = require("passport");
-const passportLocalMongoose = require("passport-local-mongoose");
+var path = require('path');
+
+// Require packages for error checks and sessions.
+var cookieParser = require('cookie-parser');
+var logger = require('morgan'); // --> WHAT IS THIS???
+var expressValidator = require('express-validator');
+var bodyParser = require('body-parser');
 const { appendFile } = require("fs");
+var createError = require('http-errors');
+
+// Add packages for the database here.
+var mysql = require('mysql');
+// var connection  = require('./lib/db'); // --> I THINK THIS GOES TO A FOLDER CALLED lib THAT CONTAINS A FILE CALLED 'db'.
+
+// var indexRouter = require('./routes/index'); // --> THIS GOES TO A FOLDER CALLED routes THAT CONTAINS A FILE CALLED 'index'.
+// var usersRouter = require('./routes/users'); // --> THIS GOES TO A FOLDER CALLED routes THAT CONTAINS A FILE CALLED 'users'.
 
 // Create web app using express. Set view engine to EJS
 const app = express();
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
 
+// Add modules for the web application here.
+const database = require('./routes/database');
+const homeRoutes = require('./routes/home-about.js');
+const departmentRoutes = require('./routes/departments.js');
+const patientRoutes = require('./routes/patients.js');
+const providerRoutes = require('./routes/providers.js');
+const treatmentRoutes = require('./routes/treatments.js');
+const urgentRoutes = require('./routes/urgent.js');
 
-// ============================================================================================================
+/* SECTION: OTHER PACKAGES AND SETUP */
 
+// app.use(logger('dev'));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(cookieParser());
+// app.use(express.static(path.join(__dirname, 'public')));
 
-/* SECTION: INFORMATION FOR DATABASE VIA MYSQL */
+// app.use(session({ 
+//     secret: '123456cat',
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { maxAge: 60000 }
+// }))
+ 
+// app.use(flash());
+// app.use(expressValidator());
 
-// ...
-// --> Connect to the SQL database here.
-// ...
+// app.use('/', indexRouter);
+// app.use('/list', usersRouter);
 
-
-// ============================================================================================================
-
-
-/* SECTION: GET INFORMATION FROM SERVER (GET) */
-
-// Default route, which is the home page.
-app.get("/", function(req, res) {
-
-    // Render the home page of the website.
-    res.render("home");
-});
-
-// Route to render the home page when the user clicks
-// the "PCM" icon.
-app.get("/home", function(req, res) {
-
-    // Render the home page of the website.
-    res.render("home");
-});
-
-// Create a route to allow the user to download
-// the project document from the web application.
-app.get("/download_info", function(req, res){
-
-    // Download the help manual (PDF) file stored for website.
-    const file = `${__dirname}/public/files/krause-initial.pdf`;
-    res.download(file);
-});
-
-// Creat a route to render the patients page.
-app.get("/patients", function(req, res) {
-
-    // Render the patients page.
-    res.render("patients");
-});
-
-// Creat a route to render the treatments page.
-app.get("/treatments", function(req, res) {
-
-    // Render the treatments page.
-    res.render("treatments");
-});
-
-// Creat a route to render the providers page.
-app.get("/providers", function(req, res) {
-
-    // Render the providers page.
-    res.render("providers");
-});
-
-// Creat a route to render the departments page.
-app.get("/departments", function(req, res) {
-
-    // Render the departments page.
-    res.render("departments");
-});
-
-// Creat a route to render the urgent page.
-app.get("/urgent", function(req, res) {
-
-    // Render the departments page.
-    res.render("urgent");
-});
-
-// Create a route to render the about page.
-app.get("/about", function(req, res){
-
-    // Render the about page.
-    res.render("about");
-});
-
-
-// ============================================================================================================
-
-
-/* SECTION: PROCESS REQUESTS MADE TO SERVER (POST) */
-
-// Create a post request for when user clicks any "Back" button.
-app.post("/back", function(req, res){
-
-    // Go to the home page.
-    res.redirect("/home");
-});
-
-// Create a post request for when the user clicks
-// the link to download the project document.
-app.post("/download_info", function(req, res){
-    res.redirect("/download_info");
-});
-
-// ------------ CRUD Operations for Patient ------------
-// Create a post request for when the user wants to 
-// create a new patient.
-app.post("/new_patient", function(req, res){
-
-    // ADD MORE...
-});
-
-// Create a post request for when the user wants to
-// update a given patient.
-app.post("/update_patient", function(req, res){
-
-    // ADD MORE...
-});
-
-// Create a post request for when the user wants to
-// remove a given patient.
-app.post("/remove_patient", function(req, res){
-
-    // ADD MORE...
-});
-
-// ------------ CRUD Operations for Treatment ------------
-// Create a post request for when the user wants to 
-// create a new treatment.
-app.post("/new_treatment", function(req, res){
-
-    // ADD MORE...
-});
-
-// Create a post request for when the user wants to
-// update a given treatment.
-app.post("/update_treatment", function(req, res){
-
-    // ADD MORE...
-});
-
-// Create a post request for when the user wants to
-// remove a given treatment.
-app.post("/remove_treatment", function(req, res){
-
-    // ADD MORE...
-});
-
-// ------------ CRUD Operations for Provider ------------
-// Create a post request for when the user wants to 
-// create a new provider.
-app.post("/new_provider", function(req, res){
-
-    // ADD MORE...
-});
-
-// Create a post request for when the user wants to
-// update a given provider.
-app.post("/update_provider", function(req, res){
-
-    // ADD MORE...
-});
-
-// Create a post request for when the user wants to
-// remove a given provider.
-app.post("/remove_provider", function(req, res){
-
-    // ADD MORE...
-});
-
-// ------------ CRUD Operations for Department ------------
-// Create a post request for when the user wants to 
-// create a new department.
-app.post("/new_department", function(req, res){
-
-    // ADD MORE...
-});
-
-// Create a post request for when the user wants to
-// update a given department.
-app.post("/update_department", function(req, res){
-
-    // ADD MORE...
-});
-
-// Create a post request for when the user wants to
-// remove a given department.
-app.post("/remove_department", function(req, res){
-
-    // ADD MORE...
-});
-
-// --> MAY END UP NOT USING IT THIS WAY!!!
-// // ------------ CRUD Operations for Urgent ------------
-// // Create a post request for when the user wants to 
-// // create a new urgent case.
-// app.post("/new_urgent", function(req, res){
-
-//     // ADD MORE...
-// }); // --> MAYBE HAVE THIS...MAYBE NOT!!!
-
-// // Create a post request for when the user wants to
-// // update a given urgent case.
-// app.post("/update_urgent", function(req, res){
-
-//     // ADD MORE...
+// // catch 404 and forward to error handler
+// app.use(function(req, res, next) {
+// next(createError(404));
 // });
 
-// // Create a post request for when the user wants to
-// // remove a given urgent case.
-// app.post("/remove_urgent", function(req, res){
-
-//     // ADD MORE...
+// // error handler
+// app.use(function(err, req, res, next) {
+// // set locals, only providing error in development
+// res.locals.message = err.message;
+// res.locals.error = req.app.get('env') === 'development' ? err : {};
+// // render the error page
+// res.status(err.status || 500);
+// res.render('error');
 // });
+// module.exports = app;
 
-// Create a post request for when the user wants to
-// access the about page of the website.
-app.post("/about", function(req, res){
+/* SECTION: INCLUDE ROUTE MODULES */ 
 
-    // Go to the about page.
-    res.redirect("/about");
-});
-
-
-// ============================================================================================================
-
+// Use the route modules via app.use() below.
+app.use('/', homeRoutes); // --> MAYBE ADD /pcm LATER ON...
+app.use('/', departmentRoutes);
+app.use('/', patientRoutes);
+app.use('/', providerRoutes);
+app.use('/', treatmentRoutes);
+app.use('/', urgentRoutes);
 
 /* SECTION: LISTEN FOR SERVER REQUESTS */
 

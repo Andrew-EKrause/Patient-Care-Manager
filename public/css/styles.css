@@ -74,6 +74,7 @@
 /* Set the background color as well as some additional attributes of the website. */
 body {
     min-height: 100vh;
+    min-width: 100vw;
     display: flex;
     flex-direction: column;
     line-height: 1.5; 
@@ -285,7 +286,7 @@ html {
         padding-top: 160px;
         padding-bottom: 100px;
         padding-right: 50px;
-        padding-left: 50px;
+        padding-left: 50px; 
     }
 
     .about-card {

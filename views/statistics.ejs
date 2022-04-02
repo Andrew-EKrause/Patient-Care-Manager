@@ -1,0 +1,34 @@
+<!-- 
+    The statistics.ejs file displays data obtained through
+    three complex queries that are implemented in the
+    database. The data includes certain patient groups,
+    the most commonly used treatments at the hospital, and 
+    statistics about the medical staff (the providers).
+    All of this information is obtained through the use
+    of complex queries.
+    ...
+    Project: Mayo Clinic Patient Care Manager 
+             (PCM) Web Application
+    Author: Andrew Krause
+    Class: Introduction to Database 
+           Management Systems (CS 364)
+    Date: 5/10/2022
+    ...
+-->
+
+<%- include('./partials/header.ejs') %>
+
+    <!-- 
+        Section for the list of urgent cases and other stats 
+        obtained through the three complex queries on the 
+        webpage 
+    -->
+    <section id="patients-page">
+        <div class="patient-section fade-in">
+            <header>
+                <h1 class="patient-page-text">Statistics</h1>
+            </header>
+        </div>
+    </section>
+
+<%- include('./partials/footer.ejs') %>

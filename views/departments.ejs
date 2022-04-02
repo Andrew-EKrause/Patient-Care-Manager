@@ -1,0 +1,33 @@
+<!-- 
+    The departments.ejs file displays the departments
+    of the hospital are stored in the database. Each
+    department name as well as the attributes associated
+    with that department are displayed in a list format 
+    on this page. Each department entity on this page
+    can be edited or removed. A new department can  
+    also be added to the databases through this page.
+    It is important to note that a department is
+    related to all of the providers (medical staff)
+    of the hospital.
+    ...
+    Project: Mayo Clinic Patient Care Manager 
+             (PCM) Web Application
+    Author: Andrew Krause
+    Class: Introduction to Database 
+           Management Systems (CS 364)
+    Date: 5/10/2022
+    ...
+-->
+
+<%- include('./partials/header.ejs') %>
+
+    <!-- Section for the list of departments on the webpage -->
+    <section id="patients-page">
+        <div class="patient-section fade-in">
+            <header>
+                <h1 class="patient-page-text">Departments</h1>
+            </header>
+        </div>
+    </section>
+
+<%- include('./partials/footer.ejs') %>

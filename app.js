@@ -57,11 +57,12 @@ app.set('view engine', 'ejs');
 // Add modules for the web application here.
 const database = require('./routes/database');
 const homeRoutes = require('./routes/home-about.js');
+const viewRoutes = require('./routes/views.js');
 const departmentRoutes = require('./routes/departments.js');
 const patientRoutes = require('./routes/patients.js');
 const providerRoutes = require('./routes/providers.js');
 const treatmentRoutes = require('./routes/treatments.js');
-const urgentRoutes = require('./routes/urgent.js');
+const statisticsRoutes = require('./routes/statistics.js');
 
 /* SECTION: OTHER PACKAGES AND SETUP */
 
@@ -104,11 +105,12 @@ const urgentRoutes = require('./routes/urgent.js');
 
 // Use the route modules via app.use() below.
 app.use('/', homeRoutes); // --> MAYBE ADD /pcm LATER ON...
+app.use('/', viewRoutes); // --> MAYBE ADD /pcm LATER ON...
 app.use('/', departmentRoutes);
 app.use('/', patientRoutes);
 app.use('/', providerRoutes);
 app.use('/', treatmentRoutes);
-app.use('/', urgentRoutes);
+app.use('/', statisticsRoutes);
 
 /* SECTION: LISTEN FOR SERVER REQUESTS */
 

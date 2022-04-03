@@ -16,6 +16,10 @@
 var express = require('express');
 var providerRouter = express.Router();
 
+// Include the database route in order to 
+// work with the data in the providers table.
+const database = require('./database.js');
+
 /* SECTION: GET INFORMATION FROM SERVER (GET) */
 
 // Creat a route to render the providers page.

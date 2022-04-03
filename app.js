@@ -25,6 +25,7 @@
 
 // Require packages for the server that were installed.
 const express = require("express");
+var path = require("path");
 const flash = require("connect-flash");
 const ejs = require("ejs");
 const _ = require("lodash");
@@ -43,7 +44,7 @@ const { appendFile } = require("fs");
 var createError = require('http-errors');
 
 // Add packages for the database here.
-var mysql = require('mysql');
+var mysql = require('mysql'); // --> MAY NOT NEED!!!
 // var connection  = require('./lib/db'); // --> I THINK THIS GOES TO A FOLDER CALLED lib THAT CONTAINS A FILE CALLED 'db'.
 
 // var indexRouter = require('./routes/index'); // --> THIS GOES TO A FOLDER CALLED routes THAT CONTAINS A FILE CALLED 'index'.
@@ -55,7 +56,7 @@ app.use(express.static("public"));
 app.set('view engine', 'ejs');
 
 // Add modules for the web application here.
-const database = require('./routes/database');
+const databaseRoutes = require('./routes/database'); // --> THINK YOU ONLY NEED TO REQUIRE THIS IN THE FILES THAT INTERACT WITH THE DB!!!
 const homeRoutes = require('./routes/home-about.js');
 const viewRoutes = require('./routes/views.js');
 const departmentRoutes = require('./routes/departments.js');
@@ -104,8 +105,10 @@ const statisticsRoutes = require('./routes/statistics.js');
 /* SECTION: INCLUDE ROUTE MODULES */ 
 
 // Use the route modules via app.use() below.
+// --> DO WE NEED TO USE THE DATABASE ROUTE HERE OR IN OTHER FILES???
 app.use('/', homeRoutes); // --> MAYBE ADD /pcm LATER ON...
-app.use('/', viewRoutes); // --> MAYBE ADD /pcm LATER ON...
+app.use('/', databaseRoutes);
+app.use('/', viewRoutes);
 app.use('/', departmentRoutes);
 app.use('/', patientRoutes);
 app.use('/', providerRoutes);

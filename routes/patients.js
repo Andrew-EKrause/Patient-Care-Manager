@@ -16,6 +16,10 @@
 var express = require('express');
 var patientRouter = express.Router();
 
+// Include the database route in order to 
+// work with the data in the patients table.
+const database = require('./database.js');
+
 /* SECTION: GET INFORMATION FROM SERVER (GET) */ 
 
 // Creat a route to render the patients page.

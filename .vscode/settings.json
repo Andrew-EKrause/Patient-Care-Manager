@@ -1,0 +1,17 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 8080,
+            "driver": "MySQL",
+            "database": "PCM.db",
+            "name": "PCMConnection",
+            "username": "sqluser",
+            "password": "password"
+        }
+    ]
+}

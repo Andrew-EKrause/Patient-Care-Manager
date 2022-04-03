@@ -58,7 +58,7 @@ DROP TABLE Table_Name_Goes_Here
     <-- The RED color in your ER diagram. -->
 */
 CREATE TABLE Patient (
-    PatientID INTEGER PRIMARY KEY AUTOINCREMENT, /* The unique identifier of each Patient entity. */
+    PatientID INTEGER PRIMARY KEY AUTO_INCREMENT, /* The unique identifier of each Patient entity. */
     PatientNotes NVARCHAR(255) NOT NULL, /* Description of patient condition/visit. */
     PatientFirstName NVARCHAR NOT NULL, /* First name of patient. */
     PatientMiddleName NVARCHAR NOT NULL, /* Middle name of patient. */

@@ -25,6 +25,10 @@
 var express = require('express');
 var statisticsRouter = express.Router();
 
+// Include the database route in order to 
+// work with the data in the statistics table.
+const database = require('./database.js');
+
 /* SECTION: GET INFORMATION FROM SERVER (GET) */
 
 // Creat a route to render the urgent page.

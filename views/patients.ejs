@@ -20,10 +20,78 @@
 
     <!-- Section for the list of patients on the webpage -->
     <section id="patients-page">
-        <div class="patient-section fade-in">
+        <div class="fade-in">
             <header>
                 <h1 class="patient-page-text">Patients</h1>
             </header>
+            <div class="patient-ordering">
+                <!-- Create forms to process when user clicks the "Add Patient" button and the "Back" button -->
+                <div class="patient-buttons">
+                    <a id="patient-back-arrow" class="patient-button-container-one" href="/views">
+                        <span class="patient-button-icon"><i class="fa-solid fa-arrow-left-long"></i></span> Back
+                    </a>
+                    <a id="patient-add-icon" class="patient-button-container-two" href="/create_patient">
+                        <span class="patient-button-icon"><i class="fa-solid fa-circle-plus"></i></span> New
+                    </a>
+                </div>
+
+                <!-- 
+                    This is the section where the patient data
+                    is loaded to be displayed on the page
+                -->
+                <div class="patient-items">
+                    
+                    <!-- 
+                        If there is data in the patient table 
+                        of the database, display that data
+                    -->
+                    <% if(patientData.length != 0) { %>
+                        <!-- 
+                            Loop through all of the patients in the 
+                            database and display them on the page 
+                        -->
+                        <% patientData.forEach(function(data) { %>
+
+                            <!-- Create a card for each patient -->
+                            <!-- First, create a heading that displays the name of each patient -->
+                            <div class="patient-name">
+                                <h2 class="patient-name-text"><%= data.PatientFirstName %> <%= data.PatientMiddleName %> <%= data.PatientLastName %></h2>
+                            </div>
+
+                            <!-- Create the main-content portion of the patient card -->
+                            <div class="patient-card">
+                                <!-- Each column of the card displays different amounts of data -->
+                                <div class="patient-column">
+                                    <p class="patient-text-info"><b>Birthdate:</b> <%= data.PatientBirthdate %></p> <!-- WILL NEED TO FIX LATER!!! SEE YOUR 341 FOR CONVERTING THE DATE INFO PROPERLY!!! -->
+                                    <p class="patient-text-info"><b>Description:</b> <%= data.PatientNotes %></p>
+                                    <p class="patient-text-info"><b>Height:</b> <%= data.PatientHeight %> feet/inches</p>
+                                    <p class="patient-text-info"><b>Weight:</b> <%= data.PatientWeight %>lbs</p>
+                                </div>
+                                <!-- Each column of the card displays different amounts of data -->
+                                <div class="patient-column">
+                                    <p class="patient-text-info"><b>Phone:</b> <%= data.PatientPhone %></p>
+                                    <p class="patient-text-info"><b>Email:</b> <%= data.PatientEmail %></p>
+                                    <p class="patient-text-info"><b>Admitted:</b> <%= data.PatientStartDate %></p> <!-- WILL NEED TO FIX LATER!!! SEE YOUR 341 FOR CONVERTING THE DATE INFO PROPERLY!!! -->
+                                    
+                                    <!--
+                                        If the patient does not have an end/discharge 
+                                        date, display a message instead
+                                    -->
+                                    <% if(data.PatientEndDate) { %>
+                                        <p class="patient-text-info"><b>Discharged:</b> <%= data.PatientStartDate %></p> <!-- WILL NEED TO FIX LATER!!! SEE YOUR 341 FOR CONVERTING THE DATE INFO PROPERLY!!! -->
+                                    <% } else { %>
+                                        <p class="patient-text-info"><b>Discharged:</b> Currently in treatment.</p> 
+                                    <% } %>
+                                </div>
+                            </div>
+                        <% }); %>
+
+                    <!-- If there is no patient data, display the message -->
+                    <% } else { %>
+                        <h2 class="no-patient-data">There is currently no patient data.</h2>
+                    <% } %>
+                </div>
+            </div>
         </div>
     </section>
 

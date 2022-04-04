@@ -15,97 +15,64 @@
  * 
  */
 
-// Add the packages that are required.
-//const { application } = require('express');
-const bodyParser = require('body-parser');
-const { application } = require('express');
+// --> MAYBE SEE IF YOU CAN ACTUALLY USE SQL SYNTAX TO CREATE
+// --> THE DATABASE (ADD A CHECK TO SEE IF IT ALREADY EXISTS).
+// --> ALSO, SEE IF YOU CAN ALSO USE SQL SYNTAX TO CREATE
+// --> TABLES FOR THE DATABASE (AGAIN, HAVE A CHECK THAT ONLY
+// --> DOES THIS IF THOSE TABLES DON'T ALREADY EXIST).
+
+// Add the packages required to complete the inital database 
+// setup in this file. Included in the required packages is
+// a JSON file in the routes folder that contains the PCM
+// database setup.
 var express = require('express');
-var databaseRouter = express.Router();
+var mysql = require('mysql');
+var settings = require('./pcmDB-settings.json');
 
-// Add packages for the database here.
-const mysql = require("mysql");
+// Create a variable to store the connection
+// to the Patient Care Manager (PCM) database.
+var pcmDB;
 
-// Establish connection parameters for your database.
-// --> CAN ALSO CREATE A CONNCECTION POOL IF NEED BE
-// --> TO LIMIT THE NUMBER OF REQUESTS MADE PER SECOND.
-// --> LOOK UP HOW TO DO THIS IF YOU NEED TO!!!
-const connection = mysql.createConnection({
+// Create a function to setup the connection to the database.
+// The function contains checks that ensure the database is 
+// only connected if it has not already been connected to the
+// application. The connection is stored in a variable that is
+// then returned from the function.
+function connectDatabase() {
 
-    // Database properties.
-    // --> KEEP IN MIND THAT THINGS WILL CHANGE WHEN 
-    // --> YOU PUBLISH THE SITE TO HEROKU!!!
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'PCM',
-    waitForConnection: true,
-    insecureAuth: true
-});
+    // If there is no database that has already been connected,
+    // connect the database to the PCM web application.
+    if (!pcmDB) {
 
-// Connect with the Patient Care Manager (PCM) database.
-connection.connect(function(error) {
+        // Create a new connection with the PCM SQL database.
+        // Make use of a JSON file you stored in the settings
+        // variable. The JSON file contains the setup info
+        // for the PCM database.
+        pcmDB = mysql.createConnection(settings);
 
-    // If there is an error, log the error.
-    if(error) {
-        console.log(error.message);
+        // Finalize the connection and check if there are
+        // any errors in connecting.
+        pcmDB.connect(function(err){
+
+            // If there are no errors, log that the database
+            // was successfully connected.
+            if(!err) {
+                console.log('Database is connected!');
+            } else {
+
+                // Otherwise, log a message indicating that
+                // there was an error in connecting the db.
+                console.log('Error connecting database!');
+            }
+        });
     }
 
-    // Otherwise, indicate a successfull
-    // connection.
-    console.log("Connection to PCM DB successfull!");
-});
+    // Return the variable responsible
+    // for connecting the database to 
+    // the web application.
+    return pcmDB;
+}
 
-// Query the database that exists in your phpmyadmin service.
-databaseRouter.get("/test-route", function(req, res) {
-
-    // Create a connection query.
-    connection.query("SELECT * FROM PCM", function(error, rows, fields) {
-
-        // If there is an error, log the error.
-        if(error) {
-            console.log("Error in query.");
-            console.log(error);
-
-        // Otherwise, show that the query was sucessfull.
-        } else {
-            console.log("Success!");
-        }
-    });
-});
-
-
-// Close the connection in this function.
-// connection.end(function(req, res) {
-//     // The connection is closed.
-// });
-
-// --> HOW YOU WOULD QUERY SOMETHING FROM THE DATABASE.
-// databaseRouter.get("/", function(req, res) {
-//     connection.query("SELECT * FROM Patient", function(error, rows, fields) {
-//         if(error) {
-//             console.log("Error in the query.");
-//         } else {
-//             console.log("POOP");
-//         }
-//     });
-// });
-
-// var connection = mysql.createConnection({
-//     host: 'localhost', // Replace with your host name
-//     user: 'root',      // Replace with your database username
-//     password: '',      // Replace with your database password
-//     database: 'PCM.db' // // Replace with your database Name
-// }); 
- 
-// connection.connect(function(err) {
-//   if (err) throw err;
-//   console.log('Database is connected successfully !');
-// });
-// module.exports = connection;
-
-// databaseRouter.listen(1337, function(){
-//     console.log("POOP.");
-// });
-
-// Export the module for use in the main app.js file.
-module.exports = databaseRouter;
+// Export the module for use in the other 
+// .js files/routes in the web application.
+module.exports = connectDatabase();

@@ -23,10 +23,34 @@ const database = require('./database.js');
 /* SECTION: GET INFORMATION FROM SERVER (GET) */ 
 
 // Creat a route to render the patients page.
-patientRouter.get("/patients", function(req, res) {
+// In this route, all of the data in the Patient
+// table of the database is sent to be displayed 
+// on the patients page of the website.
+patientRouter.get("/patients", function(req, res, next) {
 
-    // Render the patients page.
-    res.render("patients");
+    // Create a query to SELECT all of the patients in
+    // the Patient table.
+    var sql = "SELECT * FROM PCM.Patient";
+
+    // Get all of the patients from the patients table. (YOU WILL
+    // DISPLAY THIS ON THE PATEINTS VIEW PAGE AT SOME POINT!!!)
+    database.query(sql, function(error, data, fields) {
+
+        // If there is an error, log the error.
+        if(error) {
+            console.log(error);
+        } else {
+
+            // Otherwise, send the data to the
+            // patients.ejs page in order to 
+            // display that data.
+            res.render("patients", {title: "Patient List", patientData: data});
+        }
+
+        // Otherwise, log the data obtained 
+        // from the database.
+        // return console.log(data); // --> DEBUGGING STATEMENT; DELETE LATER!!!
+    });
 });
 
 /* SECTION: PROCESS REQUESTS MADE TO SERVER (POST) */

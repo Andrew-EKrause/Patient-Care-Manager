@@ -252,7 +252,7 @@ INSERT INTO Patient(PatientNotes, PatientFirstName, PatientMiddleName, PatientLa
 
 /*
     ========================================================
-    SECTION: CREATE THE QUERIES FOR THE PCM DATABASE PROJECT
+    SECTION: CREATE THE 3 QUERIES FOR THE PCM DATABASE PROJECT
     ========================================================
 */
 

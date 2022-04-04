@@ -55,6 +55,12 @@
                             <!-- Create a card for each patient -->
                             <!-- First, create a heading that displays the name of each patient -->
                             <div class="patient-name">
+
+                                <!-- 
+                                    If the patient has been discharged from treatment, print out an
+                                    icon to indicate that they are done being treated. Otherwise, print
+                                    out an icon to indicate that they are currently in treatment.
+                                -->
                                 <h2 class="patient-name-text">
                                     <% if(data.PatientEndDate) { %>
                                         <i class="fa-solid fa-heart-circle-check"></i>

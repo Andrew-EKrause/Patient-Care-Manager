@@ -78,7 +78,7 @@
                                         date, display a message instead
                                     -->
                                     <% if(data.PatientEndDate) { %>
-                                        <p class="patient-text-info"><b>Discharged:</b> <%= data.PatientStartDate %></p> <!-- WILL NEED TO FIX LATER!!! SEE YOUR 341 FOR CONVERTING THE DATE INFO PROPERLY!!! -->
+                                        <p class="patient-text-info"><b>Discharged:</b> <%= data.PatientEndDate %></p> <!-- WILL NEED TO FIX LATER!!! SEE YOUR 341 FOR CONVERTING THE DATE INFO PROPERLY!!! -->
                                     <% } else { %>
                                         <p class="patient-text-info"><b>Discharged:</b> Currently in treatment.</p> 
                                     <% } %>

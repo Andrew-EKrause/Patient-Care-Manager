@@ -67,14 +67,31 @@ patientRouter.post("/new_patient", function(req, res){
 // update a given patient.
 patientRouter.post("/update_patient", function(req, res){
 
-    // ADD MORE...
+    // ADD MORE...YOU NEED TO GO TO A PAGE WHERE YOU 
+    // CAN QUERY FOR THE PATIENT YOU WANT TO UPDATE
+    // BY SEARCHING BASED ON THEIR UNIQUE IDENTIFIER,
+    // RENDERING THE INFORMATION ON THE SCREEN,
+    // AND GIVING THE USER THE ABILITY TO EDIT THE 
+    // FIELDS OF THE PATIENT IF THEY WISH TO DO SO.
+    // PROVIDE CANCEL AND UPDATE BUTTONS TO EITHER
+    // CANCEL MAKING CHANGES OR TO APPLY THE CHANGES.
+
+    var updatePatient = req.body.patientidentifier;
+    console.log(updatePatient);
 });
 
 // Create a post request for when the user wants to
 // remove a given patient.
 patientRouter.post("/remove_patient", function(req, res){
 
-    // ADD MORE...
+    // ADD MORE...YOU NEED TO REMOVE THE PATIENT THAT MATCHES
+    // THE IDENTIFIER THAT IS OBTAINED THROUGH THIS ROUTE. ALSO,
+    // YOU WILL WANT TO ADD A CONFIRM DELETE FEATURE AT SOME 
+    // POINT THAT ASKS THE USER IF THEY ARE SURE THAT THEY
+    // WANT TO REMOVE THE PATIENT ENTITY.
+
+    var removePatient = req.body.patientidentifier;
+    console.log(removePatient);
 });
 
 // Export the module for use in the main app.js file.

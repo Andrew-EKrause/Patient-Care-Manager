@@ -39,14 +39,22 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan'); // --> WHAT IS THIS???
 var expressValidator = require('express-validator');
+
+// Utilize the body parser package.
 var bodyParser = require('body-parser');
+
+
+// Use the file and error packages.
 const { appendFile } = require("fs");
 var createError = require('http-errors');
 
-// Create web app using express. Set view engine to EJS
+// Create web app using express. Set view engine to EJS.
+// Utilize the body parser packages to parse data.
 const app = express();
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 // Add modules for the web application here.
 const homeRoutes = require('./routes/home-about.js');

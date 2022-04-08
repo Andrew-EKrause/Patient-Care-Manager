@@ -27,7 +27,7 @@
 // database setup.
 var express = require('express');
 var mysql = require('mysql');
-var settings = require('./pcmDB-settings.json');
+var settings = require('../PCM-Database/pcmDB-settings.json');
 
 // Create a variable to store the connection
 // to the Patient Care Manager (PCM) database.

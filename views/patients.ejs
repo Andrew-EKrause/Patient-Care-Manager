@@ -46,6 +46,81 @@
                         of the database, display that data
                     -->
                     <% if(patientData.length != 0) { %>
+
+                        <!-- 
+                            Create a function to obtain the patient ID in order to 
+                            perform an update operation on any given patient entity.
+                        -->
+                        <% function getUpdateValue() { %>
+                            
+                            <% // Create variables to obtain the chevron element. %>
+                            <% var value = "update_" + event.currentTarget.id; %>
+                            <% var element = document.getElementById(value).value; %>
+                        <% } %>
+
+                        <!-- 
+                            Create a function to obtain the patient ID in order to 
+                            perform an remove operation on any given patient entity.
+                        -->
+                        <% function getRemoveValue() { %>
+                            
+                            <% // Create variables to obtain the chevron element. %>
+                            <% var value = "remove_" + event.currentTarget.id; %>
+                            <% var element = document.getElementById(value).value; %>
+                        <% } %>
+
+                        <!-- Include a function to simplify the date display -->
+                        <% function simplifyEventDate(eventDate) { %>
+
+                            <% // First split the event into the components that directly %>
+                            <% // involve the numberical representations of a date. %>
+                            <% var date = eventDate.toISOString().split("T")[0]; %>
+                        
+                            <% // Create variables for workring with %>
+                            <% // the nubmers in the date variable. %>
+                            <% var arrayDate = date.split('-'); %>
+                            <% var day = arrayDate[2]; %>
+                            <% var getMonth = arrayDate[1]; %>
+                            <% var month = ""; %>
+                            <% var year = arrayDate[0]; %>
+                            <% var simplifiedDate = ""; %>
+                        
+                            <% // Use a series of conditionals to determine %>
+                            <% // what the name of the month is based on the %>
+                            <% // numerical representation of it. %>
+                            <% if(getMonth.localeCompare('01') == 0) { %>
+                                <% month = 'Jan'; %>
+                            <% } else if(getMonth.localeCompare('02') == 0) { %>
+                                <% month = 'Feb'; %>
+                            <% } else if(getMonth.localeCompare('03') == 0) { %>
+                                <% month = 'Mar'; %>
+                            <% } else if(getMonth.localeCompare('04') == 0) { %>
+                                <% month = 'Apr'; %>
+                            <% } else if(getMonth.localeCompare('05') == 0) { %>
+                                <% month = 'May'; %>
+                            <% } else if(getMonth.localeCompare('06') == 0) { %>
+                                <% month = 'Jun'; %>
+                            <% } else if(getMonth.localeCompare('07') == 0) { %>
+                                <% month = 'Jul'; %>
+                            <% } else if(getMonth.localeCompare('08') == 0) { %>
+                                <% month = 'Aug'; %>
+                            <% } else if(getMonth.localeCompare('09') == 0) { %>
+                                <% month = 'Sep'; %>
+                            <% } else if(getMonth.localeCompare('10') == 0) { %>
+                                <% month = 'Oct'; %>
+                            <% } else if(getMonth.localeCompare('11') == 0) { %>
+                                <% month = 'Nov'; %>
+                            <% } else if(getMonth.localeCompare('12') == 0) { %>
+                                <% month = 'Dec'; %>
+                            <% } else { %>
+                                <% month = 'ERROR'; %>
+                            <% } %>
+                        
+                            <% // Create the simplified date and return it. %>
+                            <% simplifiedDate = month + " " + day + ", " + year; %>
+                            <% return simplifiedDate; %>
+                        <% } %>
+
                         <!-- 
                             Loop through all of the patients in the 
                             database and display them on the page 
@@ -62,12 +137,45 @@
                                     out an icon to indicate that they are currently in treatment.
                                 -->
                                 <h2 class="patient-name-text">
-                                    <% if(data.PatientEndDate) { %>
-                                        <i class="fa-solid fa-heart-circle-check"></i>
-                                    <% } else { %>
-                                        <i class="fa-solid fa-heart-pulse"></i>
-                                    <% } %> 
-                                    <%= data.PatientFirstName %> <%= data.PatientMiddleName %> <%= data.PatientLastName %>
+
+                                    <!-- Include a div to show the patient name and action buttons -->
+                                    <div class="name-and-buttons">
+
+                                        <!-- 
+                                            Display an icon indicating whether or not the patient has 
+                                            been discharged from the hospital. Also include the patient's
+                                            full name.
+                                        -->
+                                        <div>
+                                            <!-- 
+                                                If the patient has been discharged, display the heart check icon.
+                                                Otherwise, display the heart icon indicating that treatment is 
+                                                ongoing.
+                                            -->
+                                            <% if(data.PatientEndDate) { %>
+                                                <i class="fa-solid fa-heart-circle-check"></i>
+                                            <% } else { %>
+                                                <i class="fa-solid fa-heart-pulse"></i>
+                                            <% } %> 
+                                            <%= data.PatientFirstName %> <%= data.PatientMiddleName %> <%= data.PatientLastName %>
+                                        </div>
+
+                                        <!-- Include action (edit and remove) buttons here -->
+                                        <div class="edit-remove-buttons">
+
+                                            <!-- Makes POST request to the edit-patient route -->
+                                            <form class="form-horizontal" action="/update_patient" method="POST">
+                                                <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="patientidentifier" value="<%= data.PatientID %>" onChange="getUpdateValue()">  
+                                                <button id="<%= data.PatientID %>" type="submit" class="edit-white edit-remove"><i class="fa-solid fa-pencil"></i></button>
+                                            </form>
+
+                                            <!-- Makes POST request to the remove-patient route -->
+                                            <form class="form-horizontal" action="/remove_patient" method="POST">
+                                                <input id="remove_<%= data.PatientID %>" type="hidden" class="patientclass" name="patientidentifier" value="<%= data.PatientID %>" onChange="getRemoveValue()">  
+                                                <button type="submit" class="edit-red edit-remove"><i class="fa-solid fa-trash-can"></i></button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </h2>
                             </div>
 
@@ -75,23 +183,24 @@
                             <div class="patient-card">
                                 <!-- Each column of the card displays different amounts of data -->
                                 <div class="patient-column">
-                                    <p class="patient-text-info"><b>Birthdate:</b> <%= data.PatientBirthdate %></p> <!-- WILL NEED TO FIX LATER!!! SEE YOUR 341 FOR CONVERTING THE DATE INFO PROPERLY!!! -->
-                                    <p class="patient-text-info"><b>Description:</b> <%= data.PatientNotes %></p>
+                                    <p class="patient-text-info"><b>Birthdate:</b> <%= simplifyEventDate(data.PatientBirthdate) %></p>
+                                    <p class="patient-text-info"><b>Sex:</b> <%= data.PatientSex %></p> 
                                     <p class="patient-text-info"><b>Height:</b> <%= data.PatientHeight %> feet/inches</p>
                                     <p class="patient-text-info"><b>Weight:</b> <%= data.PatientWeight %>lbs</p>
+                                    <p class="patient-text-info"><b>Description:</b> <%= data.PatientNotes %></p>
                                 </div>
                                 <!-- Each column of the card displays different amounts of data -->
                                 <div class="patient-column">
                                     <p class="patient-text-info"><b>Phone:</b> <%= data.PatientPhone %></p>
                                     <p class="patient-text-info"><b>Email:</b> <%= data.PatientEmail %></p>
-                                    <p class="patient-text-info"><b>Admitted:</b> <%= data.PatientStartDate %></p> <!-- WILL NEED TO FIX LATER!!! SEE YOUR 341 FOR CONVERTING THE DATE INFO PROPERLY!!! -->
+                                    <p class="patient-text-info"><b>Admitted:</b> <%= simplifyEventDate(data.PatientStartDate) %></p> 
                                     
                                     <!--
                                         If the patient does not have an end/discharge 
                                         date, display a message instead
                                     -->
                                     <% if(data.PatientEndDate) { %>
-                                        <p class="patient-text-info"><b>Discharged:</b> <%= data.PatientEndDate %></p> <!-- WILL NEED TO FIX LATER!!! SEE YOUR 341 FOR CONVERTING THE DATE INFO PROPERLY!!! -->
+                                        <p class="patient-text-info"><b>Discharged:</b> <%= simplifyEventDate(data.PatientEndDate) %></p> 
                                     <% } else { %>
                                         <p class="patient-text-info"><b>Discharged:</b> Currently in treatment.</p> 
                                     <% } %>

@@ -51,6 +51,9 @@
     --white-font: rgb(255, 255, 255);
     --black-font: rgb(0, 0, 0); 
     --blue-font: rgb(0,87,184);
+
+    /* --> Edit blueish color */
+    --edit-blue-color: rgb(133, 174, 221);
    
     /* --> Card shadows */
     --card-shadow: 5px 5px 1em gray;
@@ -564,6 +567,7 @@ html {
     }
 
     .patient-button-container-one {
+        background-color: var(--white-background);
         font-size: 25px;
         text-align: center;
         text-decoration: none;
@@ -576,6 +580,7 @@ html {
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
         border: 2px solid var(--gray-color);
+        outline: none;
         /* border-bottom: 2px solid var(--gray-color);
         border-left: 2px solid var(--gray-color);
         border-right: 2px solid var(--gray-color); */
@@ -587,6 +592,7 @@ html {
     }
 
     .patient-button-container-two {
+        background-color: var(--white-background);
         font-size: 25px;
         text-align: center;
         text-decoration: none;
@@ -599,6 +605,7 @@ html {
         border-top-right-radius: 10px;
         border-bottom-right-radius: 10px;
         border: 2px solid var(--gray-color);
+        outline: none;
         /* border-bottom: 2px solid var(--gray-color);
         border-left: 2px solid var(--gray-color);
         border-right: 2px solid var(--gray-color); */
@@ -614,7 +621,7 @@ html {
         margin-bottom: 60px;
     }
 
-    .patient-name{
+    .patient-name {
         max-width: 800px;
         font-size: 25px;
         text-decoration: none;
@@ -692,7 +699,7 @@ html {
 
     .edit-remove:hover {
         text-decoration: none;
-        background-color: rgb(133, 174, 221);
+        background-color: var(--edit-blue-color);
         color: var(--black-font);
     }
 
@@ -764,6 +771,327 @@ html {
 
     .no-patient-data {
         font-size: 25px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* ====================================================================
+                            EDIT PATIENTS Page
+    ==================================================================== */
+
+    #patients-edit-page {
+        padding-top: 130px;
+        color: var(--whiter-color);
+        background-color: var(--black-color);
+        /* height: 100vh; */
+    }
+
+    .patient-edit-page-text {
+        font-size: clamp(2.5rem, 2.85rem, 3.5rem); 
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .patient-edit-ordering {
+        margin-top: 20px;
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .patient-edit-buttons {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        margin: 0;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #patient-edit-icon1 span i {
+        display: inline-block;
+        transition: 0.1s;
+    }
+    
+    #patient-edit-icon1:hover span i {
+        color: var(--blue-font);
+        transform: scale(1.15);
+    }
+
+    #patient-edit-icon2 span i {
+        display: inline-block;
+        transition: 0.1s;
+    }
+    
+    #patient-edit-icon2:hover span i {
+        color: var(--blue-font);
+        transform: scale(1.15);
+    }
+
+    .patient-edit-items {
+        margin-top: 30px;
+        margin-bottom: 60px;
+    }
+ 
+    /* ==================================================================== */
+    /* SECTION OF STYLING FOR INPUT FIELDS - THIS CAN BE USED FOR ALL PAGES */
+    /* ==================================================================== */
+    .name-input {
+        width: 100%;
+        height: 35px;
+        padding: 12px 20px;
+        margin: 0;
+        box-sizing: border-box;
+        border: 3px solid #ccc;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        outline: none;
+        font-size: 25px;
+    }
+
+    .name-input:focus {
+        border: 3px solid var(--edit-blue-color);
+    }
+
+    select {
+        width: 100%;
+        height: 35px;
+        padding: 0px 20px;
+        margin: 0;
+        color: gray;
+        box-sizing: border-box;
+        border: 3px solid #ccc;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        outline: none;
+        font-size: 25px;
+    }
+
+    select:focus {
+        width: 100%;
+        height: 35px;
+        padding: 0px 20px;
+        margin: 0;
+        color: gray;
+        box-sizing: border-box;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        outline: none;
+        font-size: 25px;
+        border: 3px solid var(--edit-blue-color);
+    }
+    
+    input[type=text] {
+        width: 100%;
+        height: 35px;
+        padding: 0px 20px;
+        margin: 0;
+        box-sizing: border-box;
+        border: 3px solid #ccc;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        outline: none;
+    }
+      
+    input[type=text]:focus {
+        border: 3px solid var(--edit-blue-color);
+    }
+
+    input[type=number] {
+        width: 100%;
+        height: 35px;
+        padding: 0px 20px;
+        margin: 0;
+        box-sizing: border-box;
+        border: 3px solid #ccc;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        outline: none;
+    }
+
+    input[type=number]:focus {
+        border: 3px solid var(--edit-blue-color);
+    }
+
+    input[type=tel] {
+        width: 100%;
+        height: 35px;
+        padding: 0px 20px;
+        margin: 0;
+        box-sizing: border-box;
+        border: 3px solid #ccc;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        outline: none;
+    }
+
+    input[type=tel]:focus {
+        border: 3px solid var(--edit-blue-color);
+    }
+
+    input[type=email] {
+        width: 100%;
+        height: 35px;
+        padding: 0px 20px;
+        margin: 0;
+        box-sizing: border-box;
+        border: 3px solid #ccc;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        outline: none;
+    }
+
+    input[type=email]:focus {
+        border: 3px solid var(--edit-blue-color);
+    }
+
+    .date-input {
+        width: 100%;
+        height: 35px;
+        padding: 0px 20px;
+        margin: 0;
+        box-sizing: border-box;
+        border: 3px solid #ccc;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        outline: none;
+    }
+
+    .date-input:focus {
+        width: 100%;
+        height: 35px;
+        padding: 0px 20px;
+        margin: 0;
+        box-sizing: border-box;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        outline: none;
+        border: 3px solid var(--edit-blue-color);
+    }
+    /* ==================================================================== */
+
+    .patient-edit-name {
+        max-width: 800px;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--black-font);
+        background-color: var(--gray-color);
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-right: 20px;
+        padding-left: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+        border: 2px solid var(--gray-color);
+    }
+
+    .patient-edit-name-text {
+        margin: 0;
+    }
+
+    /* .form-edit-patient-horizontal {
+        display: inline-block;
+    } */
+
+    @media (max-width: 650px) { 
+
+        .name-edit-buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    }
+
+    @media (min-width: 650px) { 
+
+        .name-edit-buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+
+    @media (max-width: 650px) { 
+
+        .patient-edit-card {
+            max-width: 800px;
+            font-size: 25px;
+            text-decoration: none;
+            color: var(--black-font);
+            background-color: var(--white-background);
+            margin: 0;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 20px;
+            padding-left: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 30px;
+            border: 2px solid var(--gray-color);
+            /* display: flex;
+            flex-direction: column;
+            justify-content: flex-start; */
+        }
+    }
+
+    @media (min-width: 650px) { 
+
+        .patient-edit-card {
+            max-width: 800px;
+            font-size: 25px;
+            text-decoration: none;
+            color: var(--black-font);
+            background-color: var(--white-background);
+            margin: 0;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 20px;
+            padding-left: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 30px;
+            border: 2px solid var(--gray-color);
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+    }
+
+    .patient-edit-inline {
+        display: inline-block;
+    }
+
+    .patient-edit-column {
+        margin-right: 10px;
+        max-width: 400px;
+    }
+
+    .patient-edit-text-info {
+        text-decoration: none;
+        margin: 10px;
+    }
+
+    .no-patient-edit-data {
+        font-size: 25px;
+        text-align: center;
         margin-left: auto;
         margin-right: auto;
         margin-top: 40px;

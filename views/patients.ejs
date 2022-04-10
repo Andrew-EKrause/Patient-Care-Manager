@@ -49,17 +49,6 @@
 
                         <!-- 
                             Create a function to obtain the patient ID in order to 
-                            perform an update operation on any given patient entity.
-                        -->
-                        <% function getUpdateValue() { %>
-                            
-                            <% // Create variables to obtain the chevron element. %>
-                            <% var value = "update_" + event.currentTarget.id; %>
-                            <% var element = document.getElementById(value).value; %>
-                        <% } %>
-
-                        <!-- 
-                            Create a function to obtain the patient ID in order to 
                             perform an remove operation on any given patient entity.
                         -->
                         <% function getRemoveValue() { %>
@@ -70,7 +59,7 @@
                         <% } %>
 
                         <!-- Include a function to simplify the date display -->
-                        <% function simplifyEventDate(eventDate) { %>
+                        <% function simplifyDate(eventDate) { %>
 
                             <% // First split the event into the components that directly %>
                             <% // involve the numberical representations of a date. %>
@@ -162,12 +151,14 @@
 
                                         <!-- Include action (edit and remove) buttons here -->
                                         <div class="edit-remove-buttons">
-
                                             <!-- Makes POST request to the edit-patient route -->
-                                            <form class="form-horizontal" action="/update_patient" method="POST">
-                                                <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="patientidentifier" value="<%= data.PatientID %>" onChange="getUpdateValue()">  
-                                                <button id="<%= data.PatientID %>" type="submit" class="edit-white edit-remove"><i class="fa-solid fa-pencil"></i></button>
-                                            </form>
+                                            <a class="edit-white edit-remove" href="/edit_patient/<%= data.PatientID %>">
+                                                <i class="fa-solid fa-pencil"></i>
+                                            </a>
+                                            <!-- <form class="form-horizontal" action="/update_patient" method="POST">
+                                                <input id="update_<%= // data.PatientID %>" type="hidden" class="patientclass" name="patientidentifier" value="<%= data.PatientID %>" onChange="getUpdateValue()">  
+                                                <button id="<%= // data.PatientID %>" type="submit" class="edit-white edit-remove"><i class="fa-solid fa-pencil"></i></button>
+                                            </form> -->
 
                                             <!-- Makes POST request to the remove-patient route -->
                                             <form class="form-horizontal" action="/remove_patient" method="POST">
@@ -183,7 +174,7 @@
                             <div class="patient-card">
                                 <!-- Each column of the card displays different amounts of data -->
                                 <div class="patient-column">
-                                    <p class="patient-text-info"><b>Birthdate:</b> <%= simplifyEventDate(data.PatientBirthdate) %></p>
+                                    <p class="patient-text-info"><b>Birthdate:</b> <%= simplifyDate(data.PatientBirthdate) %></p>
                                     <p class="patient-text-info"><b>Sex:</b> <%= data.PatientSex %></p> 
                                     <p class="patient-text-info"><b>Height:</b> <%= data.PatientHeight %> feet/inches</p>
                                     <p class="patient-text-info"><b>Weight:</b> <%= data.PatientWeight %>lbs</p>
@@ -193,14 +184,14 @@
                                 <div class="patient-column">
                                     <p class="patient-text-info"><b>Phone:</b> <%= data.PatientPhone %></p>
                                     <p class="patient-text-info"><b>Email:</b> <%= data.PatientEmail %></p>
-                                    <p class="patient-text-info"><b>Admitted:</b> <%= simplifyEventDate(data.PatientStartDate) %></p> 
+                                    <p class="patient-text-info"><b>Admitted:</b> <%= simplifyDate(data.PatientStartDate) %></p> 
                                     
                                     <!--
                                         If the patient does not have an end/discharge 
                                         date, display a message instead
                                     -->
                                     <% if(data.PatientEndDate) { %>
-                                        <p class="patient-text-info"><b>Discharged:</b> <%= simplifyEventDate(data.PatientEndDate) %></p> 
+                                        <p class="patient-text-info"><b>Discharged:</b> <%= simplifyDate(data.PatientEndDate) %></p> 
                                     <% } else { %>
                                         <p class="patient-text-info"><b>Discharged:</b> Currently in treatment.</p> 
                                     <% } %>

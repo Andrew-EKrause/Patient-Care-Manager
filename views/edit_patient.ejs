@@ -1,0 +1,312 @@
+<!-- 
+    The edit_patients.ejs file displays a given 
+    patient that was selected by the user to edit.
+    Each attribute of the patient can be edited by
+    the user. Data validation is included to ensure
+    that the user does not enter any incorrect data
+    values for a given data attribute. When the user
+    completes the process of updating the given
+    patient, they can either cancel the changes or
+    submit the changes to be added to the database.
+    ...
+    Project: Mayo Clinic Patient Care Manager 
+             (PCM) Web Application
+    Author: Andrew Krause
+    Class: Introduction to Database 
+           Management Systems (CS 364)
+    Date: 5/10/2022
+    ...
+-->
+
+<%- include('./partials/header.ejs') %>
+
+    <!-- Section for the list of patients on the webpage -->
+    <section id="patients-edit-page">
+        <div class="fade-in">
+            <header>
+                <h1 class="patient-edit-page-text">Edit Patient</h1>
+            </header>
+            <div class="patient-edit-ordering">
+                <!-- 
+                    This is the section where the patient data
+                    is loaded to be displayed on the page
+                -->
+                <div class="patient-edit-items">
+
+                    <!-- 
+                        If there is data in the patient table 
+                        of the database, display that data
+                    -->
+                    <% if(patientEdit.length != 0) { %>
+
+                        <!-- Create a form to process any data that is entered into the input fields by the user -->
+                        <form class="form-edit-patient-horizontal" action="/update_patient" method="POST">
+
+                            <!-- 
+                                Create a function to obtain the patient ID in order to 
+                                perform an update operation on any given patient entity.
+                            -->
+                            <% function getUpdateValue() { %>
+                                
+                                <% // Create variables to obtain the chevron element. %>
+                                <% var value = "update_" + event.currentTarget.id; %>
+                                <% var element = document.getElementById(value).value; %>
+                            <% } %>
+
+                            <!-- Include a function to simplify the date display -->
+                            <% function simplifyDate(eventDate) { %>
+
+                                <% // First split the event into the components that directly %>
+                                <% // involve the numberical representations of a date. %>
+                                <% var date = eventDate.toISOString().split("T")[0]; %>
+                            
+                                <% // Create variables for workring with %>
+                                <% // the nubmers in the date variable. %>
+                                <% var arrayDate = date.split('-'); %>
+                                <% var day = arrayDate[2]; %>
+                                <% var getMonth = arrayDate[1]; %>
+                                <% var month = ""; %>
+                                <% var year = arrayDate[0]; %>
+                                <% var simplifiedDate = ""; %>
+                            
+                                <% // Use a series of conditionals to determine %>
+                                <% // what the name of the month is based on the %>
+                                <% // numerical representation of it. %>
+                                <% if(getMonth.localeCompare('01') == 0) { %>
+                                    <% month = 'Jan'; %>
+                                <% } else if(getMonth.localeCompare('02') == 0) { %>
+                                    <% month = 'Feb'; %>
+                                <% } else if(getMonth.localeCompare('03') == 0) { %>
+                                    <% month = 'Mar'; %>
+                                <% } else if(getMonth.localeCompare('04') == 0) { %>
+                                    <% month = 'Apr'; %>
+                                <% } else if(getMonth.localeCompare('05') == 0) { %>
+                                    <% month = 'May'; %>
+                                <% } else if(getMonth.localeCompare('06') == 0) { %>
+                                    <% month = 'Jun'; %>
+                                <% } else if(getMonth.localeCompare('07') == 0) { %>
+                                    <% month = 'Jul'; %>
+                                <% } else if(getMonth.localeCompare('08') == 0) { %>
+                                    <% month = 'Aug'; %>
+                                <% } else if(getMonth.localeCompare('09') == 0) { %>
+                                    <% month = 'Sep'; %>
+                                <% } else if(getMonth.localeCompare('10') == 0) { %>
+                                    <% month = 'Oct'; %>
+                                <% } else if(getMonth.localeCompare('11') == 0) { %>
+                                    <% month = 'Nov'; %>
+                                <% } else if(getMonth.localeCompare('12') == 0) { %>
+                                    <% month = 'Dec'; %>
+                                <% } else { %>
+                                    <% month = 'ERROR'; %>
+                                <% } %>
+                            
+                                <% // Create the simplified date and return it. %>
+                                <% simplifiedDate = month + " " + day + ", " + year; %>
+                                <% return simplifiedDate; %>
+                            <% } %>
+
+                            <!-- 
+                                Loop through all of the patients in the 
+                                database and display them on the page 
+                            -->
+                            <% patientEdit.forEach(function(data) { %>
+
+                                <!-- Create a card for each patient -->
+                                <!-- First, create a heading that displays the name of each patient -->
+                                <div class="patient-edit-name">
+
+                                    <!-- 
+                                        If the patient has been discharged from treatment, print out an
+                                        icon to indicate that they are done being treated. Otherwise, print
+                                        out an icon to indicate that they are currently in treatment.
+                                    -->
+                                    <h2 class="patient-name-text">
+
+                                        <!-- Include a div to show the patient name and action buttons -->
+                                        <div class="name-edit-buttons">
+
+                                            <!-- 
+                                                Display an icon indicating whether or not the patient has 
+                                                been discharged from the hospital. Also include the patient's
+                                                full name.
+                                            -->
+                                            <div>
+                                                <!-- 
+                                                    If the patient has been discharged, display the heart check icon.
+                                                    Otherwise, display the heart icon indicating that treatment is 
+                                                    ongoing.
+                                                -->
+                                                <% if(data.PatientEndDate) { %>
+                                                    <i class="fa-solid fa-heart-circle-check"></i>
+                                                <% } else { %>
+                                                    <i class="fa-solid fa-heart-pulse"></i>
+                                                <% } %> 
+                                                
+                                                Full Name: 
+                                                <input placeholder="<%= data.PatientFirstName %>" type="text" class="name-input" name="patientfirstname" size="10">
+                                                <input placeholder="<%= data.PatientMiddleName %>" type="text" class="name-input" name="patientmiddlename" size="10">
+                                                <input placeholder="<%= data.PatientLastName %>" type="text" class="name-input" name="patientlastname" size="10">
+                                            </div>
+                                        </div>
+                                    </h2>
+                                </div>
+
+                                <!-- Create the main-content portion of the patient card -->
+                                <div class="patient-edit-card">
+
+                                    <!-- Create a new function that simplifies the date -->
+                                    <!-- and returns it in the format: mm-dd-yyyy -->
+                                    <% function simplifyDateShorthand(eventDate) { %>
+
+                                        <% // First split the event into the components that directly %>
+                                        <% // involve the numberical representations of a date. %>
+                                        <% var date = eventDate.toISOString().split("T")[0]; %>
+                                    
+                                        <% // Create variables for workring with %>
+                                        <% // the nubmers in the date variable. %>
+                                        <% var arrayDate = date.split('-'); %>
+                                        <% var day = arrayDate[2]; %>
+                                        <% var getMonth = arrayDate[1]; %>
+                                        <% var month = ""; %>
+                                        <% var year = arrayDate[0]; %>
+                                        <% var simplifiedDate = ""; %>
+                                    
+                                        <% // Use a series of conditionals to determine %>
+                                        <% // what the name of the month is based on the %>
+                                        <% // numerical representation of it. %>
+                                        <% if(getMonth.localeCompare('01') == 0) { %>
+                                            <% month = '01'; %>
+                                        <% } else if(getMonth.localeCompare('02') == 0) { %>
+                                            <% month = '02'; %>
+                                        <% } else if(getMonth.localeCompare('03') == 0) { %>
+                                            <% month = '03'; %>
+                                        <% } else if(getMonth.localeCompare('04') == 0) { %>
+                                            <% month = '04'; %>
+                                        <% } else if(getMonth.localeCompare('05') == 0) { %>
+                                            <% month = '05'; %>
+                                        <% } else if(getMonth.localeCompare('06') == 0) { %>
+                                            <% month = '06'; %>
+                                        <% } else if(getMonth.localeCompare('07') == 0) { %>
+                                            <% month = '07'; %>
+                                        <% } else if(getMonth.localeCompare('08') == 0) { %>
+                                            <% month = '08'; %>
+                                        <% } else if(getMonth.localeCompare('09') == 0) { %>
+                                            <% month = '09'; %>
+                                        <% } else if(getMonth.localeCompare('10') == 0) { %>
+                                            <% month = '10'; %>
+                                        <% } else if(getMonth.localeCompare('11') == 0) { %>
+                                            <% month = '11'; %>
+                                        <% } else if(getMonth.localeCompare('12') == 0) { %>
+                                            <% month = '12'; %>
+                                        <% } else { %>
+                                            <% month = 'ERROR'; %>
+                                        <% } %>
+                                    
+                                        <% // Create the simplified date and return it. %>
+                                        <% simplifiedDate = month + "-" + day + "-" + year; %>
+                                        <% return simplifiedDate; %>
+                                    <% } %>
+                                    <!-- ====================================================================================== -->                                  
+
+                                    <!-- Use JavaScript to get the current date. This is done to help set the miniumum -->
+                                    <!-- value for the date input. It ensures the ADMIN cannot set a date before the current -->
+                                    <% var today = new Date(); %>
+                                    <% var dd = today.getDate(); %>
+                                    <% var mm = today.getMonth()+1; // January is 0 so need to add 1 to make it 1! %>
+                                    <% var yyyy = today.getFullYear(); %>
+                    
+                                    <% if(dd<10){ %>
+                                    <%  dd='0'+dd %>
+                                    <% } %>
+                    
+                                    <% if(mm<10){ %>
+                                    <%  mm='0'+mm %>
+                                    <% } %>
+                    
+                                    <% today = yyyy+'-'+mm+'-'+dd; %>  
+                                    <!-- ====================================================================================== -->                                  
+                    
+                                    <!-- Each column of the card displays different amounts of data -->
+                                    <div class="patient-edit-column">
+                                        <p class="patient-edit-text-info"><b>Birthdate:</b> <input placeholder="<%= data.PatientBirthdate %>" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientbirthdate" size="16"></p> 
+
+                                        <p class="patient-edit-text-info">
+                                            <label for="patient-sex"><b>Sex:</b></label>
+                                            <select id="" class="sex-input" name="patientsex">
+                                                <option value="M">M</option>
+                                                <option value="F">F</option> 
+                                            </select>
+                                        </p>
+
+                                        <p class="patient-edit-text-info"><b>Height (feet/inches):</b> <input placeholder="<%= data.PatientHeight %>" type="number" class="" name="patientheight" size="5" min="1" step="0.01"></p>
+                                        <p class="patient-edit-text-info"><b>Weight (lbs):</b> <input placeholder="<%= data.PatientWeight %>" type="number" class="" name="patientweight" size="5" min="1" step="0.01"></p>
+                                        <p class="patient-edit-text-info"><b>Description:</b> <input placeholder="<%= data.PatientNotes %>" type="text" class="name-input" name="patientdescription" size="10"></p>
+                                    </div>
+                                    <!-- Each column of the card displays different amounts of data --> 
+                                    <div class="patient-edit-column">
+                                        <p class="patient-edit-text-info"><b>Phone:</b> <input placeholder="<%= data.PatientPhone %>" type="tel" class="" name="patientphone" size="13" maxlength="12"></p>
+                                        <p class="patient-edit-text-info"><b>Email:</b> <input placeholder="<%= data.PatientEmail %>" type="email" class="" name="patientemail" size="13"></p>
+                                        <p class="patient-edit-text-info"><b>Admitted:</b> <input placeholder="<%= data.PatientStartDate %>" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientstartdate" size="16"></p> 
+                                        
+                                        <!--
+                                            If the patient does not have an end/discharge 
+                                            date, display a message instead
+                                        -->
+                                        <% if(data.PatientEndDate) { %>
+                                            <p class="patient-edit-text-info"><b>Discharged:</b> <input placeholder="<%= data.PatientEndDate %>" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientenddate" size="16"></p> 
+                                        <% } else { %>
+                                            <p class="patient-edit-text-info"><b>Discharged:</b> <input placeholder="Currently in treatment." onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientenddate" size="16"></p> 
+                                        <% } %>
+                                    </div>
+
+                                    <!-- 
+                                        Included here are the original values of the patient entity that the
+                                        user wishes to update. This enables the user to update only certain
+                                        attributes instead of having to provide a value for all inputs.
+                                    -->
+                                    <!-- This is the only attribute that you will use regardless of what is entered into the input! -->
+                                    <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="defaultpatientid" value="<%= data.PatientID %>" onChange="getUpdateValue()">  
+
+                                    <!-- The rest of the default identifiers are listed below -->
+                                    <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="defaultpatientfirstname" value="<%= data.PatientFirstName %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="defaultpatientmiddlename" value="<%= data.PatientMiddleName %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="defaultpatientlastname" value="<%= data.PatientLastName %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="defaultpatientbirthdate" value="<%= data.PatientBirthdate %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="defaultpatientsex" value="<%= data.PatientSex %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="defaultpatientheight" value="<%= data.PatientHeight %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="defaultpatientweight" value="<%= data.PatientWeight %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="defaultpatientdescription" value="<%= data.PatientNotes %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="defaultpatientphone" value="<%= data.PatientPhone %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="defaultpatientemail" value="<%= data.PatientEmail %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="defaultpatientstartdate" value="<%= data.PatientStartDate %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="defaultpatientenddate" value="<%= data.PatientEndDate %>" onChange="getUpdateValue()">  
+                                </div>
+                            <% }); %>
+
+                            <!-- Create forms to process when user clicks the "Add Patient" button and the "Back" button -->
+                            <div class="patient-edit-buttons">
+                                <!-- The button brings the user back to the main list of patients on the website -->
+                                <a id="patient-edit-icon1" class="patient-button-container-one" href="/patients">
+                                    <span class="patient-button-icon"><i class="fa-solid fa-circle-xmark"></i></span> Cancel
+                                </a>
+
+                                <!-- 
+                                    The button, when clicked, triggers a process in which any form data entered into 
+                                    the fields on the page by the user is gathered for the "update_patient" route 
+                                -->
+                                <button type="submit" id="patient-edit-icon2" class="patient-button-container-two">
+                                    <span class="patient-button-icon"><i class="fa-solid fa-circle-arrow-up"></i></span> Update
+                                </button>
+                            </div>
+                        </form>
+
+                    <!-- If there is no patient data, display the message -->
+                    <% } else { %>
+                        <h2 class="no-patient-edit-data">There is currently no patient data.</h2>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<%- include('./partials/footer.ejs') %>

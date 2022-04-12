@@ -73,7 +73,7 @@ patientRouter.get("/patients", function(req, res, next) {
 // the user chooses to change any of the data, 
 // this route will redirect to an update route
 // that will commit the changes to the databases.
-patientRouter.get("/edit_patient/:patientId", function(req, res){
+patientRouter.get("/patient_edit/:patientId", function(req, res) {
  
     // Create a constant for storing the post ID so that it
     // can be retrieved from the database.
@@ -96,25 +96,116 @@ patientRouter.get("/edit_patient/:patientId", function(req, res){
             // Otherwise, send the data to the
             // patients.ejs page in order to 
             // allow the user to edit that data.
-            res.render("edit_patient", {title: "Patient Edit", patientEdit: data});
+            res.render("patient_edit", {title: "Patient Edit", patientEdit: data});
         }
     });
+});
+
+// Create a get request for when the user wants to 
+// create a new patient.
+patientRouter.get("/patient_new", function(req, res) {
+
+    // Render the "new_patient" page to allow the user to 
+    // create a new patient entity and add it to the database.
+    res.render("patient_new");
 });
 
 /* SECTION: PROCESS REQUESTS MADE TO SERVER (POST) */
 
 // ------------ CRUD Operations for Patient ------------
 // Create a post request for when the user wants to 
-// create a new patient.
-patientRouter.post("/new_patient", function(req, res){
+// create a new patient. The patient that is created 
+// by the user is added to the patient table of the
+// database.
+patientRouter.post("/patient_add", function(req, res) {
 
-    // ADD MORE...
+    // Declare a variable for the patient identifier.
+    // var updatePatientID = null; // --> DO NOT THINK WE NEED THIS!!!
+
+    // Declare variables for the values that will be passed into the
+    // SQL update statement below. A series of conditionals before that
+    // SQL update statement determine whether the variables will contain
+    // values entered into the input or the default values.
+    var patientFirstName = req.body.patientfirstname.trim();
+    var patientMiddleName = req.body.patientmiddlename.trim();
+    var patientLastName = req.body.patientlastname.trim();
+    var patientBirthdate = req.body.patientbirthdate.toString().split(" "); 
+    var patientSex = req.body.patientsex;
+    var patientHeight = req.body.patientheight;
+    var patientWeight = req.body.patientweight;
+    var patientDescription = req.body.patientdescription;
+    var patientPhone = req.body.patientphone;
+    var patientEmail = req.body.patientemail.trim();
+    var patientStartDate = req.body.patientstartdate.toString().split(" "); 
+    var patientEndDate; // We do not assign this variable a value immediately.
+
+    // Create a final variable to check if the "In Treatment"
+    // checkbox was checked, which indicates that the patient
+    // is currently in treatment and does not have an end date.
+    var patientInTreatment = req.body.patientintreatment;
+
+    // If the user selects the checkbox, the end date is null.
+    if(patientInTreatment) {
+        patientEndDate = null;  
+
+    // If the user does not select the checkbox or the end
+    // date, default to null.
+    } else if(!patientInTreatment && !patientEndDate) {
+        patientEndDate = null;  
+
+    // Otherwise, get the patient end date from the body.
+    } else {
+        patientEndDate = req.body.patientenddate.toString().split(" ");
+    }
+
+    // Include the SQL query that will add the patient entity
+    // to the patient table.
+    var sql = `INSERT INTO PCM.Patient (PatientNotes, 
+                                        PatientFirstName, 
+                                        PatientMiddleName, 
+                                        PatientLastName, 
+                                        PatientBirthdate, 
+                                        PatientSex, 
+                                        PatientWeight, 
+                                        PatientPhone, 
+                                        PatientEmail, 
+                                        PatientHeight,
+                                        PatientStartDate,
+                                        PatientEndDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+
+    // Complete the query in the database and add the patient
+    // data entered by the user into the patient table of the
+    // database.
+    database.query(sql, [patientDescription, 
+                         patientFirstName, 
+                         patientMiddleName, 
+                         patientLastName, 
+                         patientBirthdate, 
+                         patientSex, 
+                         patientWeight, 
+                         patientPhone, 
+                         patientEmail, 
+                         patientHeight, 
+                         patientStartDate, 
+                         patientEndDate], function(error, data, fields) {
+
+        // If there is an error, log the error.
+        if(error) {
+            console.log(error);
+        } else {
+            
+            // Redirect the route back to the main patients page
+            // after adding the patient to the database.
+            // --> MAYBE LATER INCLUDE A FLASH MESSAGE TO INDICATE
+            // --> THAT THE PATIENT WAS SUCCESSFULLY UPDATED!!!
+            res.redirect("/patients");
+        }
+    });
 });
-
 
 // Create a post request for when the user wants to
 // update a given patient.
-patientRouter.post("/update_patient", function(req, res){
+patientRouter.post("/patient_update", function(req, res) {
 
     // ================================================================
     // The function ensures that the date attributes are 
@@ -301,22 +392,35 @@ patientRouter.post("/update_patient", function(req, res){
 
 
 
-
-
-
-
 // Create a post request for when the user wants to
 // remove a given patient.
-patientRouter.post("/remove_patient", function(req, res){
+patientRouter.post("/patient_remove", function(req, res) {
 
-    // ADD MORE...YOU NEED TO REMOVE THE PATIENT THAT MATCHES
-    // THE IDENTIFIER THAT IS OBTAINED THROUGH THIS ROUTE. ALSO,
-    // YOU WILL WANT TO ADD A CONFIRM DELETE FEATURE AT SOME 
-    // POINT THAT ASKS THE USER IF THEY ARE SURE THAT THEY
+    // AT SOME POINT THAT ASKS THE USER IF THEY ARE SURE THAT THEY
     // WANT TO REMOVE THE PATIENT ENTITY.
 
+    // --> MAYBE INCLUDE A CONFIRM BUTTON HERE
     var removePatient = req.body.patientidentifier;
-    console.log(removePatient);
+
+    // Include the SQL query that will remove the selected patient
+    // entity patient entity from the patient table in the database.
+    var sql = `DELETE FROM PCM.Patient WHERE PatientID = ?;`;
+
+    // Complete the query in the database and remove the patient
+    // that the user selected from the database. 
+    database.query(sql, [removePatient], function(error, data, fields) {
+
+        // If there is an error, log the error.
+        if(error) {
+            console.log(error);
+        } else {
+
+            // Redirect the route back to the main patients page.
+            // --> MAYBE LATER INCLUDE A FLASH MESSAGE TO INDICATE
+            // --> THAT THE PATIENT WAS SUCCESSFULLY UPDATED!!!
+            res.redirect("/patients");
+        }
+    });
 });
 
 // Export the module for use in the main app.js file.

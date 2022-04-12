@@ -1,0 +1,145 @@
+<!-- 
+    The patient_new.ejs file displays a form that
+    the user can fill out to create a new patient 
+    entity for the database. Upon filling out the
+    form, the can submit the changes to be added
+    to the patient table of the databases. The 
+    user can either click the "Create" button or
+    the "Cancel button" on this page as well.
+    ...
+    Project: Mayo Clinic Patient Care Manager 
+             (PCM) Web Application
+    Author: Andrew Krause
+    Class: Introduction to Database 
+           Management Systems (CS 364)
+    Date: 5/10/2022
+    ...
+-->
+
+<%- include('./partials/header.ejs') %>
+
+    <!-- Section for the list of patients on the webpage -->
+    <section id="patient-create-page">
+        <div class="fade-in">
+            <header>
+                <h1 class="patient-create-page-text">Create Patient</h1>
+            </header>
+            <div class="patient-create-ordering">
+                <!-- 
+                    This is the section where the patient data
+                    is loaded to be displayed on the page
+                -->
+                <div class="patient-create-item">
+
+                    <!-- 
+                        Create a form to process any data that is entered into the input fields by the
+                        user. This information will be used to create a new patient for the database.
+                    -->
+                    <form class="form-create-patient-horizontal" action="/patient_add" method="POST">
+
+                        <!-- Create a card for each patient -->
+                        <!-- First, create a heading that displays the name of each patient -->
+                        <div class="patient-create-name">
+
+                            <!-- 
+                                If the patient has been discharged from treatment, print out an
+                                icon to indicate that they are done being treated. Otherwise, print
+                                out an icon to indicate that they are currently in treatment.
+                            -->
+                            <h2 class="patient-create-name-text">
+
+                                <!-- Include a div to show the patient name and action buttons -->
+                                <div class="name-create-buttons">
+
+                                    <!-- 
+                                        Display an icon indicating whether or not the patient has 
+                                        been discharged from the hospital. Also include the patient's
+                                        full name.
+                                    -->
+                                    <div>
+                                        <!-- Display an icon for creating the new patient -->
+                                        <i class="fa-solid fa-clipboard-list"></i>
+                                        
+                                        <!-- Provide a section for the user to add a new patient name -->
+                                        Full Name: 
+                                        <input placeholder="Enter First Name" type="text" class="name-input" name="patientfirstname" size="10" required>
+                                        <input placeholder="Enter Middle Name" type="text" class="name-input" name="patientmiddlename" size="10" required>
+                                        <input placeholder="Enter Last Name" type="text" class="name-input" name="patientlastname" size="10" required>
+                                    </div>
+                                </div>
+                            </h2>
+                        </div>
+
+                        <!-- Create the main-content portion of the patient card -->
+                        <div class="patient-create-card">                                
+            
+                            <!-- Each column of the card displays different amounts of data -->
+                            <div class="patient-create-column">
+                                <p class="patient-create-text-info"><b>Birthdate:</b> <input placeholder="Enter Birthdate" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientbirthdate" size="16" required></p> 
+
+                                <p class="patient-create-text-info">
+                                    <label for="patient-sex"><b>Sex:</b></label>
+                                    <select id="" class="sex-input" name="patientsex">
+                                        <option value="-">-</option>
+                                        <option value="M">M</option>
+                                        <option value="F">F</option> 
+                                        <option value="Other">Other</option> 
+                                    </select>
+                                </p>
+
+                                <p class="patient-create-text-info"><b>Height (feet/inches):</b> <input placeholder="Enter Height" type="number" class="" name="patientheight" size="5" min="1" max="1000" step="0.01" required></p>
+                                <p class="patient-create-text-info"><b>Weight (lbs):</b> <input placeholder="Enter Weight" type="number" class="" name="patientweight" size="5" min="1" max="1000" step="0.01" required></p>
+                                <p class="patient-create-text-info"><b>Description:</b> <input placeholder="Enter Description" type="text" class="name-input" name="patientdescription" size="10" required></p>
+                            </div>
+                            <!-- Each column of the card displays different amounts of data --> 
+                            <div class="patient-create-text-info">
+                                <p class="patient-create-text-info"><b>Phone:</b> <input placeholder="Enter Phone" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="" name="patientphone" size="13" maxlength="12" required></p>
+                                <p class="patient-create-text-info"><b>Email:</b> <input placeholder="Enter Email" type="email" class="" name="patientemail" size="13" required></p>
+                                <p class="patient-create-text-info"><b>Admitted:</b> <input placeholder="Enter Start Date" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientstartdate" size="16" required></p> 
+                                
+                                <!--
+                                    If the patient does not have an end/discharge 
+                                    date, display a message instead
+                                -->
+                                <p class="patient-create-text-info"><b>Discharged:</b> <input placeholder="Enter End Date" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientenddate" size="16"></p> 
+
+                                <!-- 
+                                    Create a checkbox for providing the user with the option 
+                                    to determine if the patient is currently undergoing treatment(s) 
+                                -->
+                                <p class="patient-create-text-info" style="margin-bottom: 0;">
+                                    <b>In Treatment:</b> 
+                                    <div class="checkbox-structure">
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="patientcheckbox" class="checkbox-label" style="margin-top: 6px;" name="patientintreatment" value="In-Treatment">
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <label for="patientcheckbox">Yes</label>
+                                        </div>
+                                    </div>
+                                </p> 
+                            </div>
+                        </div>
+
+                        <!-- Create forms to process when user clicks the "Add Patient" button and the "Back" button -->
+                        <div class="patient-create-buttons">
+                            <!-- The button brings the user back to the main list of patients on the website -->
+                            <a id="patient-create-icon1" class="patient-button-container-one" href="/patients">
+                                <span class="patient-button-icon"><i class="fa-solid fa-circle-xmark"></i></span> Cancel
+                            </a>
+
+                            <!-- 
+                                The button, when clicked, triggers a process in which any form data entered into 
+                                the fields on the page by the user is gathered for the "create_patient" route 
+                            -->
+                            <button type="submit" id="patient-create-icon2" class="patient-button-container-two">
+                                <span class="patient-button-icon"><i class="fa-solid fa-heart-circle-plus"></i></span> Create
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<%- include('./partials/footer.ejs') %>

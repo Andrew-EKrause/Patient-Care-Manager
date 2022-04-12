@@ -566,6 +566,9 @@ html {
         transform: scale(1.15);
     }
 
+    /* ==================================================================== */
+    /* SECTION OF STYLING FOR LARGE BUTTONS (THIS CAN BE USED FOR ALL PAGES) */
+    /* ==================================================================== */
     .patient-button-container-one {
         background-color: var(--white-background);
         font-size: 25px;
@@ -615,7 +618,8 @@ html {
         background-color: var(--gray-color);
         color: var(--blue-font);
     }
-    
+    /* ==================================================================== */
+
     .patient-items {
         margin-top: 30px;
         margin-bottom: 60px;
@@ -804,42 +808,13 @@ html {
         padding-left: 20px;
     }
 
-    .patient-edit-buttons {
-        display: grid;
-        grid-template-columns: 50% 50%;
-        margin: 0;
-        max-width: 800px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    #patient-edit-icon1 span i {
-        display: inline-block;
-        transition: 0.1s;
-    }
-    
-    #patient-edit-icon1:hover span i {
-        color: var(--blue-font);
-        transform: scale(1.15);
-    }
-
-    #patient-edit-icon2 span i {
-        display: inline-block;
-        transition: 0.1s;
-    }
-    
-    #patient-edit-icon2:hover span i {
-        color: var(--blue-font);
-        transform: scale(1.15);
-    }
-
     .patient-edit-items {
         margin-top: 30px;
         margin-bottom: 60px;
     }
  
     /* ==================================================================== */
-    /* SECTION OF STYLING FOR INPUT FIELDS - THIS CAN BE USED FOR ALL PAGES */
+    /* SECTION OF STYLING FOR INPUT FIELDS (THIS CAN BE USED FOR ALL PAGES) */
     /* ==================================================================== */
     .name-input {
         width: 100%;
@@ -976,7 +951,7 @@ html {
     /* ==================================================================== */
 
     /* ==================================================================== */
-    /* SECTION OF STYLING FOR CHECKBOX FIELD - THIS CAN BE USED FOR ALL PAGES */
+    /* SECTION OF STYLING FOR CHECKBOX FIELD (THIS CAN BE USED FOR ALL PAGES) */
     /* ==================================================================== */
     input[type="checkbox"] {
         appearance: none;
@@ -1129,6 +1104,35 @@ html {
         margin: 10px;
     }
 
+    .patient-edit-buttons {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        margin: 0;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #patient-edit-icon1 span i {
+        display: inline-block;
+        transition: 0.1s;
+    }
+    
+    #patient-edit-icon1:hover span i {
+        color: var(--blue-font);
+        transform: scale(1.15);
+    }
+
+    #patient-edit-icon2 span i {
+        display: inline-block;
+        transition: 0.1s;
+    }
+    
+    #patient-edit-icon2:hover span i {
+        color: var(--blue-font);
+        transform: scale(1.15);
+    }
+
     .no-patient-edit-data {
         font-size: 25px;
         text-align: center;
@@ -1136,6 +1140,175 @@ html {
         margin-right: auto;
         margin-top: 40px;
         margin-bottom: 40px;
+    }
+
+    /* ====================================================================
+                            CREATE PATIENTS Page
+    ==================================================================== */
+
+    #patient-create-page {
+        padding-top: 130px;
+        color: var(--whiter-color);
+        background-color: var(--black-color);
+        /* height: 100vh; */
+    }
+
+    .patient-create-page-text {
+        font-size: clamp(2.5rem, 2.85rem, 3.5rem); 
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .patient-create-ordering {
+        margin-top: 20px;
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .patient-create-item {
+        margin-top: 30px;
+        margin-bottom: 60px;
+    }
+
+    .patient-create-name {
+        max-width: 800px;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--black-font);
+        background-color: var(--gray-color);
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-right: 20px;
+        padding-left: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+        border: 2px solid var(--gray-color);
+    }
+
+    .patient-create-name-text {
+        margin: 0;
+    }
+
+    @media (max-width: 650px) { 
+
+        .name-create-buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    }
+
+    @media (min-width: 650px) { 
+
+        .name-create-buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+
+    @media (max-width: 650px) { 
+
+        .patient-create-card {
+            max-width: 800px;
+            font-size: 25px;
+            text-decoration: none;
+            color: var(--black-font);
+            background-color: var(--white-background);
+            margin: 0;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 20px;
+            padding-left: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 30px;
+            border: 2px solid var(--gray-color);
+            /* display: flex;
+            flex-direction: column;
+            justify-content: flex-start; */
+        }
+    }
+
+    @media (min-width: 650px) { 
+
+        .patient-create-card {
+            max-width: 800px;
+            font-size: 25px;
+            text-decoration: none;
+            color: var(--black-font);
+            background-color: var(--white-background);
+            margin: 0;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 20px;
+            padding-left: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 30px;
+            border: 2px solid var(--gray-color);
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+    }
+
+    .patient-create-inline {
+        display: inline-block;
+    }
+
+    @media (max-width: 650px) { 
+
+        .patient-create-column {
+            margin-right: 0px;
+            max-width: 400px;
+        }
+    }
+
+    @media (min-width: 650px) { 
+    
+        .patient-create-column {
+            margin-right: 10px;
+            max-width: 400px;
+        }
+    }
+
+    .patient-create-text-info {
+        text-decoration: none;
+        margin: 10px;
+    }
+
+    .patient-create-buttons {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        margin: 0;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #patient-create-icon1 span i {
+        display: inline-block;
+        transition: 0.1s;
+    }
+    
+    #patient-create-icon1:hover span i {
+        color: var(--blue-font);
+        transform: scale(1.15);
+    }
+
+    #patient-create-icon2 span i {
+        display: inline-block;
+        transition: 0.1s;
+    }
+    
+    #patient-create-icon2:hover span i {
+        color: var(--blue-font);
+        transform: scale(1.15);
     }
 
     /* ====================================================================

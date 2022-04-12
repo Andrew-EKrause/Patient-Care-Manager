@@ -30,7 +30,7 @@
                     <a id="patient-back-arrow" class="patient-button-container-one" href="/views">
                         <span class="patient-button-icon"><i class="fa-solid fa-arrow-left-long"></i></span> Back
                     </a>
-                    <a id="patient-add-icon" class="patient-button-container-two" href="/create_patient">
+                    <a id="patient-add-icon" class="patient-button-container-two" href="/patient_new">
                         <span class="patient-button-icon"><i class="fa-solid fa-circle-plus"></i></span> New
                     </a>
                 </div>
@@ -152,7 +152,7 @@
                                         <!-- Include action (edit and remove) buttons here -->
                                         <div class="edit-remove-buttons">
                                             <!-- Makes POST request to the edit-patient route -->
-                                            <a class="edit-white edit-remove" href="/edit_patient/<%= data.PatientID %>">
+                                            <a class="edit-white edit-remove" href="/patient_edit/<%= data.PatientID %>">
                                                 <i class="fa-solid fa-pencil"></i>
                                             </a>
                                             <!-- <form class="form-horizontal" action="/update_patient" method="POST">
@@ -161,7 +161,7 @@
                                             </form> -->
 
                                             <!-- Makes POST request to the remove-patient route -->
-                                            <form class="form-horizontal" action="/remove_patient" method="POST">
+                                            <form class="form-horizontal" action="/patient_remove" method="POST">
                                                 <input id="remove_<%= data.PatientID %>" type="hidden" class="patientclass" name="patientidentifier" value="<%= data.PatientID %>" onChange="getRemoveValue()">  
                                                 <button type="submit" class="edit-red edit-remove"><i class="fa-solid fa-trash-can"></i></button>
                                             </form>

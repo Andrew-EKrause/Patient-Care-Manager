@@ -1,5 +1,5 @@
 <!-- 
-    The edit_patients.ejs file displays a given 
+    The patient_edit.ejs file displays a given 
     patient that was selected by the user to edit.
     Each attribute of the patient can be edited by
     the user. Data validation is included to ensure
@@ -20,7 +20,7 @@
 
 <%- include('./partials/header.ejs') %>
 
-    <!-- Section for the list of patients on the webpage -->
+    <!-- Section for the form with update ability for patients on the webpage -->
     <section id="patients-edit-page">
         <div class="fade-in">
             <header>
@@ -40,7 +40,7 @@
                     <% if(patientEdit.length != 0) { %>
 
                         <!-- Create a form to process any data that is entered into the input fields by the user -->
-                        <form class="form-edit-patient-horizontal" action="/update_patient" method="POST">
+                        <form class="form-edit-patient-horizontal" action="/patient_update" method="POST">
 
                             <!-- 
                                 Create a function to obtain the patient ID in order to 

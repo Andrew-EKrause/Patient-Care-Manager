@@ -855,7 +855,7 @@ html {
     }
 
     .name-input:focus {
-        border: 3px solid var(--edit-blue-color);
+        border: 3px solid var(--blue-background);
     }
 
     select {
@@ -883,7 +883,7 @@ html {
         transition: 0.5s;
         outline: none;
         font-size: 25px;
-        border: 3px solid var(--edit-blue-color);
+        border: 3px solid var(--blue-background);
     }
     
     input[type=text] {
@@ -899,7 +899,7 @@ html {
     }
       
     input[type=text]:focus {
-        border: 3px solid var(--edit-blue-color);
+        border: 3px solid var(--blue-background);
     }
 
     input[type=number] {
@@ -915,7 +915,7 @@ html {
     }
 
     input[type=number]:focus {
-        border: 3px solid var(--edit-blue-color);
+        border: 3px solid var(--blue-background);
     }
 
     input[type=tel] {
@@ -931,7 +931,7 @@ html {
     }
 
     input[type=tel]:focus {
-        border: 3px solid var(--edit-blue-color);
+        border: 3px solid var(--blue-background);
     }
 
     input[type=email] {
@@ -947,7 +947,7 @@ html {
     }
 
     input[type=email]:focus {
-        border: 3px solid var(--edit-blue-color);
+        border: 3px solid var(--blue-background);
     }
 
     .date-input {
@@ -971,7 +971,52 @@ html {
         -webkit-transition: 0.5s;
         transition: 0.5s;
         outline: none;
-        border: 3px solid var(--edit-blue-color);
+        border: 3px solid var(--blue-background);
+    }
+    /* ==================================================================== */
+
+    /* ==================================================================== */
+    /* SECTION OF STYLING FOR CHECKBOX FIELD - THIS CAN BE USED FOR ALL PAGES */
+    /* ==================================================================== */
+    input[type="checkbox"] {
+        appearance: none;
+        background-color: #fff;
+        margin: 0;
+        font: inherit;
+        color: currentColor;
+        width: 1.15em;
+        height: 1.15em;
+        border: 0.15em solid #ccc;
+        border-radius: 0.15em;
+        transform: translateY(-0.075em);
+        display: grid;
+        place-content: center;
+    }
+
+    input[type="checkbox"]::before {
+        content: "";
+        width: 0.65em;
+        height: 0.65em;
+        transform: scale(0);
+        transition: 120ms transform ease-in-out;
+        background-color: var(--blue-background);
+        transform-origin: center;
+        clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    }
+
+    input[type="checkbox"]:checked::before {
+        transform: scale(1);
+    }
+
+    .checkbox-structure {
+        display: block;
+        margin-left: 10px;
+        margin-top: 0;
+    }
+
+    .checkbox-item {
+        display: inline-block;
+        /* width: 30px; */
     }
     /* ==================================================================== */
 
@@ -994,10 +1039,6 @@ html {
     .patient-edit-name-text {
         margin: 0;
     }
-
-    /* .form-edit-patient-horizontal {
-        display: inline-block;
-    } */
 
     @media (max-width: 650px) { 
 
@@ -1067,9 +1108,20 @@ html {
         display: inline-block;
     }
 
-    .patient-edit-column {
-        margin-right: 10px;
-        max-width: 400px;
+    @media (max-width: 650px) { 
+
+        .patient-edit-column {
+            margin-right: 0px;
+            max-width: 400px;
+        }
+    }
+
+    @media (min-width: 650px) { 
+    
+        .patient-edit-column {
+            margin-right: 10px;
+            max-width: 400px;
+        }
     }
 
     .patient-edit-text-info {

@@ -233,18 +233,20 @@
                                         <p class="patient-edit-text-info">
                                             <label for="patient-sex"><b>Sex:</b></label>
                                             <select id="" class="sex-input" name="patientsex">
+                                                <option value="-">-</option>
                                                 <option value="M">M</option>
                                                 <option value="F">F</option> 
+                                                <option value="Other">Other</option> 
                                             </select>
                                         </p>
 
-                                        <p class="patient-edit-text-info"><b>Height (feet/inches):</b> <input placeholder="<%= data.PatientHeight %>" type="number" class="" name="patientheight" size="5" min="1" step="0.01"></p>
-                                        <p class="patient-edit-text-info"><b>Weight (lbs):</b> <input placeholder="<%= data.PatientWeight %>" type="number" class="" name="patientweight" size="5" min="1" step="0.01"></p>
+                                        <p class="patient-edit-text-info"><b>Height (feet/inches):</b> <input placeholder="<%= data.PatientHeight %>" type="number" class="" name="patientheight" size="5" min="1" max="1000" step="0.01"></p>
+                                        <p class="patient-edit-text-info"><b>Weight (lbs):</b> <input placeholder="<%= data.PatientWeight %>" type="number" class="" name="patientweight" size="5" min="1" max="1000" step="0.01"></p>
                                         <p class="patient-edit-text-info"><b>Description:</b> <input placeholder="<%= data.PatientNotes %>" type="text" class="name-input" name="patientdescription" size="10"></p>
                                     </div>
                                     <!-- Each column of the card displays different amounts of data --> 
                                     <div class="patient-edit-column">
-                                        <p class="patient-edit-text-info"><b>Phone:</b> <input placeholder="<%= data.PatientPhone %>" type="tel" class="" name="patientphone" size="13" maxlength="12"></p>
+                                        <p class="patient-edit-text-info"><b>Phone:</b> <input placeholder="<%= data.PatientPhone %>" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="" name="patientphone" size="13" maxlength="12"></p>
                                         <p class="patient-edit-text-info"><b>Email:</b> <input placeholder="<%= data.PatientEmail %>" type="email" class="" name="patientemail" size="13"></p>
                                         <p class="patient-edit-text-info"><b>Admitted:</b> <input placeholder="<%= data.PatientStartDate %>" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientstartdate" size="16"></p> 
                                         
@@ -257,6 +259,22 @@
                                         <% } else { %>
                                             <p class="patient-edit-text-info"><b>Discharged:</b> <input placeholder="Currently in treatment." onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientenddate" size="16"></p> 
                                         <% } %>
+
+                                        <!-- 
+                                            Create a checkbox for providing the user with the option 
+                                            to determine if the patient is currently undergoing treatment(s) 
+                                        -->
+                                        <p class="patient-edit-text-info" style="margin-bottom: 0;">
+                                            <b>In Treatment:</b> 
+                                            <div class="checkbox-structure">
+                                                <div class="checkbox-item">
+                                                    <input type="checkbox" id="patientcheckbox" class="checkbox-label" style="margin-top: 6px;" name="patientintreatment" value="In-Treatment">
+                                                </div>
+                                                <div class="checkbox-item">
+                                                    <label for="patientcheckbox">Yes</label>
+                                                </div>
+                                            </div>
+                                        </p> 
                                     </div>
 
                                     <!-- 

@@ -204,24 +204,30 @@ patientRouter.post("/update_patient", function(req, res){
     var patientStartDate = req.body.patientstartdate;
     var patientEndDate = req.body.patientenddate;
 
+    // Create a final variable to check if the "In Treatment"
+    // checkbox was checked, which indicates that the patient
+    // is still in treatment and does not have an end/discharge
+    // date.
+    var patientInTreatment = req.body.patientintreatment;
+
     // Include a series of conditionals to determine if any of
     // the default values need to be utilized in the process of
     // updating the patient in the database.
     if(!patientFirstName) {
-        patientFirstName = req.body.defaultpatientfirstname;
+        patientFirstName = req.body.defaultpatientfirstname.trim();
     }
     if(!patientMiddleName) {
-        patientMiddleName = req.body.defaultpatientmiddlename;
+        patientMiddleName = req.body.defaultpatientmiddlename.trim();
     }
     if(!patientLastName) {
-        patientLastName = req.body.defaultpatientlastname;
+        patientLastName = req.body.defaultpatientlastname.trim();
     }
     if(!patientBirthdate) {
         patientBirthdate = simplifyDateShorthand(req.body.defaultpatientbirthdate);
     } else {
         patientBirthdate = req.body.patientbirthdate.toString().split(" ");  
     }
-    if(!patientSex) {
+    if(!patientSex || patientSex == "-") {
         patientSex = req.body.defaultpatientsex;
     }
     if(!patientHeight) {
@@ -231,13 +237,13 @@ patientRouter.post("/update_patient", function(req, res){
         patientWeight = req.body.defaultpatientweight;
     }
     if(!patientDescription) {
-        patientDescription = req.body.defaultpatientdescription;
+        patientDescription = req.body.defaultpatientdescription.trim();
     }
     if(!patientPhone) {
         patientPhone = req.body.defaultpatientphone;
     }
     if(!patientEmail) {
-        patientEmail = req.body.defaultpatientemail;
+        patientEmail = req.body.defaultpatientemail.trim();
     }
     if(!patientStartDate) {
         patientStartDate = simplifyDateShorthand(req.body.defaultpatientstartdate);
@@ -248,6 +254,9 @@ patientRouter.post("/update_patient", function(req, res){
         patientEndDate = simplifyDateShorthand(req.body.defaultpatientenddate);
     } else {
         patientEndDate = req.body.patientenddate.toString().split(" ");  
+    }
+    if(patientInTreatment) {
+        patientEndDate = null;  
     }
 
     // Include the SQL query that will update the patient entity
@@ -276,7 +285,7 @@ patientRouter.post("/update_patient", function(req, res){
         if(error) {
             console.log(error);
         } else {
-
+            
             // Redirect the route back to the main patients page.
             // --> MAYBE LATER INCLUDE A FLASH MESSAGE TO INDICATE
             // --> THAT THE PATIENT WAS SUCCESSFULLY UPDATED!!!

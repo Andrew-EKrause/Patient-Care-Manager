@@ -158,6 +158,12 @@ patientRouter.post("/patient_add", function(req, res) {
         patientEndDate = req.body.patientenddate.toString().split(" ");
     }
 
+    // If the user has not selected an option for
+    // the patient's sex, default to "Other".
+    if(patientSex == "-") {
+        patientSex = "Other";
+    }
+
     // Include the SQL query that will add the patient entity
     // to the patient table.
     var sql = `INSERT INTO PCM.Patient (PatientNotes, 

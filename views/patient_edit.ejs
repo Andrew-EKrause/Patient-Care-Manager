@@ -203,32 +203,17 @@
                                         <% } %>
                                     
                                         <% // Create the simplified date and return it. %>
-                                        <% simplifiedDate = month + "-" + day + "-" + year; %>
+                                        <% simplifiedDate = year + "-" + month + "-" + day; %>
                                         <% return simplifiedDate; %>
-                                    <% } %>
-                                    <!-- ====================================================================================== -->                                  
-
-                                    <!-- Use JavaScript to get the current date. This is done to help set the miniumum -->
-                                    <!-- value for the date input. It ensures the ADMIN cannot set a date before the current -->
-                                    <% var today = new Date(); %>
-                                    <% var dd = today.getDate(); %>
-                                    <% var mm = today.getMonth()+1; // January is 0 so need to add 1 to make it 1! %>
-                                    <% var yyyy = today.getFullYear(); %>
-                    
-                                    <% if(dd<10){ %>
-                                    <%  dd='0'+dd %>
-                                    <% } %>
-                    
-                                    <% if(mm<10){ %>
-                                    <%  mm='0'+mm %>
-                                    <% } %>
-                    
-                                    <% today = yyyy+'-'+mm+'-'+dd; %>  
+                                    <% } %> 
                                     <!-- ====================================================================================== -->                                  
                     
                                     <!-- Each column of the card displays different amounts of data -->
                                     <div class="patient-edit-column">
-                                        <p class="patient-edit-text-info"><b>Birthdate:</b> <input placeholder="<%= data.PatientBirthdate %>" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientbirthdate" size="16"></p> 
+                                        <!-- Format the placeholder for the date admitted value -->
+                                        <% var birthDatePatient = simplifyDate(data.PatientBirthdate); %>
+
+                                        <p class="patient-edit-text-info"><b>Birthdate:</b> <input placeholder="<%= birthDatePatient %>" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientbirthdate" size="16"></p> 
 
                                         <p class="patient-edit-text-info">
                                             <label for="patient-sex"><b>Sex:</b></label>
@@ -246,16 +231,30 @@
                                     </div>
                                     <!-- Each column of the card displays different amounts of data --> 
                                     <div class="patient-edit-column">
+                                        <!-- Format the placeholder for the date admitted value -->
+                                        <% var startDatePatient = simplifyDate(data.PatientStartDate); %>
+
                                         <p class="patient-edit-text-info"><b>Phone:</b> <input placeholder="<%= data.PatientPhone %>" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="" name="patientphone" size="13" maxlength="12"></p>
                                         <p class="patient-edit-text-info"><b>Email:</b> <input placeholder="<%= data.PatientEmail %>" type="email" class="" name="patientemail" size="13"></p>
-                                        <p class="patient-edit-text-info"><b>Admitted:</b> <input placeholder="<%= data.PatientStartDate %>" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientstartdate" size="16"></p> 
+                                        <p class="patient-edit-text-info"><b>Admitted:</b> <input placeholder="<%= startDatePatient %>" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientstartdate" size="16"></p> 
                                         
                                         <!--
                                             If the patient does not have an end/discharge 
                                             date, display a message instead
                                         -->
                                         <% if(data.PatientEndDate) { %>
-                                            <p class="patient-edit-text-info"><b>Discharged:</b> <input placeholder="<%= data.PatientEndDate %>" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientenddate" size="16"></p> 
+                                            <!-- 
+                                                Format the placeholder for the date discharged value.
+                                                Also create a variable that serves as a minimum value
+                                                that can be entered for the patient end date. The value 
+                                                of this variable is based on the value entered for the 
+                                                patient start date (the patient end date must be on or 
+                                                after the patient start date).
+                                            -->
+                                            <% var endDatePatient = simplifyDate(data.PatientEndDate); %>
+                                            <% var minDateEntered = simplifyDateShorthand(data.PatientStartDate); %>
+
+                                            <p class="patient-edit-text-info"><b>Discharged:</b> <input placeholder="<%= endDatePatient %>" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientenddate" min=<%= minDateEntered %> size="16"></p> 
                                         <% } else { %>
                                             <p class="patient-edit-text-info"><b>Discharged:</b> <input placeholder="Currently in treatment." onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientenddate" size="16"></p> 
                                         <% } %>

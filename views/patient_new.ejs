@@ -95,12 +95,37 @@
                             <div class="patient-create-text-info">
                                 <p class="patient-create-text-info"><b>Phone:</b> <input placeholder="###-###-####" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="" name="patientphone" size="13" maxlength="12" required></p>
                                 <p class="patient-create-text-info"><b>Email:</b> <input placeholder="Enter Email" type="email" class="" name="patientemail" size="13" required></p>
-                                <p class="patient-create-text-info"><b>Admitted:</b> <input placeholder="Enter Start Date" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientstartdate" size="16" required></p> 
+                                <p class="patient-create-text-info"><b>Admitted:</b> <input id="patientstartdatecalc" placeholder="Enter Start Date" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientstartdate" size="16" required></p> 
                                 
-                                <!--
-                                    If the patient does not have an end/discharge 
-                                    date, display a message instead
+                                <!-- MAYBE TRY IMPLEMENTING THE CODE BELOW AT A LATER TIME!!! -->
+                                <!-- ===================================================================== -->
+                                <!-- 
+                                    Create a variable that determines if a value 
+                                    was entered into the patient start date input 
                                 -->
+                                <% // var enteredStartDatePatient = req.body.patientstartdate; %>
+
+                                <!-- 
+                                    If the user entered a value into the patient 
+                                    start date input field, enable them to enter 
+                                    an end date for the patient if they wish to 
+                                    do so. If the user never entered a value into
+                                    the patient start date, disable the input field
+                                    for the patient end date until they enter a 
+                                    value for the start date.
+                                -->
+                                <% // if(enteredStartDatePatient) { %>
+                                    
+                                    <!-- The patient end date/date discharged is entered here -->
+                                    <!-- <p class="patient-create-text-info"><b>Discharged:</b> <input placeholder="Enter End Date" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientenddate" size="16"></p>  -->
+                                <% // } else { %>
+
+                                    <!-- A disabled input for the patient end date/date discharged is listed here -->
+                                    <!-- <p class="patient-create-text-info"><b>Discharged:</b> <input placeholder="Enter Start Date First" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientenddate" size="16" disabled></p>  -->
+                                <% // } %>
+                                <!-- ===================================================================== -->
+
+                                <!-- The patient end date/date discharged is entered here -->
                                 <p class="patient-create-text-info"><b>Discharged:</b> <input placeholder="Enter End Date" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientenddate" size="16"></p> 
 
                                 <!-- 

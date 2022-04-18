@@ -31,9 +31,30 @@
 // TABLE.
 // ============================================================================
 
-// Add the packages that are required.
+// Add the router packages that are required.
 var express = require('express');
 var patientRouter = express.Router();
+
+// Include flash message and session packages.
+const flash = require("connect-flash");
+const session = require('express-session');
+
+// Use the flash module to transmit messages
+// to the user as well as the developers.
+patientRouter.use(flash());
+
+// The code for SESSIONS is set up here.
+// The SESSIONS need to be set up in order
+// to use flash messages.
+patientRouter.use(session({
+    secret: "Confidential information.",
+    resave: false,
+    saveUninitialized: false
+}));
+
+// Use the flash module to transmit messages
+// to the user as well as the developers.
+patientRouter.use(flash());
 
 // Include the database route in order to 
 // work with the data in the patients table.
@@ -51,8 +72,7 @@ patientRouter.get("/patients", function(req, res, next) {
     // the Patient table.
     var sql = `SELECT * FROM PCM.Patient`;
 
-    // Get all of the patients from the patients table. (YOU WILL
-    // DISPLAY THIS ON THE PATEINTS VIEW PAGE AT SOME POINT!!!)
+    // Get all of the patients from the patients table.
     database.query(sql, function(error, data, fields) {
 
         // If there is an error, log the error.
@@ -63,7 +83,11 @@ patientRouter.get("/patients", function(req, res, next) {
             // Otherwise, send the data to the
             // patients.ejs page in order to 
             // display that data.
-            res.render("patients", {title: "Patient List", patientData: data});
+            res.render("patients", {
+                title: "Patient List", 
+                patientData: data,
+                patientChange: req.flash("patientChange")
+            });
         }
     });
 });
@@ -74,7 +98,7 @@ patientRouter.get("/patients", function(req, res, next) {
 // this route will redirect to an update route
 // that will commit the changes to the databases.
 patientRouter.get("/patient_edit/:patientId", function(req, res) {
- 
+
     // Create a constant for storing the post ID so that it
     // can be retrieved from the database.
     const requestedPatientId = req.params.patientId;
@@ -202,8 +226,9 @@ patientRouter.post("/patient_add", function(req, res) {
             
             // Redirect the route back to the main patients page
             // after adding the patient to the database.
-            // --> MAYBE LATER INCLUDE A FLASH MESSAGE TO INDICATE
-            // --> THAT THE PATIENT WAS SUCCESSFULLY UPDATED!!!
+            // Add a flash message indicating that the user was
+            // successfully added to the database.
+            req.flash("patientChange", "Created new patient.");
             res.redirect("/patients");
         }
     });
@@ -384,28 +409,21 @@ patientRouter.post("/patient_update", function(req, res) {
         } else {
             
             // Redirect the route back to the main patients page.
-            // --> MAYBE LATER INCLUDE A FLASH MESSAGE TO INDICATE
-            // --> THAT THE PATIENT WAS SUCCESSFULLY UPDATED!!!
+            // Add a flash message indicating that the user was
+            // successfully updated in the database.
+            req.flash("patientChange", "Updated patient.");
             res.redirect("/patients");
         }
     });
 });
 
-
-
-
-
-
-
-
 // Create a post request for when the user wants to
 // remove a given patient.
 patientRouter.post("/patient_remove", function(req, res) {
 
-    // AT SOME POINT THAT ASKS THE USER IF THEY ARE SURE THAT THEY
-    // WANT TO REMOVE THE PATIENT ENTITY.
-
-    // --> MAYBE INCLUDE A CONFIRM BUTTON HERE
+    // Obtain the patient identifier of the patient that
+    // the user wants to remove from the database, and 
+    // store the patient ID in a variable.
     var removePatient = req.body.patientidentifier;
 
     // Include the SQL query that will remove the selected patient
@@ -422,8 +440,9 @@ patientRouter.post("/patient_remove", function(req, res) {
         } else {
 
             // Redirect the route back to the main patients page.
-            // --> MAYBE LATER INCLUDE A FLASH MESSAGE TO INDICATE
-            // --> THAT THE PATIENT WAS SUCCESSFULLY UPDATED!!!
+            // Add a flash message indicating that the user was
+            // successfully removed from the database.
+            req.flash("patientChange", "Removed patient.");
             res.redirect("/patients");
         }
     });

@@ -421,3 +421,23 @@ module.exports = databaseRouter;
     </section>
 
 <%- include('./partials/footer.ejs') %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- LIKELY DO NOT NEED THIS!!! -->
+<!-- <form class="patient-form-horizontal" action="/update_patient" method="POST">
+    <input id="update_<%= // data.PatientID %>" type="hidden" class="patientclass" name="patientidentifier" value="<%= data.PatientID %>" onChange="getUpdateValue()">  
+    <button id="<%= // data.PatientID %>" type="submit" class="patient-edit-white edit-remove"><i class="fa-solid fa-pencil"></i></button>
+</form> -->

@@ -569,7 +569,7 @@ html {
     /* ==================================================================== */
     /* SECTION OF STYLING FOR LARGE BUTTONS (THIS CAN BE USED FOR ALL PAGES) */
     /* ==================================================================== */
-    .patient-button-container-one {
+    .all-button-container-one {
         background-color: var(--white-background);
         font-size: 25px;
         text-align: center;
@@ -589,12 +589,12 @@ html {
         border-right: 2px solid var(--gray-color); */
     }
 
-    .patient-button-container-one:hover {
+    .all-button-container-one:hover {
         background-color: var(--gray-color);
         color: var(--blue-font);
     }
 
-    .patient-button-container-two {
+    .all-button-container-two {
         background-color: var(--white-background);
         font-size: 25px;
         text-align: center;
@@ -614,7 +614,7 @@ html {
         border-right: 2px solid var(--gray-color); */
     }
 
-    .patient-button-container-two:hover {
+    .all-button-container-two:hover {
         background-color: var(--gray-color);
         color: var(--blue-font);
     }
@@ -647,21 +647,21 @@ html {
 
     @media (max-width: 650px) { 
 
-        .name-and-buttons {
+        .patient-name-and-buttons {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        .edit-remove-buttons {
+        .patient-edit-remove-buttons {
             margin-top: 30px;
         }
 
-        .form-horizontal {
+        .patient-form-horizontal {
             display: inline-block;
         }
 
-        .edit-remove {
+        .patient-edit-remove {
             text-decoration: none;
             color: var(--black-font);
             font-size: 25px;
@@ -675,21 +675,21 @@ html {
 
     @media (min-width: 650px) { 
 
-        .name-and-buttons {
+        .patient-name-and-buttons {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
         }
 
-        .edit-remove-buttons {
+        .patient-edit-remove-buttons {
             margin-top: 0px;
         }
 
-        .form-horizontal {
+        .patient-form-horizontal {
             display: inline-block;
         }
 
-        .edit-remove {
+        .patient-edit-remove {
             text-decoration: none;
             color: var(--black-font);
             font-size: 25px;
@@ -701,21 +701,161 @@ html {
         }
     }
 
-    .edit-remove:hover {
+    .patient-edit-remove:hover {
         text-decoration: none;
         background-color: var(--edit-blue-color);
         color: var(--black-font);
     }
 
-    .edit-white {
+    .patient-edit-white {
         background-color: var(--white-background);
         border-radius: 0.5em;
     }
 
-    .edit-red {
+    .patient-edit-red {
         background-color: rgb(235, 169, 169);
         border-radius: 0.5em;
     }
+
+    /* ==================================================================== */
+    /* SECTION OF STYLING FOR THE CONFIRM-REMOVE MODAL FOR THE PATIENTS */
+    /* ==================================================================== */
+
+    /* Section for Modals */
+    .patient-modal-bg {
+        position: fixed;
+        z-index: 1050;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s, opacity 0.5s;
+    }
+
+    .patient-bg-active {
+        visibility: visible;
+        opacity: 1;
+        overflow-y: auto;
+    }
+
+    .patient-modal-dialog {
+        /* margin-top: auto; */
+        /* padding-top: 40px;
+        margin-bottom: 40px; */
+        margin: auto;
+    }
+
+    .patient-modal-container {
+        max-width: 600px;
+        color: var(--dark-font);
+    }
+
+    /* THESE STYLES CAN BE USED FOR ALL PAGES */
+    .fa-times-top {
+        color: var(--dark-font);
+        text-shadow: 0 0 10px var(--bluer-color);
+    }
+
+    .fa-times-top:hover {
+        color: var(--dark-font);
+        text-shadow: 0px 0px 0px var(--bluer-color);
+    }
+    /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
+
+    .patient-modal-information {
+        /* padding: 20px; */
+        margin: auto;
+        background-color: var(--white-background);
+        border-radius: 0.5em;
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+
+    .patient-modal-content {
+        display: flex;
+        text-align: left;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .patient-modal-body {
+        padding: 0; /* MAYBE ADD MORE LATER */
+    }
+
+    .patient-modal-heading-background {
+        background-color: var(--gray-color);
+        padding-right: 25px;
+        padding-left: 25px;
+        border-top-right-radius: 0.5em;
+        border-top-left-radius: 0.5em;
+    }
+
+    .patient-modal-heading {
+        text-align: left;
+        color: var(--dark-font);
+        font-size: 2.5rem;
+        line-height: 1.2;
+        margin-bottom: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .patient-modal-text-background {
+        padding-right: 25px;
+        padding-left: 25px;
+    }
+
+    .patient-modal-text {
+        margin-bottom: 20px;
+        line-height: 1.5;
+        font-size: 1.75rem;
+    }
+
+    .patient-confirm-delete-select {
+        padding-right: 25px;
+        padding-left: 25px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    .patient-edit-white-modal {
+        text-decoration: none;
+        background-color: var(--gray-color);
+        border-radius: 0.5em;
+    }
+
+    .patient-edit-red-modal {
+        text-decoration: none;
+        background-color: rgb(235, 169, 169);
+        border-radius: 0.5em;
+    }
+
+    .patient-edit-remove-modal {
+        text-decoration: none;
+        color: var(--black-font);
+        font-size: 25px;
+        padding: 15px;
+        padding-left: 25px;
+        padding-right: 25px;
+        margin-left: 10px;
+        border: 0;
+    }
+
+    .patient-edit-remove-modal:hover {
+        text-decoration: none;
+        background-color: var(--edit-blue-color);
+        color: var(--black-font);
+    }
+
+    /* ==================================================================== */
 
     @media (max-width: 650px) { 
 
@@ -780,6 +920,69 @@ html {
         margin-right: auto;
         margin-top: 40px;
         margin-bottom: 40px;
+    }
+
+    .patient-bottom {
+        position: fixed;
+        bottom: 0px;
+        right: 0px;
+        border-radius: 0.5em;
+    }
+
+    .patient-bottom-color {
+        text-decoration: none;
+        background-color: var(--gray-color);
+        color: black;
+        opacity: 60%;
+        padding: 15px;
+        padding-right: 20px;
+        padding-left: 20px;
+        margin: 15px;
+    }
+
+    .patient-bottom-color:hover {
+        text-decoration: none;
+        background-color: var(--edit-blue-color);
+        color: black;
+        opacity: 100%;
+    }
+    
+    /* Format the messages sent to the user. */ 
+    .patient-message-format {
+        display: inline-block;
+        text-align: center;
+        font-size: 3rem;
+        width: fit-content;
+    }
+
+    /* Style confirmation message with bluish color. */
+    .patient-confirmation {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: fit-content;
+        background-color: var(--edit-blue-color);
+        color: black;
+        border: 2px solid var(--blue-background);
+        animation: showPatientMessage 3s forwards;
+        z-index: 100;
+    }
+
+    /* Key frames fade for message with bluish color. */
+    @keyframes showPatientMessage {
+        0% {
+            transform:  translateY(-100%) translateX(calc(-50vw + 50%));
+        }
+        15% {
+            transform: translateY(0%) translateX(calc(-50vw + 50%));
+        }
+        85% {
+            transform: translateY(0%) translateX(calc(-50vw + 50%));
+        }
+        100% {
+            transform: translateY(-100%) translateX(calc(-50vw + 50%));
+            display: none;
+        }
     }
 
     /* ====================================================================

@@ -1,6 +1,6 @@
 {
     "host": "localhost",
-    "user": "root",
+    "user": "andrew",
     "password": "databases",
     "database": "PCM",
     "connectionLimit": 10

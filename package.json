@@ -35,6 +35,8 @@
     "mysql": "^2.18.1",
     "passport": "^0.5.2",
     "passport-local-mongoose": "^7.0.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "prompt-confirm": "^2.0.4",
+    "window": "^4.2.7"
   }
 }

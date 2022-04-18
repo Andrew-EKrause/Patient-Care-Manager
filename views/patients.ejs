@@ -18,6 +18,18 @@
 
 <%- include('./partials/header.ejs') %>
 
+    <!-- 
+        Send a message to the user alterting them that they made 
+        a change to the PATIENT database. This messages is only
+        executed if the user created, updated, or removed (deleted)
+        a patient.
+    -->
+    <% if(patientChange.length > 0) { %>
+        <div class="patientElementToFadeInAndOut patient-message-format">
+            <h1 class="patient-confirmation"><%= patientChange %></h1> 
+        </div>
+    <%  } %>
+
     <!-- Section for the list of patients on the webpage -->
     <section id="patients-page">
         <div class="fade-in">
@@ -27,10 +39,10 @@
             <div class="patient-ordering">
                 <!-- Create forms to process when user clicks the "Add Patient" button and the "Back" button -->
                 <div class="patient-buttons">
-                    <a id="patient-back-arrow" class="patient-button-container-one" href="/views">
+                    <a id="patient-back-arrow" class="all-button-container-one" href="/views">
                         <span class="patient-button-icon"><i class="fa-solid fa-arrow-left-long"></i></span> Back
                     </a>
-                    <a id="patient-add-icon" class="patient-button-container-two" href="/patient_new">
+                    <a id="patient-add-icon" class="all-button-container-two" href="/patient_new">
                         <span class="patient-button-icon"><i class="fa-solid fa-circle-plus"></i></span> New
                     </a>
                 </div>
@@ -128,7 +140,7 @@
                                 <h2 class="patient-name-text">
 
                                     <!-- Include a div to show the patient name and action buttons -->
-                                    <div class="name-and-buttons">
+                                    <div class="patient-name-and-buttons">
 
                                         <!-- 
                                             Display an icon indicating whether or not the patient has 
@@ -150,21 +162,130 @@
                                         </div>
 
                                         <!-- Include action (edit and remove) buttons here -->
-                                        <div class="edit-remove-buttons">
-                                            <!-- Makes POST request to the edit-patient route -->
-                                            <a class="edit-white edit-remove" href="/patient_edit/<%= data.PatientID %>">
+                                        <div class="patient-edit-remove-buttons">
+                                            
+                                            <!-- Include a button for the user to click when they wish to edit a patient -->
+                                            <a class="patient-edit-white patient-edit-remove" href="/patient_edit/<%= data.PatientID %>">
                                                 <i class="fa-solid fa-pencil"></i>
                                             </a>
-                                            <!-- <form class="form-horizontal" action="/update_patient" method="POST">
-                                                <input id="update_<%= // data.PatientID %>" type="hidden" class="patientclass" name="patientidentifier" value="<%= data.PatientID %>" onChange="getUpdateValue()">  
-                                                <button id="<%= // data.PatientID %>" type="submit" class="edit-white edit-remove"><i class="fa-solid fa-pencil"></i></button>
-                                            </form> -->
 
-                                            <!-- Makes POST request to the remove-patient route -->
-                                            <form class="form-horizontal" action="/patient_remove" method="POST">
-                                                <input id="remove_<%= data.PatientID %>" type="hidden" class="patientclass" name="patientidentifier" value="<%= data.PatientID %>" onChange="getRemoveValue()">  
-                                                <button type="submit" class="edit-red edit-remove"><i class="fa-solid fa-trash-can"></i></button>
-                                            </form>
+                                            <!-- 
+                                                Include a button for the user to click when they wish to remove a patient.
+                                                Clicking this button will open a modal that asks the user if they are sure
+                                                that they want to remove the patient. The user can then either confirm 
+                                                delete the patient from the database, or cancel the removal action.
+                                            -->
+                                            <a id="<%= data.PatientID %>" class="remove-the-patient patient-edit-red patient-edit-remove" onClick="getPatientID(this.id)" href="#patientModal_<%= data.PatientID %>">
+                                                
+                                                <!-- 
+                                                    Include a script tag inside of the anchor tag to add event handlers to the
+                                                    different elements associated with the "delete" button on each patient of
+                                                    the patiens page of the web application.
+                                                -->
+                                                <script>
+
+                                                    // Utilize a query selector with JavaScript to add an event listener
+                                                    // to each trash bin icon that is clicked by the user on the application.
+                                                    [...document.querySelectorAll('.remove-the-patient')].forEach(function(trashBin) {
+                                                        
+                                                        // Add a click event listener to the trash bin icon
+                                                        // so that when it is clicked, a modal pops up with
+                                                        // a confirm delete option.
+                                                        trashBin.addEventListener('click', function() {
+                                                          
+                                                            // Create variables for selecting 
+                                                            // the correct confirm delete modal.
+                                                            //var anchorValue = confirmItem;
+                                                            var modalValue = "patientModal_" + trashBin.id;
+                                                            var exitModal = "patient-exit-" + trashBin.id;
+
+                                                            // Add functions for the confirm delete modal.
+                                                            //var anchor = document.getElementById(anchorValue);
+                                                            var confirmModal = document.getElementById(modalValue);
+
+                                                            // When the user clicks the button, open 
+                                                            // the patient confirm delete modal.
+                                                            //anchor.onclick = function() {
+                                                            confirmModal.classList.add('patient-bg-active');
+                                                            document.body.classList.add('overflowHidden');
+
+                                                            // Select the exit icon on the confirm delete modal.
+                                                            var exitIcon = document.getElementById(exitModal);
+
+                                                            // When the user clicks the exit icon on the confirm 
+                                                            // delete modal, close the modal on the screen.
+                                                            exitIcon.onclick = function() {
+                                                                confirmModal.classList.remove('patient-bg-active');
+                                                                document.body.classList.remove('overflowHidden');
+                                                            }
+
+                                                            // If the user clicks anywhere outside
+                                                            // the modal, close it and do not execute
+                                                            // any of the functions in it.
+                                                            window.onclick = function(event) {
+
+                                                                // When anything outside of the modal is clicked, 
+                                                                // close the modal. You can also click the "Cancel"
+                                                                // button to close the modal.
+                                                                if (event.target == confirmModal) {
+                                                                    confirmModal.classList.remove('patient-bg-active');
+                                                                    document.body.classList.remove('overflowHidden');
+                                                            
+                                                                }
+                                                            }
+                                                        });
+                                                    });
+                                                </script>
+
+                                                <!-- Include a trash bin icon for each patient -->
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </a>
+
+                                            <!-- 
+                                                Include a MODAL that the user can click to confirm whether or not not they 
+                                                wish to remove the selected patient entity from the database 
+                                            -->
+                                            <div id="patientModal_<%= data.PatientID %>" role="dialog" class="patient-modal-bg">
+                                                <div class="patient-modal-dialog">
+                                                    <div class="patient-modal-container"> 
+                                                        <!-- Modal Information and Content -->
+                                                        <div class="patient-modal-information">
+                                                            <div class="patient-modal-content">
+                                                                <div>
+                                                                    <div class="patient-modal-body">
+                                                                        <!-- Include a div for showing the "Cancel" and "Confirm" button on the modal -->
+                                                                        <div>
+                                                                            <!-- Heading -->
+                                                                            <div class="patient-modal-heading-background">
+                                                                                <h2 class="patient-modal-heading">Confirm</h2>
+                                                                            </div>      
+                                                                            
+                                                                            <!-- Description -->
+                                                                            <div class="patient-modal-text-background">
+                                                                                <p class="patient-modal-text">Are you sure you want to delete patient: <strong><%= data.PatientFirstName %> <%= data.PatientMiddleName %> <%= data.PatientLastName %></strong>?</p>
+                                                                            </div>
+
+                                                                            <!-- Include a div for the two buttons on the modal -->
+                                                                            <div class="patient-confirm-delete-select">
+                                                                                <!-- Provide a "Cancel" button if the user wishes to cancel the delete action -->
+                                                                                <a id="patient-exit-<%= data.PatientID %>" class="patient-edit-white-modal patient-edit-remove-modal" href="#close">
+                                                                                    Cancel
+                                                                                </a>
+                                                                                <!-- Makes POST request to the remove-patient route if the "Confirm Delete" button is clicked -->
+                                                                                <form class="form-horizontal" action="/patient_remove" method="POST">
+                                                                                    <input id="remove_<%= data.PatientID %>" type="hidden" class="patientclass" name="patientidentifier" value="<%= data.PatientID %>" onChange="getRemoveValue()">
+                                                                                    <button type="submit" class="patient-edit-red-modal patient-edit-remove-modal">Delete</button>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            </div>
+
                                         </div>
                                     </div>
                                 </h2>
@@ -204,6 +325,17 @@
                         <h2 class="no-patient-data">There is currently no patient data.</h2>
                     <% } %>
                 </div>
+            </div>
+
+            <!-- 
+                Include a div that displays a chevron that the
+                user can click to return to the top of the page
+            -->
+            <div>
+                <!-- Include a button for the user to click when they wish to edit a patient -->
+                <a class="patient-bottom patient-bottom-color" href="#patients-page">
+                    <i class="fa-solid fa-chevron-up fa-1.5x"></i>
+                </a>
             </div>
         </div>
     </section>

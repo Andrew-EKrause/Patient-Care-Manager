@@ -26,7 +26,6 @@
 // Require packages for the server that were installed.
 const express = require("express");
 var path = require("path");
-const flash = require("connect-flash");
 const ejs = require("ejs");
 const _ = require("lodash");
 

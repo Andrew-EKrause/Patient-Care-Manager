@@ -880,17 +880,22 @@ html {
             color: var(--black-font);
             background-color: var(--white-background);
             margin: 0;
-            padding-top: 20px;
-            padding-bottom: 20px;
             padding-right: 20px;
             padding-left: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
             margin-left: auto;
             margin-right: auto;
-            margin-bottom: 30px;
             border: 2px solid var(--gray-color);
             /* display: flex;
             flex-direction: column;
             justify-content: flex-start; */
+        }
+
+        .patient-column {
+            margin-right: 10px;
+            width: 100%;
+            max-width: 400px;
         }
     }
 
@@ -903,24 +908,23 @@ html {
             color: var(--black-font);
             background-color: var(--white-background);
             margin: 0;
-            padding-top: 20px;
-            padding-bottom: 20px;
             padding-right: 20px;
             padding-left: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
             margin-left: auto;
             margin-right: auto;
-            margin-bottom: 30px;
             border: 2px solid var(--gray-color);
             display: flex;
             flex-direction: row;
             justify-content: center;
         }
-    }
 
-    .patient-column {
-        margin-right: 10px;
-        width: 50%;
-        max-width: 400px;
+        .patient-column {
+            margin-right: 10px;
+            width: 50%;
+            max-width: 400px;
+        }
     }
 
     .patient-text-info {

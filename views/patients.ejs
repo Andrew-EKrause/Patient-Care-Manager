@@ -71,11 +71,11 @@
                         <% } %>
 
                         <!-- Include a function to simplify the date display -->
-                        <% function simplifyDate(eventDate) { %>
+                        <% function simplifyDate(birthDate) { %>
 
                             <% // First split the event into the components that directly %>
                             <% // involve the numberical representations of a date. %>
-                            <% var date = eventDate.toISOString().split("T")[0]; %>
+                            <% var date = birthDate.toISOString().split("T")[0]; %>
                         
                             <% // Create variables for workring with %>
                             <% // the nubmers in the date variable. %>
@@ -122,6 +122,32 @@
                             <% return simplifiedDate; %>
                         <% } %>
 
+                        <!-- Include a function to obtain any given patient's age -->
+                        <% function getPatientAge(birthDate) { %>
+
+                            <% // First split the event into the components that directly %>
+                            <% // involve the numberical representations of a date. %>
+                            <% var date = birthDate.toISOString().split("T")[0]; %>
+                        
+                            <% // Create variables for workring with %>
+                            <% // the values in the date variable. %>
+                            <% // This will help with obtaining the %>
+                            <% // patient's age. %>
+                            <% var arrayDate = date.split('-'); %>
+                            <% var patientYearBorn = arrayDate[0]; %>
+                            <% var simplifiedDate = ""; %>
+
+                            <% // Obtain the current year. %>
+                            <% var currentDate = new Date(); %>
+                            <% var currentYear = currentDate.getFullYear(); %>
+                        
+                            <% // Obtain the patient's age by subtracting the %>
+                            <% // year that the patient was born from the current %>
+                            <% // year, and return it. %>
+                            <% patientAge = currentYear - patientYearBorn; %>
+                            <% return patientAge; %>
+                        <% } %>
+
                         <!-- 
                             Loop through all of the patients in the 
                             database and display them on the page 
@@ -147,7 +173,7 @@
                                             been discharged from the hospital. Also include the patient's
                                             full name.
                                         -->
-                                        <div>
+                                        <div class="patient-full-name">
                                             <!-- 
                                                 If the patient has been discharged, display the heart check icon.
                                                 Otherwise, display the heart icon indicating that treatment is 
@@ -164,8 +190,17 @@
                                         <!-- Include action (edit and remove) buttons here -->
                                         <div class="patient-edit-remove-buttons">
                                             
+                                            <!-- 
+                                                Include a button for expanding any patient's information.
+                                                This button is used to expand any patient module that is
+                                                listed in the database.
+                                            -->
+                                            <a class="patient-edit-white patient-edit-remove" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-patients<%= data.PatientID %>" aria-expanded="false" aria-controls="collapse-patients<%= data.PatientID %>">
+                                                <i class="fa-solid fa-circle-info"></i>
+                                            </a>
+
                                             <!-- Include a button for the user to click when they wish to edit a patient -->
-                                            <a class="patient-edit-white patient-edit-remove" href="/patient_edit/<%= data.PatientID %>">
+                                            <a class="patient-edit-white patient-edit-remove patient-edit-pencil" href="/patient_edit/<%= data.PatientID %>">
                                                 <i class="fa-solid fa-pencil"></i>
                                             </a>
 
@@ -292,10 +327,11 @@
                             </div>
 
                             <!-- Create the main-content portion of the patient card -->
-                            <div class="patient-card">
+                            <div id="collapse-patients<%= data.PatientID %>" class="patient-card collapse">
                                 <!-- Each column of the card displays different amounts of data -->
                                 <div class="patient-column">
                                     <p class="patient-text-info"><b>Birthdate:</b> <%= simplifyDate(data.PatientBirthdate) %></p>
+                                    <p class="patient-text-info"><b>Age:</b> <%= getPatientAge(data.PatientBirthdate) %>yrs</p>
                                     <p class="patient-text-info"><b>Sex:</b> <%= data.PatientSex %></p> 
                                     <p class="patient-text-info"><b>Height:</b> <%= data.PatientHeight %> feet/inches</p>
                                     <p class="patient-text-info"><b>Weight:</b> <%= data.PatientWeight %>lbs</p>
@@ -303,6 +339,7 @@
                                 </div>
                                 <!-- Each column of the card displays different amounts of data -->
                                 <div class="patient-column">
+                                    <p class="patient-text-info"><b>Risk Index:</b> <%= data.PatientRiskIndex %>/10</p>
                                     <p class="patient-text-info"><b>Phone:</b> <%= data.PatientPhone %></p>
                                     <p class="patient-text-info"><b>Email:</b> <%= data.PatientEmail %></p>
                                     <p class="patient-text-info"><b>Admitted:</b> <%= simplifyDate(data.PatientStartDate) %></p> 

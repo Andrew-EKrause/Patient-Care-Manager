@@ -157,6 +157,7 @@ patientRouter.post("/patient_add", function(req, res) {
     var patientSex = req.body.patientsex;
     var patientHeight = req.body.patientheight;
     var patientWeight = req.body.patientweight;
+    var patientRiskIndex = req.body.patientriskindex;
     var patientDescription = req.body.patientdescription;
     var patientPhone = req.body.patientphone;
     var patientEmail = req.body.patientemail.trim();
@@ -197,11 +198,12 @@ patientRouter.post("/patient_add", function(req, res) {
                                         PatientBirthdate, 
                                         PatientSex, 
                                         PatientWeight, 
+                                        PatientRiskIndex,
                                         PatientPhone, 
                                         PatientEmail, 
                                         PatientHeight,
                                         PatientStartDate,
-                                        PatientEndDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+                                        PatientEndDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
 
     // Complete the query in the database and add the patient
     // data entered by the user into the patient table of the
@@ -213,6 +215,7 @@ patientRouter.post("/patient_add", function(req, res) {
                          patientBirthdate, 
                          patientSex, 
                          patientWeight, 
+                         patientRiskIndex,
                          patientPhone, 
                          patientEmail, 
                          patientHeight, 
@@ -228,7 +231,7 @@ patientRouter.post("/patient_add", function(req, res) {
             // after adding the patient to the database.
             // Add a flash message indicating that the user was
             // successfully added to the database.
-            req.flash("patientChange", "Created new patient.");
+            req.flash("patientChange", "Patient created.");
             res.redirect("/patients");
         }
     });
@@ -321,6 +324,7 @@ patientRouter.post("/patient_update", function(req, res) {
     var patientHeight = req.body.patientheight;
     var patientWeight = req.body.patientweight;
     var patientDescription = req.body.patientdescription;
+    var patientRiskIndex = req.body.patientriskindex;
     var patientPhone = req.body.patientphone;
     var patientEmail = req.body.patientemail;
     var patientStartDate = req.body.patientstartdate;
@@ -358,6 +362,9 @@ patientRouter.post("/patient_update", function(req, res) {
     if(!patientWeight) {
         patientWeight = req.body.defaultpatientweight;
     }
+    if(!patientRiskIndex) {
+        patientRiskIndex = req.body.defaultpatientriskindex;
+    }
     if(!patientDescription) {
         patientDescription = req.body.defaultpatientdescription.trim();
     }
@@ -384,7 +391,7 @@ patientRouter.post("/patient_update", function(req, res) {
     // Include the SQL query that will update the patient entity
     // in the patient table.
     var sql = `UPDATE PCM.Patient 
-                SET PatientNotes = ?, PatientFirstName = ?, PatientMiddleName = ?, PatientLastName = ?, PatientBirthdate = ?, PatientSex = ?, PatientWeight = ?, PatientPhone = ?, PatientEmail = ?, PatientHeight = ?, PatientStartDate = ?, PatientEndDate = ?
+                SET PatientNotes = ?, PatientFirstName = ?, PatientMiddleName = ?, PatientLastName = ?, PatientBirthdate = ?, PatientSex = ?, PatientWeight = ?, PatientRiskIndex = ?, PatientPhone = ?, PatientEmail = ?, PatientHeight = ?, PatientStartDate = ?, PatientEndDate = ?
                WHERE PatientID = ?;`;
 
     // Complete the query in the database and display the patient
@@ -396,6 +403,7 @@ patientRouter.post("/patient_update", function(req, res) {
                          patientBirthdate, 
                          patientSex, 
                          patientWeight, 
+                         patientRiskIndex,
                          patientPhone, 
                          patientEmail, 
                          patientHeight, 
@@ -411,7 +419,7 @@ patientRouter.post("/patient_update", function(req, res) {
             // Redirect the route back to the main patients page.
             // Add a flash message indicating that the user was
             // successfully updated in the database.
-            req.flash("patientChange", "Updated patient.");
+            req.flash("patientChange", "Patient updated.");
             res.redirect("/patients");
         }
     });
@@ -442,7 +450,7 @@ patientRouter.post("/patient_remove", function(req, res) {
             // Redirect the route back to the main patients page.
             // Add a flash message indicating that the user was
             // successfully removed from the database.
-            req.flash("patientChange", "Removed patient.");
+            req.flash("patientChange", "Patient removed.");
             res.redirect("/patients");
         }
     });

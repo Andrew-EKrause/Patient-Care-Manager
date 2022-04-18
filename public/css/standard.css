@@ -653,8 +653,13 @@ html {
             justify-content: space-between;
         }
 
+        .patient-full-name {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
         .patient-edit-remove-buttons {
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
         .patient-form-horizontal {
@@ -681,6 +686,11 @@ html {
             justify-content: space-between;
         }
 
+        .patient-full-name {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
         .patient-edit-remove-buttons {
             margin-top: 0px;
         }
@@ -705,6 +715,10 @@ html {
         text-decoration: none;
         background-color: var(--edit-blue-color);
         color: var(--black-font);
+    }
+
+    .patient-edit-pencil {
+        margin-left: 4px;
     }
 
     .patient-edit-white {
@@ -899,12 +913,13 @@ html {
             border: 2px solid var(--gray-color);
             display: flex;
             flex-direction: row;
-            justify-content: flex-start;
+            justify-content: center;
         }
     }
 
     .patient-column {
         margin-right: 10px;
+        width: 50%;
         max-width: 400px;
     }
 
@@ -1483,6 +1498,7 @@ html {
     .patient-create-text-info {
         text-decoration: none;
         margin: 10px;
+        margin-top: 0;
     }
 
     .patient-create-buttons {

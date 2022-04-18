@@ -234,6 +234,7 @@
                                         <!-- Format the placeholder for the date admitted value -->
                                         <% var startDatePatient = simplifyDate(data.PatientStartDate); %>
 
+                                        <p class="patient-edit-text-info"><b>Risk Index:</b> <input placeholder="<%= data.PatientRiskIndex %>" type="number" class="" name="patientriskindex" size="5" maxlength="12" min="0" max="10" step="1"></p>
                                         <p class="patient-edit-text-info"><b>Phone:</b> <input placeholder="<%= data.PatientPhone %>" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="" name="patientphone" size="13" maxlength="12"></p>
                                         <p class="patient-edit-text-info"><b>Email:</b> <input placeholder="<%= data.PatientEmail %>" type="email" class="" name="patientemail" size="13"></p>
                                         <p class="patient-edit-text-info"><b>Admitted:</b> <input placeholder="<%= startDatePatient %>" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientstartdate" size="16"></p> 
@@ -292,6 +293,7 @@
                                     <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="defaultpatientsex" value="<%= data.PatientSex %>" onChange="getUpdateValue()">  
                                     <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="defaultpatientheight" value="<%= data.PatientHeight %>" onChange="getUpdateValue()">  
                                     <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="defaultpatientweight" value="<%= data.PatientWeight %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="defaultpatientriskindex" value="<%= data.PatientRiskIndex %>" onChange="getUpdateValue()">  
                                     <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="defaultpatientdescription" value="<%= data.PatientNotes %>" onChange="getUpdateValue()">  
                                     <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="defaultpatientphone" value="<%= data.PatientPhone %>" onChange="getUpdateValue()">  
                                     <input id="update_<%= data.PatientID %>" type="hidden" class="patientclass" name="defaultpatientemail" value="<%= data.PatientEmail %>" onChange="getUpdateValue()">  

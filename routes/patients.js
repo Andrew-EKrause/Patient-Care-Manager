@@ -129,7 +129,7 @@ patientRouter.get("/patient_edit/:patientId", function(req, res) {
 // create a new patient.
 patientRouter.get("/patient_new", function(req, res) {
 
-    // Render the "new_patient" page to allow the user to 
+    // Render the "patient_new" page to allow the user to 
     // create a new patient entity and add it to the database.
     res.render("patient_new");
 });
@@ -229,7 +229,7 @@ patientRouter.post("/patient_add", function(req, res) {
             
             // Redirect the route back to the main patients page
             // after adding the patient to the database.
-            // Add a flash message indicating that the user was
+            // Add a flash message indicating that the patient was
             // successfully added to the database.
             req.flash("patientChange", "Patient created.");
             res.redirect("/patients");
@@ -316,14 +316,14 @@ patientRouter.post("/patient_update", function(req, res) {
     // SQL update statement below. A series of conditionals before that
     // SQL update statement determine whether the variables will contain
     // values entered into the input or the default values.
-    var patientFirstName = req.body.patientfirstname;
-    var patientMiddleName = req.body.patientmiddlename;
-    var patientLastName = req.body.patientlastname;
+    var patientFirstName = req.body.patientfirstname.trim();
+    var patientMiddleName = req.body.patientmiddlename.trim();
+    var patientLastName = req.body.patientlastname.trim();
     var patientBirthdate = req.body.patientbirthdate; 
     var patientSex = req.body.patientsex;
     var patientHeight = req.body.patientheight;
     var patientWeight = req.body.patientweight;
-    var patientDescription = req.body.patientdescription;
+    var patientDescription = req.body.patientdescription.trim();
     var patientRiskIndex = req.body.patientriskindex;
     var patientPhone = req.body.patientphone;
     var patientEmail = req.body.patientemail;
@@ -417,7 +417,7 @@ patientRouter.post("/patient_update", function(req, res) {
         } else {
             
             // Redirect the route back to the main patients page.
-            // Add a flash message indicating that the user was
+            // Add a flash message indicating that the patient was
             // successfully updated in the database.
             req.flash("patientChange", "Patient updated.");
             res.redirect("/patients");
@@ -434,8 +434,8 @@ patientRouter.post("/patient_remove", function(req, res) {
     // store the patient ID in a variable.
     var removePatient = req.body.patientidentifier;
 
-    // Include the SQL query that will remove the selected patient
-    // entity patient entity from the patient table in the database.
+    // Include the SQL query that will remove the selected
+    // patient entity from the patient table in the database.
     var sql = `DELETE FROM PCM.Patient WHERE PatientID = ?;`;
 
     // Complete the query in the database and remove the patient
@@ -448,7 +448,7 @@ patientRouter.post("/patient_remove", function(req, res) {
         } else {
 
             // Redirect the route back to the main patients page.
-            // Add a flash message indicating that the user was
+            // Add a flash message indicating that the patient was
             // successfully removed from the database.
             req.flash("patientChange", "Patient removed.");
             res.redirect("/patients");

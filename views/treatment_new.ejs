@@ -1,0 +1,93 @@
+<!-- 
+    The treatment_new.ejs file displays...
+    ...
+    Project: Mayo Clinic Patient Care Manager 
+             (PCM) Web Application
+    Author: Andrew Krause
+    Class: Introduction to Database 
+           Management Systems (CS 364)
+    Date: 5/10/2022
+    ...
+-->
+
+<%- include('./partials/header.ejs') %>
+
+    <!-- Section for the list of treatments on the webpage -->
+    <section id="treatment-create-page">
+        <div class="fade-in">
+            <header>
+                <h1 class="treatment-create-page-text">Create Treatment</h1>
+            </header>
+            <div class="treatment-create-ordering">
+                <!-- 
+                    This is the section where the treatment data
+                    is loaded to be displayed on the page
+                -->
+                <div class="treatment-create-item">
+
+                    <!-- 
+                        Create a form to process any data that is entered into the input fields by the
+                        user. This information will be used to create a new treatment for the database.
+                    -->
+                    <form class="form-create-treatment-horizontal" action="/treatment_add" method="POST">
+
+                        <!-- Create a card for each treatment -->
+                        <!-- First, create a heading that displays the name of each treatment -->
+                        <div class="treatment-create-name">
+
+                            <!-- Display the treatment name and create icon -->
+                            <h2 class="treatment-create-name-text">
+
+                                <!-- Include a div to show the treatment name and action buttons -->
+                                <div class="treatment-name-create-buttons ">
+
+                                    <!-- Display an icon for the treatment and the treatment name -->
+                                    <div>
+                                        <!-- Display an icon for creating the new treatment -->
+                                        <i class="fa-solid fa-file-medical"></i>
+                                        
+                                        <!-- Provide a section for the user to add a new treatment name -->
+                                        Treatment Name: 
+                                        <input placeholder="Enter Treatment Name" type="text" class="name-input" name="treatmentname" size="10" required>
+                                    </div>
+                                </div>
+                            </h2>
+                        </div>
+
+                        <!-- Create the main-content portion of the treatment card -->
+                        <div class="treatment-create-card">                                
+            
+                            <!-- Each column of the card displays different amounts of data -->
+                            <div class="treatment-create-column">
+                                <p class="treatment-edit-text-info"><b>Requirements:</b> <input placeholder="Enter Requirements" type="text" class="name-input" name="treatmentrequirements" size="10" required></p>
+                                <p class="treatment-edit-text-info"><b>Description:</b> <input placeholder="Enter Description" type="text" class="name-input" name="treatmentdescription" size="10" required></p>
+                            </div>
+                            <!-- Each column of the card displays different amounts of data -->  
+                            <div class="treatment-create-column">
+                                <p class="treatment-edit-text-info"><b>Risk Index:</b> <input placeholder="0-10" type="number" class="" name="treatmentriskindex" size="5" maxlength="12" min="0" max="10" step="1" required></p>
+                                <p class="treatment-edit-text-info"><b>Tools:</b> <input placeholder="Enter Tools" type="text" class="name-input" name="treatmenttools" size="10" required></p>
+                            </div>
+                        </div>
+
+                        <!-- Create forms to process when user clicks the "Add Treatment" button and the "Back" button -->
+                        <div class="treatment-create-buttons">
+                            <!-- The button brings the user back to the main list of treatments on the website -->
+                            <a id="treatment-create-icon1" class="all-button-container-one" href="/treatments">
+                                <span class="treatment-button-icon"><i class="fa-solid fa-circle-xmark"></i></span> Cancel
+                            </a>
+
+                            <!-- 
+                                The button, when clicked, triggers a process in which any form data entered into 
+                                the fields on the page by the user is gathered for the "treatment_create" route 
+                            -->
+                            <button type="submit" id="treatment-create-icon2" class="all-button-container-two">
+                                <span class="treatment-button-icon"><i class="fa-solid fa-heart-circle-plus"></i></span> Create
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<%- include('./partials/footer.ejs') %>

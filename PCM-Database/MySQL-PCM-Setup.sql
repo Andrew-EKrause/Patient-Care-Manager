@@ -23,3 +23,21 @@ CREATE TABLE `Patient` (
   UNIQUE KEY `PatientID_UNIQUE` (`PatientID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
+/* =========================================================================================== */
+
+/*
+  Create the Treatment Table using MySQL.
+  NOTE: The AUTO_INCREMENT field is set to 1 by default!
+*/
+CREATE TABLE `Treatment` (
+  `TreatmentID` int NOT NULL AUTO_INCREMENT,
+  `TreatmentName` varchar(60) NOT NULL,
+  `TreatmentRequirements` varchar(255) NOT NULL,
+  `TreatmentDescription` varchar(255) NOT NULL,
+  `TreatmentTools` varchar(255) NOT NULL,
+  `TreatmentRiskIndex` int NOT NULL,
+  PRIMARY KEY (`TreatmentID`),
+  UNIQUE KEY `idTreatment_UNIQUE` (`TreatmentID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+/* =========================================================================================== */

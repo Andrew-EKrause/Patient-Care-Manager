@@ -49,7 +49,7 @@
                             <h2 class="patient-create-name-text">
 
                                 <!-- Include a div to show the patient name and action buttons -->
-                                <div class="name-create-buttons">
+                                <div class="patient-name-create-buttons">
 
                                     <!-- 
                                         Display an icon indicating whether or not the patient has 
@@ -92,7 +92,7 @@
                                 <p class="patient-create-text-info"><b>Description:</b> <input placeholder="Enter Description" type="text" class="name-input" name="patientdescription" size="10" required></p>
                             </div>
                             <!-- Each column of the card displays different amounts of data -->  
-                            <div class="patient-create-text-info">
+                            <div class="patient-create-column">
                                 <p class="patient-create-text-info"><b>Risk Index:</b> <input placeholder="0-10" type="number" class="" name="patientriskindex" size="5" maxlength="12" min="0" max="10" step="1" required></p>
                                 <p class="patient-create-text-info"><b>Phone:</b> <input placeholder="###-###-####" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="" name="patientphone" size="13" maxlength="12" required></p>
                                 <p class="patient-create-text-info"><b>Email:</b> <input placeholder="Enter Email" type="email" class="" name="patientemail" size="13" required></p>
@@ -156,7 +156,7 @@
 
                             <!-- 
                                 The button, when clicked, triggers a process in which any form data entered into 
-                                the fields on the page by the user is gathered for the "create_patient" route 
+                                the fields on the page by the user is gathered for the "patient_create" route 
                             -->
                             <button type="submit" id="patient-create-icon2" class="all-button-container-two">
                                 <span class="patient-button-icon"><i class="fa-solid fa-heart-circle-plus"></i></span> Create

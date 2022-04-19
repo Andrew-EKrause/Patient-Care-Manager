@@ -1,0 +1,141 @@
+<!-- 
+    The treatment_edit.ejs file...
+    ...
+    Project: Mayo Clinic Patient Care Manager 
+             (PCM) Web Application
+    Author: Andrew Krause
+    Class: Introduction to Database 
+           Management Systems (CS 364)
+    Date: 5/10/2022
+    ...
+    NOTE: MAY WANT TO ADD A TREATMENT TYPE ATTRIBUTE AT SOME POINT IF YOU GET THE CHANCE!!!
+-->
+
+<%- include('./partials/header.ejs') %>
+
+    <!-- Section for the form with update ability for treatments on the webpage -->
+    <section id="treatments-edit-page">
+        <div class="fade-in">
+            <header>
+                <h1 class="treatment-edit-page-text">Edit Treatment</h1>
+            </header>
+            <div class="treatment-edit-ordering">
+                <!-- 
+                    This is the section where the treatment data
+                    is loaded to be displayed on the page
+                -->
+                <div class="treatment-edit-items">
+
+                    <!-- 
+                        If there is data in the treatment table 
+                        of the database, display that data
+                    -->
+                    <% if(treatmentEdit.length != 0) { %>
+
+                        <!-- Create a form to process any data that is entered into the input fields by the user -->
+                        <form class="form-edit-treatment-horizontal" action="/treatment_update" method="POST">
+
+                            <!-- 
+                                Create a function to obtain the treatment ID in order to 
+                                perform an update operation on any given treatment entity.
+                            -->
+                            <% function getUpdateValue() { %>
+                                
+                                <% // Create variables to obtain the chevron element. %>
+                                <% var value = "update_" + event.currentTarget.id; %>
+                                <% var element = document.getElementById(value).value; %>
+                            <% } %>
+
+                            <!-- 
+                                Loop through all of the treatments in the 
+                                database and display them on the page 
+                            -->
+                            <% treatmentEdit.forEach(function(data) { %>
+
+                                <!-- Create a card for each treatment -->
+                                <!-- First, create a heading that displays the name of each treatment -->
+                                <div class="treatment-edit-name">
+
+                                    <!-- Display the treatment icon and name -->
+                                    <h2 class="treatment-name-text">
+
+                                        <!-- Include a div to show the treatment name and action buttons -->
+                                        <div class="treatment-name-edit-buttons">
+
+                                            <!-- 
+                                                Display an icon indicating whether or not the treatment has 
+                                                been discharged from the hospital. Also include the treatment's
+                                                full name.
+                                            -->
+                                            <div>
+                                                <!-- Include the treatment icon -->
+                                                <i class="fa-solid fa-flask"></i>
+
+                                                <!-- Include the treatment name -->
+                                                Treatment Name: 
+                                                <input placeholder="<%= data.TreatmentName %>" type="text" class="name-input" name="treatmentname" size="10">
+                                            </div>
+                                        </div>
+                                    </h2>
+                                </div>
+
+                                <!-- Create the main-content portion of the treatment card -->
+                                <div class="treatment-edit-card">                                 
+                    
+                                    <!-- Each column of the card displays different amounts of data -->
+                                    <div class="treatment-edit-column">
+
+                                        <p class="treatment-edit-text-info"><b>Requirements:</b> <input placeholder="<%= data.TreatmentRequirements %>" type="text" class="name-input" name="treatmentrequirements" size="10"></p>
+                                        <p class="treatment-edit-text-info"><b>Description:</b> <input placeholder="<%= data.TreatmentDescription %>" type="text" class="name-input" name="treatmentdescription" size="10"></p>
+                                    </div>
+                                    <!-- Each column of the card displays different amounts of data --> 
+                                    <div class="treatment-edit-column">
+
+                                        <p class="treatment-edit-text-info"><b>Risk Index:</b> <input placeholder="<%= data.TreatmentRiskIndex %>" type="number" class="" name="treatmentriskindex" size="5" maxlength="12" min="0" max="10" step="1"></p>
+                                        <p class="treatment-edit-text-info"><b>Tools:</b> <input placeholder="<%= data.TreatmentTools %>" type="text" class="name-input" name="treatmenttools" size="10"></p>
+                                    </div>
+
+                                    <!-- 
+                                        Included here are the original values of the treatment entity that the
+                                        user wishes to update. This enables the user to update only certain
+                                        attributes instead of having to provide a value for all inputs.
+                                    -->
+                                    <!-- This is the only attribute that you will use regardless of what is entered into the input! -->
+                                    <input id="update_<%= data.TreatmentID %>" type="hidden" class="treatmentclass" name="defaulttreatmentid" value="<%= data.TreatmentID %>" onChange="getUpdateValue()">  
+
+                                    <!-- The rest of the default identifiers are listed below -->
+                                    <input id="update_<%= data.TreatmentID %>" type="hidden" class="treatmentclass" name="defaulttreatmentname" value="<%= data.TreatmentName %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.TreatmentID %>" type="hidden" class="treatmentclass" name="defaulttreatmentrequirements" value="<%= data.TreatmentRequirements %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.TreatmentID %>" type="hidden" class="treatmentclass" name="defaulttreatmentdescription" value="<%= data.TreatmentDescription %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.TreatmentID %>" type="hidden" class="treatmentclass" name="defaulttreatmentriskindex" value="<%= data.TreatmentRiskIndex %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.TreatmentID %>" type="hidden" class="treatmentclass" name="defaulttreatmenttools" value="<%= data.TreatmentTools %>" onChange="getUpdateValue()">  
+                                </div>
+                            <% }); %>
+
+                            <!-- Create forms to process when user clicks the "Add Treatment" button and the "Back" button -->
+                            <div class="treatment-edit-buttons">
+                                <!-- The button brings the user back to the main list of treatments on the website -->
+                                <a id="treatment-edit-icon1" class="all-button-container-one" href="/treatments">
+                                    <span class="treatment-button-icon"><i class="fa-solid fa-circle-xmark"></i></span> Cancel
+                                </a>
+
+                                <!-- 
+                                    The button, when clicked, triggers a process in which any form data entered into 
+                                    the fields on the page by the user is gathered for the "treatment_update" route 
+                                -->
+                                <button type="submit" id="treatment-edit-icon2" class="all-button-container-two">
+                                    <span class="treatment-button-icon"><i class="fa-solid fa-circle-arrow-up"></i></span> Update
+                                </button>
+                            </div>
+                        </form>
+
+                    <!-- If there is no treatment data, display the message -->
+                    <% } else { %>
+                        <h2 class="no-treatment-edit-data">There is currently no treatment data.</h2>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<%- include('./partials/footer.ejs') %>

@@ -65,7 +65,7 @@
                         -->
                         <% function getRemoveValue() { %>
                             
-                            <% // Create variables to obtain the chevron element. %>
+                            <% // Create variables to obtain the patient ID element. %>
                             <% var value = "remove_" + event.currentTarget.id; %>
                             <% var element = document.getElementById(value).value; %>
                         <% } %>
@@ -166,7 +166,7 @@
                                 <div class="patient-name">
 
                                     <!-- 
-                                        If the patient has been discharged from treatment, print out an
+                                        If the patient has been discharged from hospital, print out an
                                         icon to indicate that they are done being treated. Otherwise, print
                                         out an icon to indicate that they are currently in treatment.
                                     -->
@@ -222,7 +222,7 @@
                                                     <!-- 
                                                         Include a script tag inside of the anchor tag to add event handlers to the
                                                         different elements associated with the "delete" button on each patient of
-                                                        the patiens page of the web application.
+                                                        the patients page of the web application.
                                                     -->
                                                     <script>
 
@@ -237,17 +237,14 @@
                                                             
                                                                 // Create variables for selecting 
                                                                 // the correct confirm delete modal.
-                                                                //var anchorValue = confirmItem;
                                                                 var modalValue = "patientModal_" + trashBin.id;
                                                                 var exitModal = "patient-exit-" + trashBin.id;
 
-                                                                // Add functions for the confirm delete modal.
-                                                                //var anchor = document.getElementById(anchorValue);
+                                                                // Add selectors for the confirm delete modal.
                                                                 var confirmModal = document.getElementById(modalValue);
 
                                                                 // When the user clicks the button, open 
                                                                 // the patient confirm delete modal.
-                                                                //anchor.onclick = function() {
                                                                 confirmModal.classList.add('patient-bg-active');
                                                                 document.body.classList.add('overflowHidden');
 

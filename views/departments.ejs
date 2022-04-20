@@ -21,12 +21,268 @@
 
 <%- include('./partials/header.ejs') %>
 
+     <!-- 
+        Send a message to the user alterting them that they made 
+        a change to the DEPARTMENT database. This messages is only
+        executed if the user created, updated, or removed (deleted)
+        a department.
+    -->
+    <% if(departmentChange.length > 0) { %>
+        <div class="departmentElementToFadeInAndOut department-message-format">
+            <h1 class="department-confirmation"><%= departmentChange %></h1> 
+        </div>
+    <%  } %>
+
     <!-- Section for the list of departments on the webpage -->
-    <section id="patients-page">
-        <div class="patient-section fade-in">
+    <section id="departments-page">
+        <div class="fade-in">
             <header>
-                <h1 class="patient-page-text">Departments</h1>
+                <h1 class="department-page-text">Departments</h1>
             </header>
+            <div class="department-ordering">
+                <!-- Create forms to process when user clicks the "Add Department" button and the "Back" button -->
+                <div class="department-buttons">
+                    <a id="department-back-arrow" class="all-button-container-one" href="/views">
+                        <span class="department-button-icon"><i class="fa-solid fa-arrow-left-long"></i></span> Back
+                    </a>
+                    <a id="department-add-icon" class="all-button-container-two" href="/department-new">
+                        <span class="department-button-icon"><i class="fa-solid fa-circle-plus"></i></span> New
+                    </a>
+                </div>
+
+                <!-- 
+                    This is the section where the department data
+                    is loaded to be displayed on the page
+                -->
+                <div class="department-items">
+                    
+                    <!-- 
+                        If there is data in the department table 
+                        of the database, display that data
+                    -->
+                    <% if(departmentData.length != 0) { %>
+
+                        <!-- 
+                            Create a function to obtain the department ID in order to 
+                            perform an remove operation on any given department entity.
+                        -->
+                        <% function getRemoveValue() { %>
+                            
+                            <% // Create variables to obtain the department ID element. %>
+                            <% var value = "remove_" + event.currentTarget.id; %>
+                            <% var element = document.getElementById(value).value; %>
+                        <% } %>
+
+                        <!-- 
+                            Loop through all of the department in the 
+                            database and display them on the page 
+                        -->
+                        <% departmentData.forEach(function(data) { %>
+
+                            <!--
+                                Create a div to hold the button collapse function layout. 
+                                The main components within this div include the main button
+                                and the content that appears when the user clicks the button.
+                            -->
+                            <div>
+
+                                <!-- Create a card for each department -->
+                                <!-- First, create a heading that displays the name of each department -->
+                                <div class="department-name">
+
+                                    <!-- 
+                                        If the department has been discharged from department, print out an
+                                        icon to indicate that they are done being treated. Otherwise, print
+                                        out an icon to indicate that they are currently in department.
+                                    -->
+                                    <h2 class="department-name-text">
+
+                                        <!-- Include a div to show the department name and action buttons -->
+                                        <div class="department-name-and-buttons">
+
+                                            <!-- Display a department icon along with the name -->
+                                            <div class="department-full-name">
+                                                
+                                                <!-- The department name is displayed here -->
+                                                <i class="fa-solid fa-briefcase-medical"></i> <%= data.DepartmentName %>
+                                            </div>
+
+                                            <!-- Include action (edit and remove) buttons here -->
+                                            <div class="department-edit-remove-buttons">
+                                                
+                                                <!-- 
+                                                    Include a button for expanding any department's information.
+                                                    This button is used to expand any department module that is
+                                                    listed in the database.
+                                                -->
+                                                <a class="department-edit-white department-edit-remove" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-departments<%= data.DepartmentID %>" aria-expanded="false" aria-controls="collapse-department<%= data.DepartmentID %>">
+                                                    <i class="fa-solid fa-circle-info"></i>
+                                                </a>
+
+                                                <!-- Include a button for the user to click when they wish to edit a department -->
+                                                <a class="department-edit-white department-edit-remove department-edit-pencil" href="/department-edit/<%= data.DepartmentID %>">
+                                                    <i class="fa-solid fa-pencil"></i>
+                                                </a>
+
+                                                <!-- 
+                                                    Include a button for the user to click when they wish to remove a department.
+                                                    Clicking this button will open a modal that asks the user if they are sure
+                                                    that they want to remove the department. The user can then either confirm 
+                                                    delete the department from the database, or cancel the removal action.
+                                                -->
+                                                <a id="<%= data.DepartmentID %>" class="remove-the-department department-edit-red department-edit-remove" onClick="getDepartmentID(this.id)" href="#departmentModal_<%= data.DepartmentID %>">
+                                                    
+                                                    <!-- 
+                                                        Include a script tag inside of the anchor tag to add event handlers to the
+                                                        different elements associated with the "delete" button on each department of
+                                                        the departments page of the web application.
+                                                    -->
+                                                    <script>
+
+                                                        // Utilize a query selector with JavaScript to add an event listener
+                                                        // to each trash bin icon that is clicked by the user on the application.
+                                                        [...document.querySelectorAll('.remove-the-department')].forEach(function(trashBin) {
+                                                            
+                                                            // Add a click event listener to the trash bin icon
+                                                            // so that when it is clicked, a modal pops up with
+                                                            // a confirm delete option.
+                                                            trashBin.addEventListener('click', function() {
+                                                            
+                                                                // Create variables for selecting 
+                                                                // the correct confirm delete modal.
+                                                                var modalValue = "departmentModal_" + trashBin.id;
+                                                                var exitModal = "department-exit-" + trashBin.id;
+
+                                                                // Add selectors for the confirm delete modal.
+                                                                var confirmModal = document.getElementById(modalValue);
+
+                                                                // When the user clicks the button, open 
+                                                                // the department confirm delete modal.
+                                                                confirmModal.classList.add('department-bg-active');
+                                                                document.body.classList.add('overflowHidden');
+
+                                                                // Select the exit icon on the confirm delete modal.
+                                                                var exitIcon = document.getElementById(exitModal);
+
+                                                                // When the user clicks the exit icon on the confirm 
+                                                                // delete modal, close the modal on the screen.
+                                                                exitIcon.onclick = function() {
+                                                                    confirmModal.classList.remove('department-bg-active');
+                                                                    document.body.classList.remove('overflowHidden');
+                                                                }
+
+                                                                // If the user clicks anywhere outside
+                                                                // the modal, close it and do not execute
+                                                                // any of the functions in it.
+                                                                window.onclick = function(event) {
+
+                                                                    // When anything outside of the modal is clicked, 
+                                                                    // close the modal. You can also click the "Cancel"
+                                                                    // button to close the modal.
+                                                                    if (event.target == confirmModal) {
+                                                                        confirmModal.classList.remove('department-bg-active');
+                                                                        document.body.classList.remove('overflowHidden');
+                                                                
+                                                                    }
+                                                                }
+                                                            });
+                                                        });
+                                                    </script>
+
+                                                    <!-- Include a trash bin icon for each department -->
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </a>
+
+                                                <!-- 
+                                                    Include a MODAL that the user can click to confirm whether or not not they 
+                                                    wish to remove the selected department entity from the database 
+                                                -->
+                                                <div id="departmentModal_<%= data.DepartmentID %>" role="dialog" class="department-modal-bg">
+                                                    <div class="department-modal-dialog">
+                                                        <div class="department-modal-container"> 
+                                                            <!-- Modal Information and Content -->
+                                                            <div class="department-modal-information">
+                                                                <div class="department-modal-content">
+                                                                    <div>
+                                                                        <div class="department-modal-body">
+                                                                            <!-- Include a div for showing the "Cancel" and "Confirm" button on the modal -->
+                                                                            <div>
+                                                                                <!-- Heading -->
+                                                                                <div class="department-modal-heading-background">
+                                                                                    <h2 class="department-modal-heading">Confirm</h2>
+                                                                                </div>      
+                                                                                
+                                                                                <!-- Description -->
+                                                                                <div class="department-modal-text-background">
+                                                                                    <p class="department-modal-text">Are you sure you want to delete department: <strong><%= data.DepartmentName %></strong>?</p>
+                                                                                </div>
+
+                                                                                <!-- Include a div for the two buttons on the modal -->
+                                                                                <div class="department-confirm-delete-select">
+                                                                                    <!-- Provide a "Cancel" button if the user wishes to cancel the delete action -->
+                                                                                    <a id="department-exit-<%= data.DepartmentID %>" class="department-edit-white-modal department-edit-remove-modal" href="#close">
+                                                                                        Cancel
+                                                                                    </a>
+                                                                                    <!-- Makes POST request to the remove-department route if the "Confirm Delete" button is clicked -->
+                                                                                    <form class="form-horizontal" action="/department-remove" method="POST">
+                                                                                        <input id="remove_<%= data.DepartmentID %>" type="hidden" class="departmentclass" name="departmentidentifier" value="<%= data.DepartmentID %>" onChange="getRemoveValue()">
+                                                                                        <button type="submit" class="department-edit-red-modal department-edit-remove-modal">Delete</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> 
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </h2>
+                                </div>
+
+                                <!-- Create the main-content portion of the department card -->
+                                <div id="collapse-departments<%= data.DepartmentID %>" class="collapse">
+                                   
+                                    <!-- 
+                                        Include a wrapper div for the collapse div. This helps 
+                                        ensure that the transition from closed to open is smooth.
+                                    -->
+                                    <div class="department-card">
+                                        <!-- Each column of the card displays different amounts of data -->
+                                        <div class="department-column">
+                                            <p class="department-text-info"><b>Location:</b> <%= data.DepartmentLocation %></p>
+                                            <p class="department-text-info"><b>Description:</b> <%= data.DepartmentDescription %></p>
+                                        </div>
+                                        <!-- Each column of the card displays different amounts of data -->
+                                        <div class="department-column">
+                                            <p class="department-text-info"><b>Members:</b> <%= data.DepartmentMembers %></p>
+                                            <!-- <p class="department-text-info"><b>Tools:</b> <%= //data.ANYTHING_ELSE? %></p> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }); %>
+
+                    <!-- If there is no department data, display the message -->
+                    <% } else { %>
+                        <h2 class="no-department-data">There is currently no department data.</h2>
+                    <% } %>
+                </div>
+            </div>
+
+            <!-- 
+                Include a div that displays a chevron that the
+                user can click to return to the top of the page
+            -->
+            <div>
+                <!-- Include a button for the user to click to go to the top of the page -->
+                <a class="department-bottom department-bottom-color" href="#departments-page">
+                    <i class="fa-solid fa-chevron-up fa-1.5x"></i>
+                </a>
+            </div>
         </div>
     </section>
 

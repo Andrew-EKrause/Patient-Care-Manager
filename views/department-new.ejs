@@ -1,0 +1,93 @@
+<!-- 
+    The department-new.ejs file displays...
+    ...
+    Project: Mayo Clinic Patient Care Manager 
+             (PCM) Web Application
+    Author: Andrew Krause
+    Class: Introduction to Database 
+           Management Systems (CS 364)
+    Date: 5/10/2022
+    ...
+-->
+
+<%- include('./partials/header.ejs') %>
+
+    <!-- Section for the list of departments on the webpage -->
+    <section id="department-create-page">
+        <div class="fade-in">
+            <header>
+                <h1 class="department-create-page-text">Create Department</h1>
+            </header>
+            <div class="department-create-ordering">
+                <!-- 
+                    This is the section where the department data
+                    is loaded to be displayed on the page
+                -->
+                <div class="department-create-item">
+
+                    <!-- 
+                        Create a form to process any data that is entered into the input fields by the
+                        user. This information will be used to create a new department for the database.
+                    -->
+                    <form class="form-create-department-horizontal" action="/department-add" method="POST">
+
+                        <!-- Create a card for each department -->
+                        <!-- First, create a heading that displays the name of each department -->
+                        <div class="department-create-name">
+
+                            <!-- Display the department name and create icon -->
+                            <h2 class="department-create-name-text">
+
+                                <!-- Include a div to show the department name and action buttons -->
+                                <div class="department-name-create-buttons ">
+
+                                    <!-- Display an icon for the department and the department name -->
+                                    <div>
+                                        <!-- Display an icon for creating the new department -->
+                                        <i class="fa-solid fa-house-medical"></i>
+                                        
+                                        <!-- Provide a section for the user to add a new department name -->
+                                        Department Name: 
+                                        <input placeholder="Enter Department Name" type="text" class="name-input" name="departmentname" size="10" required>
+                                    </div>
+                                </div>
+                            </h2>
+                        </div>
+
+                        <!-- Create the main-content portion of the department card -->
+                        <div class="department-create-card">                                
+            
+                            <!-- Each column of the card displays different amounts of data -->
+                            <div class="department-create-column">
+                                <p class="department-edit-text-info"><b>Location:</b> <input placeholder="Enter Location" type="text" class="name-input" name="departmentlocation" size="10" required></p>
+                                <p class="department-edit-text-info"><b>Description:</b> <input placeholder="Enter Description" type="text" class="name-input" name="departmentdescription" size="10" required></p>
+                            </div>
+                            <!-- Each column of the card displays different amounts of data -->  
+                            <div class="department-create-column">
+                                <p class="department-edit-text-info"><b>Members:</b> <input placeholder="Number of Members" type="number" class="" name="departmentmembers" size="5" min="1" step="1" required></p>
+                                <!-- <p class="department-edit-text-info"><b>Tools:</b> <input placeholder="Enter ???" type="text" class="name-input" name="department???" size="10" required></p> -->
+                            </div>
+                        </div>
+
+                        <!-- Create forms to process when user clicks the "Add Department" button and the "Back" button -->
+                        <div class="department-create-buttons">
+                            <!-- The button brings the user back to the main list of departments on the website -->
+                            <a id="department-create-icon1" class="all-button-container-one" href="/departments">
+                                <span class="department-button-icon"><i class="fa-solid fa-circle-xmark"></i></span> Cancel
+                            </a>
+
+                            <!-- 
+                                The button, when clicked, triggers a process in which any form data entered into 
+                                the fields on the page by the user is gathered for the "department-add" route 
+                            -->
+                            <button type="submit" id="department-create-icon2" class="all-button-container-two">
+                                <span class="department-button-icon"><i class="fa-solid fa-heart-circle-plus"></i></span> Create
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<%- include('./partials/footer.ejs') %>

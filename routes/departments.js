@@ -46,7 +46,7 @@ const database = require('./database.js');
 // Creat a route to render the departments page.
 // In this route, all of the data in the Department
 // table of the database is sent to be displayed 
-// on the treatments page of the website.
+// on the departments page of the website.
 departmentRouter.get("/departments", function(req, res, next) {
 
     // Create a query to SELECT all of the departments in
@@ -99,7 +99,7 @@ departmentRouter.get("/department-edit/:departmentId", function(req, res) {
         } else {
 
             // Otherwise, send the data to the
-            // department_edit.ejs page in order to 
+            // department-edit.ejs page in order to 
             // allow the user to edit that data.
             res.render("department-edit", {title: "Department Edit", departmentEdit: data});
         }
@@ -115,20 +115,6 @@ departmentRouter.get("/department-new", function(req, res) {
     res.render("department-new");
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* SECTION: PROCESS REQUESTS MADE TO SERVER (POST) */
 
 // ------------ CRUD Operations for Department ------------
@@ -137,84 +123,138 @@ departmentRouter.get("/department-new", function(req, res) {
 // by the user is added to the department table of the
 // database.
 departmentRouter.post("/department-add", function(req, res) {
-
-    // --> LEFT OFF RIGHT HERE!!!!
     
-    // Declare a variable for the treatment identifier.
-    // var TreatmentID = null; // --> DO NOT THINK WE NEED THIS!!!
+    // Declare a variable for the department identifier.
+    // var DepartmentID = null; // --> DO NOT THINK WE NEED THIS!!!
 
     // Declare variables for the values that will be passed into the
     // SQL update statement below. A series of conditionals before that
     // SQL update statement determine whether the variables will contain
     // values entered into the input or the default values.
-    var treatmentName = req.body.treatmentname.trim();
-    var treatmentRequirements = req.body.treatmentrequirements.trim();
-    var treatmentDescription = req.body.treatmentdescription.trim();
-    var treatmentRiskIndex = req.body.treatmentriskindex; 
-    var treatmentTools = req.body.treatmenttools.trim();
+    var departmentName = req.body.departmentname.trim();
+    var departmentLocation = req.body.departmentlocation.trim();
+    var deparmentMembers = req.body.departmentmembers;
+    var departmentDescription = req.body.departmentdescription.trim(); 
 
-    // Include the SQL query that will add the treatment entity
-    // to the treatment table.
-    var sql = `INSERT INTO PCM.Treatment (TreatmentName, 
-                                          TreatmentRequirements, 
-                                          TreatmentDescription, 
-                                          TreatmentRiskIndex, 
-                                          TreatmentTools) VALUES (?, ?, ?, ?, ?);`;
+    // Include the SQL query that will add the department entity
+    // to the department table.
+    var sql = `INSERT INTO PCM.Department (DepartmentName, 
+                                           DepartmentLocation, 
+                                           DepartmentMembers, 
+                                           DepartmentDescription) VALUES (?, ?, ?, ?);`;
 
-    // Complete the query in the database and add the treatment
-    // data entered by the user into the treatment table of the
+    // Complete the query in the database and add the department
+    // data entered by the user into the department table of the
     // database.
-    database.query(sql, [treatmentName, 
-                         treatmentRequirements, 
-                         treatmentDescription, 
-                         treatmentRiskIndex, 
-                         treatmentTools], function(error, data, fields) {
+    database.query(sql, [departmentName, 
+                         departmentLocation, 
+                         deparmentMembers, 
+                         departmentDescription], function(error, data, fields) {
 
         // If there is an error, log the error.
         if(error) {
             console.log(error);
         } else {
             
-            // Redirect the route back to the main treatments page
-            // after adding the treatment to the database.
-            // Add a flash message indicating that the treatment was
+            // Redirect the route back to the main departments page
+            // after adding the department to the database.
+            // Add a flash message indicating that the department was
             // successfully added to the database.
-            req.flash("treatmentChange", "Treatment created.");
-            res.redirect("/treatments");
+            req.flash("departmentChange", "Department created.");
+            res.redirect("/departments");
         }
     });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Create a post request for when the user wants to
 // update a given department.
-departmentRouter.post("/update_department", function(req, res){
+departmentRouter.post("/department-update", function(req, res) {
 
-    // ADD MORE...
+    // Declare a variable for the department identifier.
+    var updateDepartmentID = req.body.defaultdepartmentid;
+
+    // Declare variables for the values that will be passed into the
+    // SQL update statement below. A series of conditionals before that
+    // SQL update statement determine whether the variables will contain
+    // values entered into the input or the default values.
+    var departmentName = req.body.departmentname.trim();
+    var departmentLocation = req.body.departmentlocation.trim();
+    var departmentMembers = req.body.departmentmembers;
+    var departmentDescription = req.body.departmentdescription.trim(); 
+
+    // Include a series of conditionals to determine if any of
+    // the default values need to be utilized in the process of
+    // updating the department in the database.
+    if(!departmentName) {
+        departmentName = req.body.defaultdepartmentname.trim();
+    }
+    if(!departmentLocation) {
+        departmentLocation = req.body.defaultdepartmentlocation.trim();
+    }
+    if(!departmentMembers) {
+        departmentMembers = req.body.defaultdepartmentmembers;
+    }
+    if(!departmentDescription) {
+        departmentDescription = req.body.defaultdepartmentdescription.trim();
+    }
+
+    // Include the SQL query that will update the
+    // department entity in the department table.
+    var sql = `UPDATE PCM.Department 
+                SET DepartmentName = ?, DepartmentLocation = ?, DepartmentMembers = ?, DepartmentDescription = ?
+               WHERE DepartmentID = ?;`;
+
+    // Complete the query in the database and display the department
+    // data that the user wants to edit on a page for that department.
+    database.query(sql, [departmentName, 
+                         departmentLocation, 
+                         departmentMembers, 
+                         departmentDescription,
+                         updateDepartmentID], function(error, data, fields) {
+
+        // If there is an error, log the error.
+        if(error) {
+            console.log(error);
+        } else {
+            
+            // Redirect the route back to the main departments page.
+            // Add a flash message indicating that the department was
+            // successfully updated in the database.
+            req.flash("departmentChange", "Department updated.");
+            res.redirect("/departments");
+        }
+    });
 });
 
 // Create a post request for when the user wants to
 // remove a given department.
-departmentRouter.post("/remove_department", function(req, res){
+departmentRouter.post("/department-remove", function(req, res) {
 
-    // ADD MORE...
+    // Obtain the department identifier of the department that
+    // the user wants to remove from the database, and 
+    // store the department ID in a variable.
+    var removeDepartment = req.body.departmentidentifier;
+
+    // Include the SQL query that will remove the selected department
+    // entity from the department table in the database.
+    var sql = `DELETE FROM PCM.Department WHERE DepartmentID = ?;`;
+
+    // Complete the query in the database and remove the
+    // department that the user selected from the database. 
+    database.query(sql, [removeDepartment], function(error, data, fields) {
+
+        // If there is an error, log the error.
+        if(error) {
+            console.log(error);
+        } else {
+
+            // Redirect the route back to the main departments page.
+            // Add a flash message indicating that the department was
+            // successfully removed from the database.
+            req.flash("departmentChange", "Department removed.");
+            res.redirect("/departments");
+        }
+    });
 });
 
 // Export the module for use in the main app.js file.

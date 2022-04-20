@@ -26,7 +26,7 @@
         Send a message to the user alterting them that they made 
         a change to the TREATMENT database. This messages is only
         executed if the user created, updated, or removed (deleted)
-        a patient.
+        a treatment.
     -->
     <% if(treatmentChange.length > 0) { %>
         <div class="treatmentElementToFadeInAndOut treatment-message-format">
@@ -65,7 +65,7 @@
 
                         <!-- 
                             Create a function to obtain the treatment ID in order to 
-                            perform an remove operation on any given patient entity.
+                            perform an remove operation on any given treatment entity.
                         -->
                         <% function getRemoveValue() { %>
                             
@@ -158,7 +158,7 @@
                                                                 var confirmModal = document.getElementById(modalValue);
 
                                                                 // When the user clicks the button, open 
-                                                                // the patient confirm delete modal.
+                                                                // the treatment confirm delete modal.
                                                                 confirmModal.classList.add('treatment-bg-active');
                                                                 document.body.classList.add('overflowHidden');
 
@@ -269,7 +269,7 @@
 
                     <!-- If there is no treatment data, display the message -->
                     <% } else { %>
-                        <h2 class="no-patient-data">There is currently no treatment data.</h2>
+                        <h2 class="no-treatment-data">There is currently no treatment data.</h2>
                     <% } %>
                 </div>
             </div>

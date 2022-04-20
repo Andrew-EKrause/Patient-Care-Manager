@@ -1,0 +1,136 @@
+<!-- 
+    The department-edit.ejs file...
+    ...
+    Project: Mayo Clinic Patient Care Manager 
+             (PCM) Web Application
+    Author: Andrew Krause
+    Class: Introduction to Database 
+           Management Systems (CS 364)
+    Date: 5/10/2022
+    ...
+    NOTE: MAY WANT TO ADD MORE DEPARTMENT ATTRIBUTES AT SOME POINT IF YOU GET THE CHANCE!!!
+-->
+
+<%- include('./partials/header.ejs') %>
+
+    <!-- Section for the form with update ability for departments on the webpage -->
+    <section id="departments-edit-page">
+        <div class="fade-in">
+            <header>
+                <h1 class="department-edit-page-text">Edit Department</h1>
+            </header>
+            <div class="department-edit-ordering">
+                <!-- 
+                    This is the section where the department data
+                    is loaded to be displayed on the page
+                -->
+                <div class="department-edit-items">
+
+                    <!-- 
+                        If there is data in the department table 
+                        of the database, display that data
+                    -->
+                    <% if(departmentEdit.length != 0) { %>
+
+                        <!-- Create a form to process any data that is entered into the input fields by the user -->
+                        <form class="form-edit-department-horizontal" action="/department-update" method="POST">
+
+                            <!-- 
+                                Create a function to obtain the department ID in order to 
+                                perform an update operation on any given department entity.
+                            -->
+                            <% function getUpdateValue() { %>
+                                
+                                <% // Create variables to obtain the chevron element. %>
+                                <% var value = "update_" + event.currentTarget.id; %>
+                                <% var element = document.getElementById(value).value; %>
+                            <% } %>
+
+                            <!-- 
+                                Loop through all of the departments in the 
+                                database and display them on the page 
+                            -->
+                            <% departmentEdit.forEach(function(data) { %>
+
+                                <!-- Create a card for each department -->
+                                <!-- First, create a heading that displays the name of each department -->
+                                <div class="department-edit-name">
+
+                                    <!-- Display the department icon and name -->
+                                    <h2 class="department-name-text">
+
+                                        <!-- Include a div to show the department name and action buttons -->
+                                        <div class="department-name-edit-buttons">
+
+                                            <!-- Display an icon for the department -->
+                                            <div>
+                                                <!-- Include the department icon -->
+                                                <i class="fa-solid fa-briefcase-medical"></i>
+
+                                                <!-- Include the department name -->
+                                                Department Name: 
+                                                <input placeholder="<%= data.DepartmentName %>" type="text" class="name-input" name="departmentname" size="10">
+                                            </div>
+                                        </div>
+                                    </h2>
+                                </div>
+
+                                <!-- Create the main-content portion of the department card -->
+                                <div class="department-edit-card">                                 
+                    
+                                    <!-- Each column of the card displays different amounts of data -->
+                                    <div class="department-edit-column">
+
+                                        <p class="department-edit-text-info"><b>Location:</b> <input placeholder="<%= data.DepartmentLocation %>" type="text" class="name-input" name="departmentlocation" size="10"></p>
+                                        <p class="department-edit-text-info"><b>Description:</b> <input placeholder="<%= data.DepartmentDescription %>" type="text" class="name-input" name="departmentdescription" size="10"></p>
+                                    </div>
+                                    <!-- Each column of the card displays different amounts of data --> 
+                                    <div class="department-edit-column">
+
+                                        <p class="department-edit-text-info"><b>Members:</b> <input placeholder="<%= data.DepartmentMembers %>" type="number" class="" name="departmentmembers" size="5" min="1" step="1"></p>
+                                        <!-- <p class="department-edit-text-info"><b>Tools:</b> <input placeholder="<%= // data.ANYTHING_ELSE? %>" type="text" class="name-input" name="department???" size="10"></p> -->
+                                    </div>
+
+                                    <!-- 
+                                        Included here are the original values of the department entity that the
+                                        user wishes to update. This enables the user to update only certain
+                                        attributes instead of having to provide a value for all inputs.
+                                    -->
+                                    <!-- This is the only attribute that you will use regardless of what is entered into the input! -->
+                                    <input id="update_<%= data.DepartmentID %>" type="hidden" class="departmentclass" name="defaultdepartmentid" value="<%= data.DepartmentID %>" onChange="getUpdateValue()">  
+
+                                    <!-- The rest of the default identifiers are listed below -->
+                                    <input id="update_<%= data.DepartmentID %>" type="hidden" class="departmentclass" name="defaultdepartmentname" value="<%= data.DepartmentName %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.DepartmentID %>" type="hidden" class="departmentclass" name="defaultdepartmentlocation" value="<%= data.DepartmentLocation %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.DepartmentID %>" type="hidden" class="departmentclass" name="defaultdepartmentmembers" value="<%= data.DepartmentMembers %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.DepartmentID %>" type="hidden" class="departmentclass" name="defaultdepartmentdescription" value="<%= data.DepartmentDescription %>" onChange="getUpdateValue()">  
+                                </div>
+                            <% }); %>
+
+                            <!-- Create forms to process when user clicks the "Add Department" button and the "Back" button -->
+                            <div class="department-edit-buttons">
+                                <!-- The button brings the user back to the main list of departments on the website -->
+                                <a id="department-edit-icon1" class="all-button-container-one" href="/departments">
+                                    <span class="department-button-icon"><i class="fa-solid fa-circle-xmark"></i></span> Cancel
+                                </a>
+
+                                <!-- 
+                                    The button, when clicked, triggers a process in which any form data entered into 
+                                    the fields on the page by the user is gathered for the "department-update" route 
+                                -->
+                                <button type="submit" id="department-edit-icon2" class="all-button-container-two">
+                                    <span class="department-button-icon"><i class="fa-solid fa-circle-arrow-up"></i></span> Update
+                                </button>
+                            </div>
+                        </form>
+
+                    <!-- If there is no department data, display the message -->
+                    <% } else { %>
+                        <h2 class="no-department-edit-data">There is currently no department data.</h2>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<%- include('./partials/footer.ejs') %>

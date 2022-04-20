@@ -42,7 +42,7 @@
                     <a id="patient-back-arrow" class="all-button-container-one" href="/views">
                         <span class="patient-button-icon"><i class="fa-solid fa-arrow-left-long"></i></span> Back
                     </a>
-                    <a id="patient-add-icon" class="all-button-container-two" href="/patient_new">
+                    <a id="patient-add-icon" class="all-button-container-two" href="/patient-new">
                         <span class="patient-button-icon"><i class="fa-solid fa-circle-plus"></i></span> New
                     </a>
                 </div>
@@ -207,7 +207,7 @@
                                                 </a>
 
                                                 <!-- Include a button for the user to click when they wish to edit a patient -->
-                                                <a class="patient-edit-white patient-edit-remove patient-edit-pencil" href="/patient_edit/<%= data.PatientID %>">
+                                                <a class="patient-edit-white patient-edit-remove patient-edit-pencil" href="/patient-edit/<%= data.PatientID %>">
                                                     <i class="fa-solid fa-pencil"></i>
                                                 </a>
 
@@ -311,7 +311,7 @@
                                                                                         Cancel
                                                                                     </a>
                                                                                     <!-- Makes POST request to the remove-patient route if the "Confirm Delete" button is clicked -->
-                                                                                    <form class="form-horizontal" action="/patient_remove" method="POST">
+                                                                                    <form class="form-horizontal" action="/patient-remove" method="POST">
                                                                                         <input id="remove_<%= data.PatientID %>" type="hidden" class="patientclass" name="patientidentifier" value="<%= data.PatientID %>" onChange="getRemoveValue()">
                                                                                         <button type="submit" class="patient-edit-red-modal patient-edit-remove-modal">Delete</button>
                                                                                     </form>
@@ -381,7 +381,7 @@
                 user can click to return to the top of the page
             -->
             <div>
-                <!-- Include a button for the user to click when they wish to edit a patient -->
+                <!-- Include a button for the user to click to go to the top of the page -->
                 <a class="patient-bottom patient-bottom-color" href="#patients-page">
                     <i class="fa-solid fa-chevron-up fa-1.5x"></i>
                 </a>

@@ -138,7 +138,7 @@ departmentRouter.get("/department-new", function(req, res) {
 // database.
 departmentRouter.post("/department-add", function(req, res) {
 
-    // --> LEFT OFF HERE!!!!
+    // --> LEFT OFF RIGHT HERE!!!!
     
     // Declare a variable for the treatment identifier.
     // var TreatmentID = null; // --> DO NOT THINK WE NEED THIS!!!

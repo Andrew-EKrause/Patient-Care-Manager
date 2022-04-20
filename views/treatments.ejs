@@ -46,7 +46,7 @@
                     <a id="treatment-back-arrow" class="all-button-container-one" href="/views">
                         <span class="treatment-button-icon"><i class="fa-solid fa-arrow-left-long"></i></span> Back
                     </a>
-                    <a id="treatment-add-icon" class="all-button-container-two" href="/treatment_new">
+                    <a id="treatment-add-icon" class="all-button-container-two" href="/treatment-new">
                         <span class="treatment-button-icon"><i class="fa-solid fa-circle-plus"></i></span> New
                     </a>
                 </div>
@@ -121,7 +121,7 @@
                                                 </a>
 
                                                 <!-- Include a button for the user to click when they wish to edit a treatment -->
-                                                <a class="treatment-edit-white treatment-edit-remove treatment-edit-pencil" href="/treatment_edit/<%= data.TreatmentID %>">
+                                                <a class="treatment-edit-white treatment-edit-remove treatment-edit-pencil" href="/treatment-edit/<%= data.TreatmentID %>">
                                                     <i class="fa-solid fa-pencil"></i>
                                                 </a>
 
@@ -225,7 +225,7 @@
                                                                                         Cancel
                                                                                     </a>
                                                                                     <!-- Makes POST request to the remove-treatment route if the "Confirm Delete" button is clicked -->
-                                                                                    <form class="form-horizontal" action="/treatment_remove" method="POST">
+                                                                                    <form class="form-horizontal" action="/treatment-remove" method="POST">
                                                                                         <input id="remove_<%= data.TreatmentID %>" type="hidden" class="treatmentclass" name="treatmentidentifier" value="<%= data.TreatmentID %>" onChange="getRemoveValue()">
                                                                                         <button type="submit" class="treatment-edit-red-modal treatment-edit-remove-modal">Delete</button>
                                                                                     </form>
@@ -279,7 +279,7 @@
                 user can click to return to the top of the page
             -->
             <div>
-                <!-- Include a button for the user to click when they wish to edit a treatment -->
+                <!-- Include a button for the user to click to go to the top of the page -->
                 <a class="treatment-bottom treatment-bottom-color" href="#treatments-page">
                     <i class="fa-solid fa-chevron-up fa-1.5x"></i>
                 </a>

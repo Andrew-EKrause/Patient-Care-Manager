@@ -118,7 +118,7 @@ patientRouter.get("/patient-edit/:patientId", function(req, res) {
         } else {
 
             // Otherwise, send the data to the
-            // patient_edit.ejs page in order to 
+            // patient-edit.ejs page in order to 
             // allow the user to edit that data.
             res.render("patient-edit", {title: "Patient Edit", patientEdit: data});
         }

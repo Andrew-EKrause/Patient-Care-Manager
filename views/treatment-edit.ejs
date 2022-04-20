@@ -1,5 +1,13 @@
 <!-- 
-    The treatment-edit.ejs file...
+    The treatment-edit.ejs file displays a given 
+    treatment that was selected by the user to edit.
+    Each attribute of the treatment can be edited by
+    the user. Data validation is included to ensure
+    that the user does not enter any incorrect data
+    values for a given data attribute. When the user
+    completes the process of updating the given
+    treatment, they can either cancel the changes or
+    submit the changes to be added to the database.
     ...
     Project: Mayo Clinic Patient Care Manager 
              (PCM) Web Application
@@ -69,7 +77,7 @@
 
                                                 <!-- Include the treatment name -->
                                                 Treatment Name: 
-                                                <input placeholder="<%= data.TreatmentName %>" type="text" class="name-input" name="treatmentname" size="10">
+                                                <input placeholder="Enter Treatment Name" value="<%= data.TreatmentName %>" type="text" class="name-input" name="treatmentname" size="10">
                                             </div>
                                         </div>
                                     </h2>
@@ -81,14 +89,14 @@
                                     <!-- Each column of the card displays different amounts of data -->
                                     <div class="treatment-edit-column">
 
-                                        <p class="treatment-edit-text-info"><b>Requirements:</b> <input placeholder="<%= data.TreatmentRequirements %>" type="text" class="name-input" name="treatmentrequirements" size="10"></p>
-                                        <p class="treatment-edit-text-info"><b>Description:</b> <input placeholder="<%= data.TreatmentDescription %>" type="text" class="name-input" name="treatmentdescription" size="10"></p>
+                                        <p class="treatment-edit-text-info"><b>Requirements:</b> <input placeholder="Enter Requirements" value="<%= data.TreatmentRequirements %>" type="text" class="name-input" name="treatmentrequirements" size="10"></p>
+                                        <p class="treatment-edit-text-info"><b>Description:</b> <input placeholder="Enter Description" value="<%= data.TreatmentDescription %>" type="text" class="name-input" name="treatmentdescription" size="10"></p>
                                     </div>
                                     <!-- Each column of the card displays different amounts of data --> 
                                     <div class="treatment-edit-column">
 
-                                        <p class="treatment-edit-text-info"><b>Risk Index:</b> <input placeholder="<%= data.TreatmentRiskIndex %>" type="number" class="" name="treatmentriskindex" size="5" maxlength="12" min="0" max="10" step="1"></p>
-                                        <p class="treatment-edit-text-info"><b>Tools:</b> <input placeholder="<%= data.TreatmentTools %>" type="text" class="name-input" name="treatmenttools" size="10"></p>
+                                        <p class="treatment-edit-text-info"><b>Risk Index:</b> <input placeholder="0-10" value="<%= data.TreatmentRiskIndex %>" type="number" class="" name="treatmentriskindex" size="5" maxlength="12" min="0" max="10" step="1"></p>
+                                        <p class="treatment-edit-text-info"><b>Tools:</b> <input placeholder="Enter Tools" value="<%= data.TreatmentTools %>" type="text" class="name-input" name="treatmenttools" size="10"></p>
                                     </div>
 
                                     <!-- 

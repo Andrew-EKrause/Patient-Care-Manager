@@ -143,9 +143,9 @@
                                                 <% } %> 
                                                 
                                                 Full Name: 
-                                                <input placeholder="<%= data.PatientFirstName %>" type="text" class="name-input" name="patientfirstname" size="10">
-                                                <input placeholder="<%= data.PatientMiddleName %>" type="text" class="name-input" name="patientmiddlename" size="10">
-                                                <input placeholder="<%= data.PatientLastName %>" type="text" class="name-input" name="patientlastname" size="10">
+                                                <input placeholder="Enter First Name" value="<%= data.PatientFirstName %>" type="text" class="name-input" name="patientfirstname" size="10">
+                                                <input placeholder="Enter Middle Name" value="<%= data.PatientMiddleName %>" type="text" class="name-input" name="patientmiddlename" size="10">
+                                                <input placeholder="Enter Last Name" value="<%= data.PatientLastName %>" type="text" class="name-input" name="patientlastname" size="10">
                                             </div>
                                         </div>
                                     </h2>
@@ -225,18 +225,18 @@
                                             </select>
                                         </p>
 
-                                        <p class="patient-edit-text-info"><b>Height (feet/inches):</b> <input placeholder="<%= data.PatientHeight %>" type="number" class="" name="patientheight" size="5" min="1" max="1000" step="0.01"></p>
-                                        <p class="patient-edit-text-info"><b>Weight (lbs):</b> <input placeholder="<%= data.PatientWeight %>" type="number" class="" name="patientweight" size="5" min="1" max="1000" step="0.01"></p>
-                                        <p class="patient-edit-text-info"><b>Description:</b> <input placeholder="<%= data.PatientNotes %>" type="text" class="name-input" name="patientdescription" size="10"></p>
+                                        <p class="patient-edit-text-info"><b>Height (feet/inches):</b> <input placeholder="Enter Height" value="<%= data.PatientHeight %>" type="number" class="" name="patientheight" size="5" min="1" max="1000" step="0.01"></p>
+                                        <p class="patient-edit-text-info"><b>Weight (lbs):</b> <input placeholder="Enter Weight" value="<%= data.PatientWeight %>" type="number" class="" name="patientweight" size="5" min="1" max="1000" step="0.01"></p>
+                                        <p class="patient-edit-text-info"><b>Description:</b> <input placeholder="Enter Description" value="<%= data.PatientNotes %>" type="text" class="name-input" name="patientdescription" size="10"></p>
                                     </div>
                                     <!-- Each column of the card displays different amounts of data --> 
                                     <div class="patient-edit-column">
                                         <!-- Format the placeholder for the date admitted value -->
                                         <% var startDatePatient = simplifyDate(data.PatientStartDate); %>
 
-                                        <p class="patient-edit-text-info"><b>Risk Index:</b> <input placeholder="<%= data.PatientRiskIndex %>" type="number" class="" name="patientriskindex" size="5" maxlength="12" min="0" max="10" step="1"></p>
-                                        <p class="patient-edit-text-info"><b>Phone:</b> <input placeholder="<%= data.PatientPhone %>" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="" name="patientphone" size="13" maxlength="12"></p>
-                                        <p class="patient-edit-text-info"><b>Email:</b> <input placeholder="<%= data.PatientEmail %>" type="email" class="" name="patientemail" size="13"></p>
+                                        <p class="patient-edit-text-info"><b>Risk Index:</b> <input placeholder="0-10" value="<%= data.PatientRiskIndex %>" type="number" class="" name="patientriskindex" size="5" maxlength="12" min="0" max="10" step="1"></p>
+                                        <p class="patient-edit-text-info"><b>Phone:</b> <input placeholder="###-###-####" value="<%= data.PatientPhone %>" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="" name="patientphone" size="13" maxlength="12"></p>
+                                        <p class="patient-edit-text-info"><b>Email:</b> <input placeholder="Enter Email" value="<%= data.PatientEmail %>" type="email" class="" name="patientemail" size="13"></p>
                                         <p class="patient-edit-text-info"><b>Admitted:</b> <input placeholder="<%= startDatePatient %>" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientstartdate" size="16"></p> 
                                         
                                         <!--

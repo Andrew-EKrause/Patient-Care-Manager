@@ -94,7 +94,7 @@ body {
 
 /* Ensure that the footer always sticks to the bottom of the screen. */
 footer {
-    margin-top: 0;
+    margin-top: auto;
 }
 
 /* Make the scroll behavior of the website smoother. */
@@ -185,7 +185,7 @@ html {
     /* ====================================================================
                                 HOME/MAIN Page
     ==================================================================== */
-    
+
     #home-page {
         padding-top: 0rem;
         height: 100%; 
@@ -193,8 +193,12 @@ html {
     }
 
     .home-section {
+        padding-top: 100px;
+        padding-bottom: 25px;
         margin-top: 150px;
         margin-bottom: 150px;
+        /* margin-top: 250px;
+        margin-bottom: 175px; */
         padding-left: 20px;
         padding-right: 20px;
     }
@@ -443,7 +447,7 @@ html {
     ==================================================================== */
 
     #views-section {
-        padding-top: 100px;
+        padding-top: 175px;
         padding-bottom: 100px;
         margin-top: auto;
         margin-bottom: auto;
@@ -2320,6 +2324,35 @@ html {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /* ====================================================================
                                 PROVIDERS Page
     ==================================================================== */
@@ -2409,23 +2442,6 @@ html {
     .resume-file:hover {
         background-color: var(--whiter-color);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2886,7 +2902,7 @@ html {
     }
 
     /* ====================================================================
-                            EDIT DEPARTMENTS     Page
+                            EDIT DEPARTMENTS Page
     ==================================================================== */
 
     #departments-edit-page {
@@ -3066,7 +3082,7 @@ html {
     }
 
     /* ====================================================================
-                            CREATE TREATMENTS Page
+                            CREATE DEPARTMENTS Page
     ==================================================================== */
 
     #department-create-page {
@@ -3234,47 +3250,6 @@ html {
         color: var(--blue-font);
         transform: scale(1.15);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /* ====================================================================
                             FOOTER Section (All Pages)

@@ -97,7 +97,7 @@ patientRouter.get("/patients", function(req, res, next) {
 // the user chooses to change any of the data, 
 // this route will redirect to an update route
 // that will commit the changes to the databases.
-patientRouter.get("/patient_edit/:patientId", function(req, res) {
+patientRouter.get("/patient-edit/:patientId", function(req, res) {
 
     // Create a constant for storing the post ID so that it
     // can be retrieved from the database.
@@ -118,20 +118,20 @@ patientRouter.get("/patient_edit/:patientId", function(req, res) {
         } else {
 
             // Otherwise, send the data to the
-            // patients.ejs page in order to 
+            // patient_edit.ejs page in order to 
             // allow the user to edit that data.
-            res.render("patient_edit", {title: "Patient Edit", patientEdit: data});
+            res.render("patient-edit", {title: "Patient Edit", patientEdit: data});
         }
     });
 });
 
 // Create a get request for when the user wants to 
 // create a new patient.
-patientRouter.get("/patient_new", function(req, res) {
+patientRouter.get("/patient-new", function(req, res) {
 
     // Render the "patient_new" page to allow the user to 
     // create a new patient entity and add it to the database.
-    res.render("patient_new");
+    res.render("patient-new");
 });
 
 /* SECTION: PROCESS REQUESTS MADE TO SERVER (POST) */
@@ -141,7 +141,7 @@ patientRouter.get("/patient_new", function(req, res) {
 // create a new patient. The patient that is created 
 // by the user is added to the patient table of the
 // database.
-patientRouter.post("/patient_add", function(req, res) {
+patientRouter.post("/patient-add", function(req, res) {
 
     // Declare a variable for the patient identifier.
     // var updatePatientID = null; // --> DO NOT THINK WE NEED THIS!!!
@@ -239,7 +239,7 @@ patientRouter.post("/patient_add", function(req, res) {
 
 // Create a post request for when the user wants to
 // update a given patient.
-patientRouter.post("/patient_update", function(req, res) {
+patientRouter.post("/patient-update", function(req, res) {
 
     // ================================================================
     // The function ensures that the date attributes are 
@@ -427,7 +427,7 @@ patientRouter.post("/patient_update", function(req, res) {
 
 // Create a post request for when the user wants to
 // remove a given patient.
-patientRouter.post("/patient_remove", function(req, res) {
+patientRouter.post("/patient-remove", function(req, res) {
 
     // Obtain the patient identifier of the patient that
     // the user wants to remove from the database, and 

@@ -82,6 +82,7 @@ body {
     min-width: 100vw;
     display: flex;
     flex-direction: column;
+    /* justify-content: space-between; !!!!! KEEP AN EYE ON THIS!!! */
     line-height: 1.5; 
     margin: auto;
     background-color: var(--white-background);
@@ -442,11 +443,12 @@ html {
     ==================================================================== */
 
     #views-section {
-        margin-top: 150px;
+        padding-top: 100px;
         padding-bottom: 100px;
+        margin-top: auto;
+        margin-bottom: auto;
         color: var(--whiter-color);
         background-color: var(--black-color);
-        /* max-width: 1000px; */
         /* height: 100vh; */
     }
 
@@ -519,6 +521,7 @@ html {
         padding-top: 130px;
         color: var(--whiter-color);
         background-color: var(--black-color);
+        flex: 1 0 auto;
         /* height: 100vh; */
     }
 
@@ -1544,6 +1547,7 @@ html {
         padding-top: 130px;
         color: var(--whiter-color);
         background-color: var(--black-color);
+        flex: 1 0 auto;
         /* height: 100vh; */
     }
 
@@ -2316,11 +2320,6 @@ html {
 
 
 
-
-
-
-
-
     /* ====================================================================
                                 PROVIDERS Page
     ==================================================================== */
@@ -2411,6 +2410,872 @@ html {
         background-color: var(--whiter-color);
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* ====================================================================
+                                DEPARTMENTS Page
+    ==================================================================== */
+
+    #departments-page {
+        padding-top: 130px;
+        color: var(--whiter-color);
+        background-color: var(--black-color);
+        flex: 1 0 auto;
+        /* height: 100vh; */
+    }
+
+    .department-page-text {
+        font-size: clamp(2.5rem, 2.85rem, 3.5rem); 
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .department-ordering {
+        margin-top: 20px;
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .department-buttons {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        margin: 0;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #department-back-arrow span i {
+        display: inline-block;
+        transition: 0.1s;
+    }
+    
+    #department-back-arrow:hover span i {
+        color: var(--blue-font);
+        transform: translateX(-30%);
+    }
+
+    #department-add-icon span i {
+        display: inline-block;
+        transition: 0.1s;
+    }
+    
+    #department-add-icon:hover span i {
+        color: var(--blue-font);
+        transform: scale(1.15);
+    }
+
+    .department-items {
+        margin-top: 30px;
+        margin-bottom: 60px;
+    }
+
+    .department-name {
+        max-width: 800px;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--black-font);
+        background-color: var(--gray-color);
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-right: 20px;
+        padding-left: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+        border: 2px solid var(--gray-color);
+    }
+
+    .department-name-text {
+        margin: 0;
+    }
+
+    @media (max-width: 650px) { 
+
+        .department-name-and-buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .department-full-name {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        .department-edit-remove-buttons {
+            margin-top: 20px;
+        }
+
+        .department-form-horizontal {
+            display: inline-block;
+        }
+
+        .department-edit-remove {
+            text-decoration: none;
+            color: var(--black-font);
+            font-size: 25px;
+            padding: 10px;
+            padding-left: 25px;
+            padding-right: 25px;
+            margin-left: 10px;
+            border: 0;
+        }
+    }
+
+    @media (min-width: 650px) { 
+
+        .department-name-and-buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .department-full-name {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        .department-edit-remove-buttons {
+            margin-top: 0px;
+        }
+
+        .department-form-horizontal {
+            display: inline-block;
+        }
+
+        .department-edit-remove {
+            text-decoration: none;
+            color: var(--black-font);
+            font-size: 25px;
+            padding: 10px;
+            padding-left: 25px;
+            padding-right: 25px;
+            margin-left: 10px;
+            border: 0;
+        }
+    }
+
+    .department-edit-remove:hover {
+        text-decoration: none;
+        background-color: var(--edit-blue-color);
+        color: var(--black-font);
+    }
+
+    .department-edit-pencil {
+        margin-left: 4px;
+    }
+
+    .department-edit-white {
+        background-color: var(--white-background);
+        border-radius: 0.5em;
+    }
+
+    .department-edit-red {
+        background-color: rgb(235, 169, 169);
+        border-radius: 0.5em;
+    }
+
+    /* ==================================================================== */
+    /* SECTION OF STYLING FOR THE CONFIRM-REMOVE MODAL FOR THE DEPARTMENTS */
+    /* ==================================================================== */
+
+    /* Section for Modals */
+    .department-modal-bg {
+        position: fixed;
+        z-index: 1050;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s, opacity 0.5s;
+    }
+
+    .department-bg-active {
+        visibility: visible;
+        opacity: 1;
+        overflow-y: auto;
+    }
+
+    .department-modal-dialog {
+        /* margin-top: auto; */
+        /* padding-top: 40px;
+        margin-bottom: 40px; */
+        margin: auto;
+    }
+
+    .department-modal-container {
+        max-width: 600px;
+        color: var(--dark-font);
+    }
+
+    .department-modal-information {
+        /* padding: 20px; */
+        margin: auto;
+        background-color: var(--white-background);
+        border-radius: 0.5em;
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+
+    .department-modal-content {
+        display: flex;
+        text-align: left;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .department-modal-body {
+        padding: 0; /* MAYBE ADD MORE LATER */
+    }
+
+    .department-modal-heading-background {
+        background-color: var(--gray-color);
+        padding-right: 25px;
+        padding-left: 25px;
+        border-top-right-radius: 0.5em;
+        border-top-left-radius: 0.5em;
+    }
+
+    .department-modal-heading {
+        text-align: left;
+        color: var(--dark-font);
+        font-size: 2.5rem;
+        line-height: 1.2;
+        margin-bottom: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .department-modal-text-background {
+        padding-right: 25px;
+        padding-left: 25px;
+    }
+
+    .department-modal-text {
+        margin-bottom: 20px;
+        line-height: 1.5;
+        font-size: 1.75rem;
+    }
+
+    .department-confirm-delete-select {
+        padding-right: 25px;
+        padding-left: 25px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    .department-edit-white-modal {
+        text-decoration: none;
+        background-color: var(--gray-color);
+        border-radius: 0.5em;
+    }
+
+    .department-edit-red-modal {
+        text-decoration: none;
+        background-color: rgb(235, 169, 169);
+        border-radius: 0.5em;
+    }
+
+    .department-edit-remove-modal {
+        text-decoration: none;
+        color: var(--black-font);
+        font-size: 25px;
+        padding: 15px;
+        padding-left: 25px;
+        padding-right: 25px;
+        margin-left: 10px;
+        border: 0;
+    }
+
+    .department-edit-remove-modal:hover {
+        text-decoration: none;
+        background-color: var(--edit-blue-color);
+        color: var(--black-font);
+    }
+
+    /* ==================================================================== */
+
+    @media (max-width: 650px) { 
+
+        .department-card {
+            max-width: 800px;
+            font-size: 25px;
+            text-decoration: none;
+            color: var(--black-font);
+            background-color: var(--white-background);
+            margin: 0;
+            padding-right: 20px;
+            padding-left: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px solid var(--gray-color);
+            /* display: flex;
+            flex-direction: column;
+            justify-content: flex-start; */
+        }
+
+        .department-column {
+            margin-right: 10px;
+            width: 100%;
+            max-width: 400px;
+        }
+    }
+
+    @media (min-width: 650px) { 
+
+        .department-card {
+            max-width: 800px;
+            font-size: 25px;
+            text-decoration: none;
+            color: var(--black-font);
+            background-color: var(--white-background);
+            margin: 0;
+            padding-right: 20px;
+            padding-left: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px solid var(--gray-color);
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        .department-column {
+            margin-right: 10px;
+            width: 50%;
+            max-width: 400px;
+        }
+    }
+
+    .department-text-info {
+        text-decoration: none;
+        margin: 10px;
+    }
+
+    .no-department-data {
+        font-size: 25px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+    .department-bottom {
+        position: fixed;
+        bottom: 0px;
+        right: 0px;
+        border-radius: 0.5em;
+    }
+
+    .department-bottom-color {
+        text-decoration: none;
+        background-color: var(--gray-color);
+        color: black;
+        opacity: 60%;
+        padding: 15px;
+        padding-right: 20px;
+        padding-left: 20px;
+        margin: 15px;
+    }
+
+    .department-bottom-color:hover {
+        text-decoration: none;
+        background-color: var(--edit-blue-color);
+        color: black;
+        opacity: 100%;
+    }
+    
+    /* Format the messages sent to the user. */ 
+    .department-message-format {
+        display: inline-block;
+        text-align: center;
+        font-size: 3rem;
+        width: fit-content;
+    }
+
+    /* Style confirmation message with bluish color. */
+    .department-confirmation {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: fit-content;
+        background-color: var(--edit-blue-color);
+        color: black;
+        border: 2px solid var(--blue-background);
+        animation: showDepartmentMessage 3s forwards;
+        z-index: 100;
+    }
+
+    /* Key frames fade for message with bluish color. */
+    @keyframes showDepartmentMessage {
+        0% {
+            transform:  translateY(-100%) translateX(calc(-50vw + 50%));
+        }
+        15% {
+            transform: translateY(0%) translateX(calc(-50vw + 50%));
+        }
+        85% {
+            transform: translateY(0%) translateX(calc(-50vw + 50%));
+        }
+        100% {
+            transform: translateY(-100%) translateX(calc(-50vw + 50%));
+            display: none;
+        }
+    }
+
+    /* ====================================================================
+                            EDIT DEPARTMENTS     Page
+    ==================================================================== */
+
+    #departments-edit-page {
+        padding-top: 130px;
+        color: var(--whiter-color);
+        background-color: var(--black-color);
+        /* height: 100vh; */
+    }
+
+    .department-edit-page-text {
+        font-size: clamp(2.5rem, 2.85rem, 3.5rem); 
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .department-edit-ordering {
+        margin-top: 20px;
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .department-edit-items {
+        margin-top: 30px;
+        margin-bottom: 60px;
+    }
+
+    .department-edit-name {
+        max-width: 800px;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--black-font);
+        background-color: var(--gray-color);
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-right: 20px;
+        padding-left: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+        border: 2px solid var(--gray-color);
+    }
+
+    .department-edit-name-text {
+        margin: 0;
+    }
+
+    /* @media (max-width: 650px) { 
+
+        .treatment-name-edit-buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    }
+
+    @media (min-width: 650px) { 
+
+        .treatment-name-edit-buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    } */
+
+    @media (max-width: 650px) { 
+
+        .department-edit-card {
+            max-width: 800px;
+            font-size: 25px;
+            text-decoration: none;
+            color: var(--black-font);
+            background-color: var(--white-background);
+            margin: 0;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 20px;
+            padding-left: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 30px;
+            border: 2px solid var(--gray-color);
+            /* display: flex;
+            flex-direction: column;
+            justify-content: flex-start; */
+        }
+    }
+
+    @media (min-width: 650px) { 
+
+        .department-edit-card {
+            max-width: 800px;
+            font-size: 25px;
+            text-decoration: none;
+            color: var(--black-font);
+            background-color: var(--white-background);
+            margin: 0;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 20px;
+            padding-left: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 30px;
+            border: 2px solid var(--gray-color);
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+    }
+
+    .department-edit-inline {
+        display: inline-block;
+    }
+
+    @media (max-width: 650px) { 
+
+        .department-edit-column {
+            margin-right: 0px;
+            max-width: 400px;
+            width: 50%;
+        }
+    }
+
+    @media (min-width: 650px) { 
+    
+        .department-edit-column {
+            margin-right: 10px;
+            max-width: 400px;
+            width: 50%;
+        }
+    }
+
+    .department-edit-text-info {
+        text-decoration: none;
+        margin: 10px;
+    }
+
+    .department-edit-buttons {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        margin: 0;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #department-edit-icon1 span i {
+        display: inline-block;
+        transition: 0.1s;
+    }
+    
+    #department-edit-icon1:hover span i {
+        color: var(--blue-font);
+        transform: scale(1.15);
+    }
+
+    #department-edit-icon2 span i {
+        display: inline-block;
+        transition: 0.1s;
+    }
+    
+    #department-edit-icon2:hover span i {
+        color: var(--blue-font);
+        transform: scale(1.15);
+    }
+
+    .no-department-edit-data {
+        font-size: 25px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+    /* ====================================================================
+                            CREATE TREATMENTS Page
+    ==================================================================== */
+
+    #department-create-page {
+        padding-top: 130px;
+        color: var(--whiter-color);
+        background-color: var(--black-color);
+        /* height: 100vh; */
+    }
+
+    .department-create-page-text {
+        font-size: clamp(2.5rem, 2.85rem, 3.5rem); 
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .department-create-ordering {
+        margin-top: 20px;
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .department-create-item {
+        margin-top: 30px;
+        margin-bottom: 60px;
+    }
+
+    .department-create-name {
+        max-width: 800px;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--black-font);
+        background-color: var(--gray-color);
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-right: 20px;
+        padding-left: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+        border: 2px solid var(--gray-color);
+    }
+
+    .department-create-name-text {
+        margin: 0;
+    }
+
+    /* @media (max-width: 650px) { 
+
+        .department-name-create-buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    }
+
+    @media (min-width: 650px) { 
+
+        .department-name-create-buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    } */
+
+    @media (max-width: 650px) { 
+
+        .department-create-card {
+            max-width: 800px;
+            font-size: 25px;
+            text-decoration: none;
+            color: var(--black-font);
+            background-color: var(--white-background);
+            margin: 0;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 20px;
+            padding-left: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 30px;
+            border: 2px solid var(--gray-color);
+            /* display: flex;
+            flex-direction: column;
+            justify-content: flex-start; */
+        }
+    }
+
+    @media (min-width: 650px) { 
+
+        .department-create-card {
+            max-width: 800px;
+            font-size: 25px;
+            text-decoration: none;
+            color: var(--black-font);
+            background-color: var(--white-background);
+            margin: 0;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 20px;
+            padding-left: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 30px;
+            border: 2px solid var(--gray-color);
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+    }
+
+    .department-create-inline {
+        display: inline-block;
+    }
+
+    @media (max-width: 650px) { 
+
+        .department-create-column {
+            margin-right: 0px;
+            max-width: 400px;
+        }
+    }
+
+    @media (min-width: 650px) { 
+    
+        .department-create-column {
+            margin-right: 10px;
+            max-width: 400px;
+        }
+    }
+
+    .department-create-text-info {
+        text-decoration: none;
+        margin: 10px;
+        margin-top: 0;
+    }
+
+    .department-create-buttons {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        margin: 0;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #department-create-icon1 span i {
+        display: inline-block;
+        transition: 0.1s;
+    }
+    
+    #department-create-icon1:hover span i {
+        color: var(--blue-font);
+        transform: scale(1.15);
+    }
+
+    #department-create-icon2 span i {
+        display: inline-block;
+        transition: 0.1s;
+    }
+    
+    #department-create-icon2:hover span i {
+        color: var(--blue-font);
+        transform: scale(1.15);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /* ====================================================================
                             FOOTER Section (All Pages)
     ==================================================================== */
@@ -2421,7 +3286,8 @@ html {
         text-align: center;
         padding: 12px 32px;
         bottom: 0;
-        margin-top: auto;
+        /* margin-top: auto; */
+        flex-shrink: 0;
         margin-bottom: 0;
     }
 

@@ -78,7 +78,7 @@ treatmentRouter.get("/treatments", function(req, res, next) {
 // the user chooses to change any of the data, 
 // this route will redirect to an update route
 // that will commit the changes to the databases.
-treatmentRouter.get("/treatment_edit/:treatmentId", function(req, res) {
+treatmentRouter.get("/treatment-edit/:treatmentId", function(req, res) {
 
     // Create a constant for storing the post ID so that it
     // can be retrieved from the database.
@@ -99,20 +99,20 @@ treatmentRouter.get("/treatment_edit/:treatmentId", function(req, res) {
         } else {
 
             // Otherwise, send the data to the
-            // treatments.ejs page in order to 
+            // treatment_edit.ejs page in order to 
             // allow the user to edit that data.
-            res.render("treatment_edit", {title: "Treatment Edit", treatmentEdit: data});
+            res.render("treatment-edit", {title: "Treatment Edit", treatmentEdit: data});
         }
     });
 });
 
 // Create a get request for when the user wants to 
 // create a new treatment.
-treatmentRouter.get("/treatment_new", function(req, res) {
+treatmentRouter.get("/treatment-new", function(req, res) {
 
     // Render the "treatment_new" page to allow the user to 
     // create a new treatment entity and add it to the database.
-    res.render("treatment_new");
+    res.render("treatment-new");
 });
 
 /* SECTION: PROCESS REQUESTS MADE TO SERVER (POST) */
@@ -122,7 +122,7 @@ treatmentRouter.get("/treatment_new", function(req, res) {
 // create a new treatment. The treatment that is created 
 // by the user is added to the treatment table of the
 // database.
-treatmentRouter.post("/treatment_add", function(req, res) {
+treatmentRouter.post("/treatment-add", function(req, res) {
 
     // Declare a variable for the treatment identifier.
     // var TreatmentID = null; // --> DO NOT THINK WE NEED THIS!!!
@@ -171,7 +171,7 @@ treatmentRouter.post("/treatment_add", function(req, res) {
 
 // Create a post request for when the user wants to
 // update a given treatment.
-treatmentRouter.post("/treatment_update", function(req, res) {
+treatmentRouter.post("/treatment-update", function(req, res) {
 
     // Declare a variable for the treatment identifier.
     var updateTreatmentID = req.body.defaulttreatmentid;
@@ -236,7 +236,7 @@ treatmentRouter.post("/treatment_update", function(req, res) {
 
 // Create a post request for when the user wants to
 // remove a given treatment.
-treatmentRouter.post("/treatment_remove", function(req, res) {
+treatmentRouter.post("/treatment-remove", function(req, res) {
 
     // Obtain the treatment identifier of the treatment that
     // the user wants to remove from the database, and 

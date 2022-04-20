@@ -41,3 +41,18 @@ CREATE TABLE `Treatment` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
 /* =========================================================================================== */
+
+/*
+  Create the Department Table using MySQL.
+  NOTE: The AUTO_INCREMENT field is set to 1 by default!
+*/
+CREATE TABLE `PCM`.`Department` (
+  `DepartmentID` INT NOT NULL AUTO_INCREMENT,
+  `DepartmentName` VARCHAR(60) NOT NULL,
+  `DepartmentLocation` VARCHAR(60) NOT NULL,
+  `DepartmentMembers` INT NOT NULL,
+  `DepartmentDescription` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`DepartmentID`),
+  UNIQUE INDEX `idDepartment_UNIQUE` (`DepartmentID` ASC) VISIBLE);
+
+/* =========================================================================================== */

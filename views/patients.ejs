@@ -20,7 +20,7 @@
 
     <!-- 
         Send a message to the user alterting them that they made 
-        a change to the PATIENT database. This messages is only
+        a change to the PATIENT database. This message is only
         executed if the user created, updated, or removed (deleted)
         a patient.
     -->
@@ -144,7 +144,7 @@
                             <% // Obtain the patient's age by subtracting the %>
                             <% // year that the patient was born from the current %>
                             <% // year, and return it. %>
-                            <% patientAge = currentYear - patientYearBorn; %>
+                            <% var patientAge = currentYear - patientYearBorn; %>
                             <% return patientAge; %>
                         <% } %>
 

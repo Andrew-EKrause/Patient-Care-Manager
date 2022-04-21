@@ -18,7 +18,7 @@
 
 <%- include('./partials/header.ejs') %>
 
-    <!-- Section for the list of departments on the webpage -->
+    <!-- Section for the create department card on the webpage -->
     <section id="department-create-page">
         <div class="fade-in">
             <header>
@@ -37,7 +37,7 @@
                     -->
                     <form class="form-create-department-horizontal" action="/department-add" method="POST">
 
-                        <!-- Create a card for each department -->
+                        <!-- Create a card for making a new department -->
                         <!-- First, create a heading that displays the name of each department -->
                         <div class="department-create-name">
 
@@ -87,7 +87,7 @@
                                 the fields on the page by the user is gathered for the "department-add" route 
                             -->
                             <button type="submit" id="department-create-icon2" class="all-button-container-two">
-                                <span class="department-button-icon"><i class="fa-solid fa-heart-circle-plus"></i></span> Create
+                                <span class="department-button-icon"><i class="fa-solid fa-house-medical-circle-check"></i></span> Create
                             </button>
                         </div>
                     </form>

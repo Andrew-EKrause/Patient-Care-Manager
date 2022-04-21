@@ -77,7 +77,7 @@ treatmentRouter.get("/treatments", function(req, res, next) {
 // the user wants to edit on a separate page. If
 // the user chooses to change any of the data, 
 // this route will redirect to an update route
-// that will commit the changes to the databases.
+// that will commit the changes to the database.
 treatmentRouter.get("/treatment-edit/:treatmentId", function(req, res) {
 
     // Create a constant for storing the post ID so that it
@@ -110,7 +110,7 @@ treatmentRouter.get("/treatment-edit/:treatmentId", function(req, res) {
 // create a new treatment.
 treatmentRouter.get("/treatment-new", function(req, res) {
 
-    // Render the "treatment_new" page to allow the user to 
+    // Render the "treatment-new" page to allow the user to 
     // create a new treatment entity and add it to the database.
     res.render("treatment-new");
 });

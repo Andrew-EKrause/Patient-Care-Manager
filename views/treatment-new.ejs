@@ -18,7 +18,7 @@
 
 <%- include('./partials/header.ejs') %>
 
-    <!-- Section for the list of treatments on the webpage -->
+    <!-- Section for the create treatment card on the webpage -->
     <section id="treatment-create-page">
         <div class="fade-in">
             <header>
@@ -37,7 +37,7 @@
                     -->
                     <form class="form-create-treatment-horizontal" action="/treatment-add" method="POST">
 
-                        <!-- Create a card for each treatment -->
+                        <!-- Create a card for making a new treatment -->
                         <!-- First, create a heading that displays the name of each treatment -->
                         <div class="treatment-create-name">
 
@@ -87,7 +87,7 @@
                                 the fields on the page by the user is gathered for the "treatment-add" route
                             -->
                             <button type="submit" id="treatment-create-icon2" class="all-button-container-two">
-                                <span class="treatment-button-icon"><i class="fa-solid fa-heart-circle-plus"></i></span> Create
+                                <span class="treatment-button-icon"><i class="fa-solid fa-notes-medical"></i></span> Create
                             </button>
                         </div>
                     </form>

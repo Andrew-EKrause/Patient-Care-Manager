@@ -1,0 +1,170 @@
+<!-- 
+    The provider-new.ejs file displays a form that
+    the user can fill out to create a new provider 
+    entity for the database. Upon filling out the
+    form, they can submit the changes to be added
+    to the provider table of the databases. The 
+    user can either click the "Create" button or
+    the "Cancel button" on this page as well.
+    ...
+    Project: Mayo Clinic Patient Care Manager 
+             (PCM) Web Application
+    Author: Andrew Krause
+    Class: Introduction to Database 
+           Management Systems (CS 364)
+    Date: 5/10/2022
+    ...
+-->
+
+<%- include('./partials/header.ejs') %>
+
+    <!-- Section for the create provider card on the webpage -->
+    <section id="provider-create-page">
+        <div class="fade-in">
+            <header>
+                <h1 class="provider-create-page-text">Create Provider</h1>
+            </header>
+            <div class="provider-create-ordering">
+                <!-- 
+                    This is the section where the provider data
+                    is loaded to be displayed on the page
+                -->
+                <div class="provider-create-item">
+
+                    <!-- 
+                        Create a form to process any data that is entered into the input fields by the
+                        user. This information will be used to create a new provider for the database.
+                    -->
+                    <form class="form-create-provider-horizontal" action="/provider-add" method="POST">
+
+                        <!-- Create a card for making a new provider -->
+                        <!-- First, create a heading that displays the name of each provider -->
+                        <div class="provider-create-name">
+
+                            <!-- 
+                                If the provider has been discharged from treatment, print out an
+                                icon to indicate that they are done being treated. Otherwise, print
+                                out an icon to indicate that they are currently in treatment.
+                            -->
+                            <h2 class="provider-create-name-text">
+
+                                <!-- Include a div to show the provider name and action buttons -->
+                                <div class="provider-name-create-buttons">
+
+                                   <!-- 
+                                        Display an icon for the new provider. Also provide
+                                        fields for the user to enter the provider's name in.
+                                    -->
+                                    <div>
+                                        <!-- Display an icon for creating a new provider -->
+                                        <i class="fa-solid fa-hospital-user"></i>
+                                        
+                                        <!-- Provide a section for the user to add a new provider name -->
+                                        Full Name: 
+                                        <input placeholder="Enter First Name" type="text" class="name-input" name="providerfirstname" size="10" required>
+                                        <input placeholder="Enter Middle Name" type="text" class="name-input" name="providermiddlename" size="10" required>
+                                        <input placeholder="Enter Last Name" type="text" class="name-input" name="providerlastname" size="10" required>
+                                    </div>
+                                </div>
+                            </h2>
+                        </div>
+
+                        <!-- Create the main-content portion of the provider card -->
+                        <div class="provider-create-card">                                
+            
+                            <!-- Each column of the card displays different amounts of data -->
+                            <div class="provider-create-column">
+
+                                <!-- Provider options for the user to select what the title of the provider is -->
+                                <p class="provider-create-text-info">
+                                    <label for="provider-title"><b>Title:</b></label>
+                                    <select id="" class="title-input" name="providertitle">
+                                        <option value="-">-</option>
+                                        <option value="M.D.">M.D.</option>
+                                        <option value="D.O.">D.O.</option>                                         
+                                        <option value="P.A.">P.A.</option> 
+                                        <option value="N.P.">N.P.</option> 
+                                        <option value="Other">Other</option> 
+                                    </select>
+                                </p>
+
+                                <!-- Provide the rest of the fields for the provider that can be filled out -->
+                                <p class="provider-create-text-info"><b>Phone:</b> <input placeholder="###-###-####" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="" name="providerphone" size="13" maxlength="12" required></p>
+                                <p class="provider-create-text-info"><b>Email:</b> <input placeholder="Enter Email" type="email" class="" name="provideremail" size="13" required></p>
+                                <p class="provider-create-text-info"><b>Description:</b> <input placeholder="Enter Description" type="text" class="name-input" name="providerdescription" size="10" required></p>
+                            </div>
+                            <!-- Each column of the card displays different amounts of data -->  
+                            <div class="provider-create-column">
+                                <p class="provider-create-text-info"><b>Start Date:</b> <input id="providerstartdatecalc" placeholder="Enter Start Date" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="providerstartdate" size="16" required></p> 
+                                
+                                <!-- MAYBE TRY IMPLEMENTING THE CODE BELOW AT A LATER TIME!!! -->
+                                <!-- ===================================================================== -->
+                                <!-- 
+                                    Create a variable that determines if a value 
+                                    was entered into the provider start date input 
+                                -->
+                                <% // var enteredStartDateProvider = req.body.providerstartdate; %>
+
+                                <!-- 
+                                    If the user entered a value into the provider 
+                                    start date input field, enable them to enter 
+                                    an end date for the provider if they wish to 
+                                    do so. If the user never entered a value into
+                                    the provider start date, disable the input field
+                                    for the provider end date until they enter a 
+                                    value for the start date.
+                                -->
+                                <% // if(enteredStartDateProvider) { %>
+                                    
+                                    <!-- The provider end date/date discharged is entered here -->
+                                    <!-- <p class="provider-create-text-info"><b>End Date:</b> <input placeholder="Enter End Date" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="providerenddate" size="16"></p>  -->
+                                <% // } else { %>
+
+                                    <!-- A disabled input for the provider end date/date discharged is listed here -->
+                                    <!-- <p class="provider-create-text-info"><b>End Date:</b> <input placeholder="Enter Start Date First" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="providerenddate" size="16" disabled></p>  -->
+                                <% // } %>
+                                <!-- ===================================================================== -->
+
+                                <!-- The provider end date/date discharged is entered here -->
+                                <p class="provider-create-text-info"><b>End Date:</b> <input placeholder="Enter End Date" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="providerenddate" size="16"></p> 
+
+                                <!-- 
+                                    Create a checkbox for providing the user with the option 
+                                    to determine if the provider is currently undergoing treatment(s) 
+                                -->
+                                <p class="provider-create-text-info" style="margin-bottom: 0;">
+                                    <b>Currently Employed:</b> 
+                                    <div class="checkbox-structure">
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="providercheckbox" class="checkbox-label" style="margin-top: 6px;" name="providerisemployed" value="Is-Employed">
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <label for="providercheckbox">Yes</label>
+                                        </div>
+                                    </div>
+                                </p> 
+                            </div>
+                        </div>
+
+                        <!-- Create forms to process when user clicks the "Add Provider" button and the "Back" button -->
+                        <div class="provider-create-buttons">
+                            <!-- The button brings the user back to the main list of providers on the website -->
+                            <a id="provider-create-icon1" class="all-button-container-one" href="/providers">
+                                <span class="provider-button-icon"><i class="fa-solid fa-circle-xmark"></i></span> Cancel
+                            </a>
+
+                            <!-- 
+                                The button, when clicked, triggers a process in which any form data entered into 
+                                the fields on the page by the user is gathered for the "provider-add" route 
+                            -->
+                            <button type="submit" id="provider-create-icon2" class="all-button-container-two">
+                                <span class="provider-button-icon"><i class="fa-solid fa-user-plus"></i></span> Create
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<%- include('./partials/footer.ejs') %>

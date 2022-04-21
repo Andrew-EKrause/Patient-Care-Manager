@@ -14,6 +14,7 @@ CREATE TABLE `Patient` (
   `PatientBirthdate` date NOT NULL,
   `PatientSex` varchar(6) NOT NULL,
   `PatientWeight` decimal(6,2) NOT NULL,
+  `PatientRiskIndex` int NOT NULL,
   `PatientPhone` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `PatientEmail` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `PatientHeight` decimal(4,2) NOT NULL,
@@ -21,7 +22,7 @@ CREATE TABLE `Patient` (
   `PatientEndDate` date DEFAULT NULL,
   PRIMARY KEY (`PatientID`),
   UNIQUE KEY `PatientID_UNIQUE` (`PatientID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
 /* =========================================================================================== */
 
@@ -34,11 +35,32 @@ CREATE TABLE `Treatment` (
   `TreatmentName` varchar(60) NOT NULL,
   `TreatmentRequirements` varchar(255) NOT NULL,
   `TreatmentDescription` varchar(255) NOT NULL,
-  `TreatmentTools` varchar(255) NOT NULL,
   `TreatmentRiskIndex` int NOT NULL,
+  `TreatmentTools` varchar(255) NOT NULL,
   PRIMARY KEY (`TreatmentID`),
   UNIQUE KEY `idTreatment_UNIQUE` (`TreatmentID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+/* =========================================================================================== */
+
+/*
+  Create the Provider Table using MySQL.
+  NOTE: The AUTO_INCREMENT field is set to 1 by default!
+*/
+CREATE TABLE `Provider` (
+  `ProviderID` int NOT NULL AUTO_INCREMENT,
+  `ProviderFirstName` varchar(50) NOT NULL,
+  `ProviderMiddleName` varchar(50) NOT NULL,
+  `ProviderLastName` varchar(50) NOT NULL,
+  `ProviderTitle` varchar(50) NOT NULL,
+  `ProviderDescription` varchar(255) NOT NULL,
+  `ProviderPhone` varchar(50) NOT NULL,
+  `ProviderEmail` varchar(50) NOT NULL,
+  `ProviderStartDate` date NOT NULL,
+  `ProviderEndDate` date DEFAULT NULL,
+  PRIMARY KEY (`ProviderID`),
+  UNIQUE KEY `ProviderID_UNIQUE` (`ProviderID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
 /* =========================================================================================== */
 
@@ -46,13 +68,14 @@ CREATE TABLE `Treatment` (
   Create the Department Table using MySQL.
   NOTE: The AUTO_INCREMENT field is set to 1 by default!
 */
-CREATE TABLE `PCM`.`Department` (
-  `DepartmentID` INT NOT NULL AUTO_INCREMENT,
-  `DepartmentName` VARCHAR(60) NOT NULL,
-  `DepartmentLocation` VARCHAR(60) NOT NULL,
-  `DepartmentMembers` INT NOT NULL,
-  `DepartmentDescription` VARCHAR(255) NOT NULL,
+CREATE TABLE `Department` (
+  `DepartmentID` int NOT NULL AUTO_INCREMENT,
+  `DepartmentName` varchar(60) NOT NULL,
+  `DepartmentLocation` varchar(60) NOT NULL,
+  `DepartmentMembers` int NOT NULL,
+  `DepartmentDescription` varchar(255) NOT NULL,
   PRIMARY KEY (`DepartmentID`),
-  UNIQUE INDEX `idDepartment_UNIQUE` (`DepartmentID` ASC) VISIBLE);
+  UNIQUE KEY `idDepartment_UNIQUE` (`DepartmentID`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
 /* =========================================================================================== */

@@ -77,7 +77,7 @@ departmentRouter.get("/departments", function(req, res, next) {
 // the user wants to edit on a separate page. If
 // the user chooses to change any of the data, 
 // this route will redirect to an update route
-// that will commit the changes to the databases.
+// that will commit the changes to the database.
 departmentRouter.get("/department-edit/:departmentId", function(req, res) {
 
     // Create a constant for storing the post ID so that it
@@ -110,7 +110,7 @@ departmentRouter.get("/department-edit/:departmentId", function(req, res) {
 // create a new department.
 departmentRouter.get("/department-new", function(req, res) {
 
-    // Render the "department_new" page to allow the user to 
+    // Render the "department-new" page to allow the user to 
     // create a new department entity and add it to the database.
     res.render("department-new");
 });

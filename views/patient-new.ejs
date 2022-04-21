@@ -2,7 +2,7 @@
     The patient-new.ejs file displays a form that
     the user can fill out to create a new patient 
     entity for the database. Upon filling out the
-    form, the can submit the changes to be added
+    form, they can submit the changes to be added
     to the patient table of the databases. The 
     user can either click the "Create" button or
     the "Cancel button" on this page as well.
@@ -18,7 +18,7 @@
 
 <%- include('./partials/header.ejs') %>
 
-    <!-- Section for the list of patients on the webpage -->
+    <!-- Section for the create patient card on the webpage -->
     <section id="patient-create-page">
         <div class="fade-in">
             <header>
@@ -37,7 +37,7 @@
                     -->
                     <form class="form-create-patient-horizontal" action="/patient-add" method="POST">
 
-                        <!-- Create a card for each patient -->
+                        <!-- Create a card for making a new patient -->
                         <!-- First, create a heading that displays the name of each patient -->
                         <div class="patient-create-name">
 
@@ -52,9 +52,8 @@
                                 <div class="patient-name-create-buttons">
 
                                     <!-- 
-                                        Display an icon indicating whether or not the patient has 
-                                        been discharged from the hospital. Also include the patient's
-                                        full name.
+                                        Display an icon for the new patient. Also provide
+                                        fields for the user to enter the patient's name in.
                                     -->
                                     <div>
                                         <!-- Display an icon for creating the new patient -->

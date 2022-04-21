@@ -96,7 +96,7 @@ patientRouter.get("/patients", function(req, res, next) {
 // the user wants to edit on a separate page. If
 // the user chooses to change any of the data, 
 // this route will redirect to an update route
-// that will commit the changes to the databases.
+// that will commit the changes to the database.
 patientRouter.get("/patient-edit/:patientId", function(req, res) {
 
     // Create a constant for storing the post ID so that it
@@ -129,7 +129,7 @@ patientRouter.get("/patient-edit/:patientId", function(req, res) {
 // create a new patient.
 patientRouter.get("/patient-new", function(req, res) {
 
-    // Render the "patient_new" page to allow the user to 
+    // Render the "patient-new" page to allow the user to 
     // create a new patient entity and add it to the database.
     res.render("patient-new");
 });
@@ -323,8 +323,8 @@ patientRouter.post("/patient-update", function(req, res) {
     var patientSex = req.body.patientsex;
     var patientHeight = req.body.patientheight;
     var patientWeight = req.body.patientweight;
-    var patientDescription = req.body.patientdescription.trim();
     var patientRiskIndex = req.body.patientriskindex;
+    var patientDescription = req.body.patientdescription.trim();
     var patientPhone = req.body.patientphone;
     var patientEmail = req.body.patientemail;
     var patientStartDate = req.body.patientstartdate;

@@ -1,0 +1,315 @@
+<!-- 
+    The provider-edit.ejs file displays a given 
+    provider that was selected by the user to edit.
+    Each attribute of the provider can be edited by
+    the user. Data validation is included to ensure
+    that the user does not enter any incorrect data
+    values for a given data attribute. When the user
+    completes the process of updating the given
+    provider, they can either cancel the changes or
+    submit the changes to be added to the database.
+    ...
+    Project: Mayo Clinic Patient Care Manager 
+             (PCM) Web Application
+    Author: Andrew Krause
+    Class: Introduction to Database 
+           Management Systems (CS 364)
+    Date: 5/10/2022
+    ...
+-->
+
+<%- include('./partials/header.ejs') %>
+
+    <!-- Section for the form with update ability for providers on the webpage -->
+    <section id="providers-edit-page">
+        <div class="fade-in">
+            <header>
+                <h1 class="provider-edit-page-text">Edit Provider</h1>
+            </header>
+            <div class="provider-edit-ordering">
+                <!-- 
+                    This is the section where the provider data
+                    is loaded to be displayed on the page
+                -->
+                <div class="provider-edit-items">
+
+                    <!-- 
+                        If there is data in the provider table 
+                        of the database, display that data
+                    -->
+                    <% if(providerEdit.length != 0) { %>
+
+                        <!-- Create a form to process any data that is entered into the input fields by the user -->
+                        <form class="form-edit-provider-horizontal" action="/provider-update" method="POST">
+
+                            <!-- 
+                                Create a function to obtain the provider ID in order to 
+                                perform an update operation on any given provider entity.
+                            -->
+                            <% function getUpdateValue() { %>
+                                
+                                <% // Create variables to obtain the chevron element. %>
+                                <% var value = "update_" + event.currentTarget.id; %>
+                                <% var element = document.getElementById(value).value; %>
+                            <% } %>
+
+                            <!-- Include a function to simplify the date display -->
+                            <% function simplifyDate(eventDate) { %>
+
+                                <% // First split the event into the components that directly %>
+                                <% // involve the numberical representations of a date. %>
+                                <% var date = eventDate.toISOString().split("T")[0]; %>
+                            
+                                <% // Create variables for workring with %>
+                                <% // the nubmers in the date variable. %>
+                                <% var arrayDate = date.split('-'); %>
+                                <% var day = arrayDate[2]; %>
+                                <% var getMonth = arrayDate[1]; %>
+                                <% var month = ""; %>
+                                <% var year = arrayDate[0]; %>
+                                <% var simplifiedDate = ""; %>
+                            
+                                <% // Use a series of conditionals to determine %>
+                                <% // what the name of the month is based on the %>
+                                <% // numerical representation of it. %>
+                                <% if(getMonth.localeCompare('01') == 0) { %>
+                                    <% month = 'Jan'; %>
+                                <% } else if(getMonth.localeCompare('02') == 0) { %>
+                                    <% month = 'Feb'; %>
+                                <% } else if(getMonth.localeCompare('03') == 0) { %>
+                                    <% month = 'Mar'; %>
+                                <% } else if(getMonth.localeCompare('04') == 0) { %>
+                                    <% month = 'Apr'; %>
+                                <% } else if(getMonth.localeCompare('05') == 0) { %>
+                                    <% month = 'May'; %>
+                                <% } else if(getMonth.localeCompare('06') == 0) { %>
+                                    <% month = 'Jun'; %>
+                                <% } else if(getMonth.localeCompare('07') == 0) { %>
+                                    <% month = 'Jul'; %>
+                                <% } else if(getMonth.localeCompare('08') == 0) { %>
+                                    <% month = 'Aug'; %>
+                                <% } else if(getMonth.localeCompare('09') == 0) { %>
+                                    <% month = 'Sep'; %>
+                                <% } else if(getMonth.localeCompare('10') == 0) { %>
+                                    <% month = 'Oct'; %>
+                                <% } else if(getMonth.localeCompare('11') == 0) { %>
+                                    <% month = 'Nov'; %>
+                                <% } else if(getMonth.localeCompare('12') == 0) { %>
+                                    <% month = 'Dec'; %>
+                                <% } else { %>
+                                    <% month = 'ERROR'; %>
+                                <% } %>
+                            
+                                <% // Create the simplified date and return it. %>
+                                <% simplifiedDate = month + " " + day + ", " + year; %>
+                                <% return simplifiedDate; %>
+                            <% } %>
+
+                            <!-- 
+                                Loop through all of the providers in the 
+                                database and display them on the page 
+                            -->
+                            <% providerEdit.forEach(function(data) { %>
+
+                                <!-- Create a card for each provider -->
+                                <!-- First, create a heading that displays the name of each provider -->
+                                <div class="provider-edit-name">
+
+                                    <!-- Print out the provider icon and name -->
+                                    <h2 class="provider-name-text">
+
+                                        <!-- Include a div to show the provider name and action buttons -->
+                                        <div class="provider-name-edit-buttons">
+
+                                            <!-- 
+                                                Display an icon indicating whether or not the provider has 
+                                                been discharged from the hospital. Also include the provider's
+                                                full name.
+                                            -->
+                                            <div>
+                                                <!-- 
+                                                    If the provider is not employed at the hospital anymore,
+                                                    indicate that they are not working there. Otherwise, indicate
+                                                    that they are working there. // !!! MAY NOT HAVE LATER ON !!!
+                                                -->
+                                                <i class="fa-solid fa-stethoscope"></i>
+                                                
+                                                Full Name: 
+                                                <input placeholder="Enter First Name" value="<%= data.ProviderFirstName %>" type="text" class="name-input" name="providerfirstname" size="10">
+                                                <input placeholder="Enter Middle Name" value="<%= data.ProviderMiddleName %>" type="text" class="name-input" name="providermiddlename" size="10">
+                                                <input placeholder="Enter Last Name" value="<%= data.ProviderLastName %>" type="text" class="name-input" name="providerlastname" size="10">
+                                            </div>
+                                        </div>
+                                    </h2>
+                                </div>
+
+                                <!-- Create the main-content portion of the provider card -->
+                                <div class="provider-edit-card">
+
+                                    <!-- Create a new function that simplifies the date -->
+                                    <!-- and returns it in the format: mm-dd-yyyy -->
+                                    <% function simplifyDateShorthand(eventDate) { %>
+
+                                        <% // First split the event into the components that directly %>
+                                        <% // involve the numberical representations of a date. %>
+                                        <% var date = eventDate.toISOString().split("T")[0]; %>
+                                    
+                                        <% // Create variables for workring with %>
+                                        <% // the nubmers in the date variable. %>
+                                        <% var arrayDate = date.split('-'); %>
+                                        <% var day = arrayDate[2]; %>
+                                        <% var getMonth = arrayDate[1]; %>
+                                        <% var month = ""; %>
+                                        <% var year = arrayDate[0]; %>
+                                        <% var simplifiedDate = ""; %>
+                                    
+                                        <% // Use a series of conditionals to determine %>
+                                        <% // what the name of the month is based on the %>
+                                        <% // numerical representation of it. %>
+                                        <% if(getMonth.localeCompare('01') == 0) { %>
+                                            <% month = '01'; %>
+                                        <% } else if(getMonth.localeCompare('02') == 0) { %>
+                                            <% month = '02'; %>
+                                        <% } else if(getMonth.localeCompare('03') == 0) { %>
+                                            <% month = '03'; %>
+                                        <% } else if(getMonth.localeCompare('04') == 0) { %>
+                                            <% month = '04'; %>
+                                        <% } else if(getMonth.localeCompare('05') == 0) { %>
+                                            <% month = '05'; %>
+                                        <% } else if(getMonth.localeCompare('06') == 0) { %>
+                                            <% month = '06'; %>
+                                        <% } else if(getMonth.localeCompare('07') == 0) { %>
+                                            <% month = '07'; %>
+                                        <% } else if(getMonth.localeCompare('08') == 0) { %>
+                                            <% month = '08'; %>
+                                        <% } else if(getMonth.localeCompare('09') == 0) { %>
+                                            <% month = '09'; %>
+                                        <% } else if(getMonth.localeCompare('10') == 0) { %>
+                                            <% month = '10'; %>
+                                        <% } else if(getMonth.localeCompare('11') == 0) { %>
+                                            <% month = '11'; %>
+                                        <% } else if(getMonth.localeCompare('12') == 0) { %>
+                                            <% month = '12'; %>
+                                        <% } else { %>
+                                            <% month = 'ERROR'; %>
+                                        <% } %>
+                                    
+                                        <% // Create the simplified date and return it. %>
+                                        <% simplifiedDate = year + "-" + month + "-" + day; %>
+                                        <% return simplifiedDate; %>
+                                    <% } %> 
+                                    <!-- ====================================================================================== -->                                  
+                    
+                                    <!-- Each column of the card displays different amounts of data -->
+                                    <div class="provider-edit-column">
+
+                                        <!-- Provider options for the user to select what the title of the provider is -->
+                                        <p class="provider-create-text-info">
+                                            <label for="provider-title"><b>Title:</b></label>
+                                            <select id="" class="title-input" name="providertitle">
+                                                <option value="-">-</option>
+                                                <option value="M.D.">M.D.</option>
+                                                <option value="D.O.">D.O.</option>                                         
+                                                <option value="P.A.">P.A.</option> 
+                                                <option value="N.P.">N.P.</option> 
+                                                <option value="Other">Other</option> 
+                                            </select>
+                                        </p>
+
+                                        <p class="provider-edit-text-info"><b>Phone:</b> <input placeholder="###-###-####" value="<%= data.ProviderPhone %>" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="" name="providerphone" size="13" maxlength="12"></p>
+                                        <p class="provider-edit-text-info"><b>Email:</b> <input placeholder="Enter Email" value="<%= data.ProviderEmail %>" type="email" class="" name="provideremail" size="13"></p>
+                                        <p class="provider-edit-text-info"><b>Description:</b> <input placeholder="Enter Description" value="<%= data.ProviderDescription %>" type="text" class="name-input" name="providerdescription" size="10"></p>
+                                    </div>
+                                    <!-- Each column of the card displays different amounts of data --> 
+                                    <div class="provider-edit-column">
+                                        <!-- Format the placeholder for the start date value -->
+                                        <% var startDateProvider = simplifyDate(data.ProviderStartDate); %>
+
+                                        <p class="provider-edit-text-info"><b>Start Date:</b> <input placeholder="<%= startDateProvider %>" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="providerstartdate" size="16"></p> 
+                                        
+                                        <!--
+                                            If the provider does not have an end 
+                                            date, display a message instead
+                                        -->
+                                        <% if(data.ProviderEndDate) { %>
+                                            <!-- 
+                                                Format the placeholder for the end date value. Also
+                                                create a variable that serves as a minimum value that
+                                                can be entered for the provider end date. The value of
+                                                his variable is based on the value entered for the 
+                                                provider start date (the provider end date must be on 
+                                                or after the provider start date).
+                                            -->
+                                            <% var endDateProvider = simplifyDate(data.ProviderEndDate); %>
+                                            <% var minDateEntered = simplifyDateShorthand(data.ProviderStartDate); %>
+
+                                            <p class="provider-edit-text-info"><b>Discharged:</b> <input placeholder="<%= endDateProvider %>" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="providerenddate" min=<%= minDateEntered %> size="16"></p> 
+                                        <% } else { %>
+                                            <p class="provider-edit-text-info"><b>Discharged:</b> <input placeholder="Currently employed." onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="providerenddate" size="16"></p> 
+                                        <% } %>
+
+                                        <!-- 
+                                            Create a checkbox for providing the user with the option 
+                                            to determine if the provider is currently employed
+                                        -->
+                                        <p class="provider-edit-text-info" style="margin-bottom: 0;">
+                                            <b>Currently Employed:</b> 
+                                            <div class="checkbox-structure">
+                                                <div class="checkbox-item">
+                                                    <input type="checkbox" id="providercheckbox" class="checkbox-label" style="margin-top: 6px;" name="providerisemployed" value="Is-Employed">
+                                                </div>
+                                                <div class="checkbox-item">
+                                                    <label for="providercheckbox">Yes</label>
+                                                </div>
+                                            </div>
+                                        </p> 
+                                    </div>
+
+                                    <!-- 
+                                        Included here are the original values of the provider entity that the
+                                        user wishes to update. This enables the user to update only certain
+                                        attributes instead of having to provide a value for all inputs.
+                                    -->
+                                    <!-- This is the only attribute that you will use regardless of what is entered into the input! -->
+                                    <input id="update_<%= data.ProviderID %>" type="hidden" class="providerclass" name="defaultproviderid" value="<%= data.ProviderID %>" onChange="getUpdateValue()">  
+
+                                    <!-- The rest of the default identifiers are listed below -->
+                                    <input id="update_<%= data.ProviderID %>" type="hidden" class="providerclass" name="defaultproviderfirstname" value="<%= data.ProviderFirstName %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.ProviderID %>" type="hidden" class="providerclass" name="defaultprovidermiddlename" value="<%= data.ProviderMiddleName %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.ProviderID %>" type="hidden" class="providerclass" name="defaultproviderlastname" value="<%= data.ProviderLastName %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.ProviderID %>" type="hidden" class="providerclass" name="defaultprovidertitle" value="<%= data.ProviderTitle %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.ProviderID %>" type="hidden" class="providerclass" name="defaultproviderdescription" value="<%= data.ProviderDescription %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.ProviderID %>" type="hidden" class="providerclass" name="defaultproviderphone" value="<%= data.ProviderPhone %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.ProviderID %>" type="hidden" class="providerclass" name="defaultprovideremail" value="<%= data.ProviderEmail %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.ProviderID %>" type="hidden" class="providerclass" name="defaultproviderstartdate" value="<%= data.ProviderStartDate %>" onChange="getUpdateValue()">  
+                                    <input id="update_<%= data.ProviderID %>" type="hidden" class="providerclass" name="defaultproviderenddate" value="<%= data.ProviderEndDate %>" onChange="getUpdateValue()">  
+                                </div>
+                            <% }); %>
+
+                            <!-- Create forms to process when user clicks the "Update Provider" button and the "Back" button -->
+                            <div class="provider-edit-buttons">
+                                <!-- The button brings the user back to the main list of providers on the website -->
+                                <a id="provider-edit-icon1" class="all-button-container-one" href="/providers">
+                                    <span class="provider-button-icon"><i class="fa-solid fa-circle-xmark"></i></span> Cancel
+                                </a>
+
+                                <!-- 
+                                    The button, when clicked, triggers a process in which any form data entered into 
+                                    the fields on the page by the user is gathered for the "provider-update" route 
+                                -->
+                                <button type="submit" id="provider-edit-icon2" class="all-button-container-two">
+                                    <span class="provider-button-icon"><i class="fa-solid fa-circle-arrow-up"></i></span> Update
+                                </button>
+                            </div>
+                        </form>
+
+                    <!-- If there is no provider data, display the message -->
+                    <% } else { %>
+                        <h2 class="no-provider-edit-data">There is currently no provider data.</h2>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<%- include('./partials/footer.ejs') %>

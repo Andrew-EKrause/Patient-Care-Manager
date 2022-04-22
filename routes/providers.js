@@ -312,7 +312,7 @@ providerRouter.post("/provider-update", function(req, res) {
     if(!providerLastName) {
         providerLastName = req.body.defaultproviderlastname.trim();
     }
-    if(!providerTitle) {
+    if(!providerTitle || providerTitle == "-") {
         providerTitle = req.body.defaultprovidertitle;
     }
     if(!providerDescription) {

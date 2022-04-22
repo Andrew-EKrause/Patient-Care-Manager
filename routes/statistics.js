@@ -12,7 +12,11 @@
  * NOTE: There is also other data displayed 
  * here that is obtained through the use of
  * complex queries (at least three) made on
- * the database.
+ * the database. The user can ONLY VIEW the
+ * complex queries. Future updates to this 
+ * project may enable the user to make edits
+ * to the results of the complex queries
+ * displayed on the "Statistics" page.
  * 
  * Project: Mayo Clinic (PCM) Web Application
  * Author: Andrew Krause
@@ -45,27 +49,121 @@ var express = require('express');
 var statisticsRouter = express.Router();
 
 // Include the database route in order to 
-// work with the data in the statistics table.
+// work with the data obtained by the complex
+// queries.
 const database = require('./database.js');
 
 /* SECTION: GET INFORMATION FROM SERVER (GET) */
 
-// Creat a route to render the urgent page.
-statisticsRouter.get("/statistics", function(req, res) {
+// Creat a route to render the statistics page.
+// In this route, all of the data obtained through
+// the execution of complex queries is displayed
+// on the statistics page of the website.
+statisticsRouter.get("/statistics", function(req, res, next) {
 
-    // Render the departments page.
-    // --> WILL LIKELY CREATE A QUERY AND SEND DATA OVER
-    // --> TO THE urgent.ejs FILE TO BE DISPLAYED.
-    res.render("statistics");
+    // --> ========
+    // -->  NOTES:
+    // --> ========
+    // --> MAY ADD MORE QUERIES IN THE FUTURE. ANOTHER COMPLEX
+    // --> QUERY COULD BE WHAT PATIENTS HAVE A RISK INDEX GREATER
+    // --> THAN 5 AND ARE RECEIVING TREATMENTS WITH A RISK INDEX
+    // --> GREATER THAN 5.
+    // --> ALSO...CREATE THOSE JOIN TABLES IN THE DATABASE AT SOME POINT!!!
+
+    // ==================================================================
+    // Complex Query <1> - Top 5 Highest Risk Patients
+    // ==================================================================
+    // Create the first complex query. The first complex query 
+    // selects all of the patients that have a risk index greater
+    // than or equal to the value of 6. The top 5 highest risk  
+    // patients are obtained to be displayed on the "Statistics"
+    // page. The 5 highest-risk patients are displayed with risk
+    // indexes in descending order.
+    var complexQuery1 = `SELECT * FROM Patient
+                            WHERE Patient.PatientRiskIndex >= 6
+                            ORDER BY Patient.PatientRiskIndex DESC
+                            LIMIT 5`;
+
+    // ==================================================================
+    // Complex Query <2> - Providers Caring for 10 or More Patients 
+    // ==================================================================
+    // Create the second complex query. The second complex query 
+    // selects all of the providers who are caring for 10 or more
+    // patients. The providers who are caring for 10 or more patients
+    // are then displayed on the "Statistics" page.
+    var complexQuery2 = `SELECT * FROM Treatment`; // --> NEED TO COMPLETE!!!
+
+    // ==================================================================
+    // Complex Query <3> - What Providers Administered What Treatments 5 
+    //                     or More Times 
+    // ==================================================================
+    // Create the third complex query. The third complex query 
+    // selects all of the providers who have administered certain
+    // treatments 5 or more times. The providers who meet the 
+    // criteria of this complex query are obtained to be displayed
+    // on the "Statistics" page.
+    var complexQuery3 = `SELECT * FROM Provider`; // --> NEED TO COMPLETE!!!
+
+    // <1> Execute the first complex query. If the first complex query executes,
+    // then execute the second complex query. Otherwise, log an error.
+    database.query(complexQuery1, function(error1, dataQuery1, fields1) {
+
+        // If there is an error, log the error.
+        if(error1) {
+            console.log(error1);
+
+        // If there are no errors, execute the second complex query.
+        } else {
+
+            // <2> Execute the second complex query. If the second complex query executes,
+            // then execute the third complex query. Otherwise, log an error.
+            database.query(complexQuery2, function(error2, dataQuery2, fields2) {
+
+                // If there is an error, log the error.
+                if(error2) {
+                    console.log(error2);
+
+                // If there are no errors, execute the third complex query.
+                } else {
+
+                    // <3> Execute the third complex query. If the third complex query executes,
+                    // then send the obtained data to the frontend of the web application to
+                    // be displayed to the user(s).
+                    database.query(complexQuery3, function(error3, dataQuery3, fields3) {
+
+                        // If there is an error, log the error.
+                        if(error3) {
+                            console.log(error3);
+                        } else {
+
+                            // --> DEBUGGING STATEMENTS; DELETE LATER!!!
+                            // console.log(dataQuery1);
+                            // console.log(dataQuery2);
+                            // console.log(dataQuery3);
+
+                            // If there are no errors, send the data obtained 
+                            // by the three complex queries to the statistics.ejs
+                            // page in order to display that data.
+                            res.render("statistics", {
+                                title: "Statistics List", 
+                                highestRiskPatient: dataQuery1,
+                                numberOfCareProviders: dataQuery2,
+                                treatmentsAdministered: dataQuery3,
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
 });
 
 /* SECTION: PROCESS REQUESTS MADE TO SERVER (POST) */
 
-// ...
-
-// MAY ALSO INCLUDE INFORMATION REGARDING THE USE OF THE
-// THREE COMPLEX QUERIES THAT YOU NEED TO IMPLEMENT FOR
-// THIS PROJECT.
+// --> MAY ADD INFORMATION TO THIS LATER; MAY NOT NEED!!!
+// --> MAY ALSO INCLUDE INFORMATION REGARDING THE USE OF THE
+// --> THREE COMPLEX QUERIES THAT YOU NEED TO IMPLEMENT FOR
+// --> THIS PROJECT.
 
 // Export the module for use in the main app.js file.
 module.exports = statisticsRouter;

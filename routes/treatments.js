@@ -51,7 +51,7 @@ treatmentRouter.get("/treatments", function(req, res, next) {
 
     // Create a query to SELECT all of the treatments in
     // the Treatment table.
-    var sql = `SELECT * FROM PCM.Treatment`;
+    var sql = `SELECT * FROM Treatment`;
 
     // Get all of the treatments from the treatments table.
     database.query(sql, function(error, data, fields) {
@@ -86,8 +86,8 @@ treatmentRouter.get("/treatment-edit/:treatmentId", function(req, res) {
 
     // Complete a query to obtain the treatment that the
     // user wishes to edit from the Treatment table.
-    var sql = `SELECT * FROM PCM.Treatment 
-                WHERE PCM.Treatment.TreatmentID = ?`;
+    var sql = `SELECT * FROM Treatment 
+                WHERE Treatment.TreatmentID = ?`;
 
     // Complete the query in the database and display the treatment
     // data that the user wants to edit on a page for that treatment.
@@ -139,11 +139,11 @@ treatmentRouter.post("/treatment-add", function(req, res) {
 
     // Include the SQL query that will add the treatment entity
     // to the treatment table.
-    var sql = `INSERT INTO PCM.Treatment (TreatmentName, 
-                                          TreatmentRequirements, 
-                                          TreatmentDescription, 
-                                          TreatmentRiskIndex, 
-                                          TreatmentTools) VALUES (?, ?, ?, ?, ?);`;
+    var sql = `INSERT INTO Treatment (TreatmentName, 
+                                      TreatmentRequirements, 
+                                      TreatmentDescription, 
+                                      TreatmentRiskIndex, 
+                                      TreatmentTools) VALUES (?, ?, ?, ?, ?);`;
 
     // Complete the query in the database and add the treatment
     // data entered by the user into the treatment table of the
@@ -207,7 +207,7 @@ treatmentRouter.post("/treatment-update", function(req, res) {
 
     // Include the SQL query that will update the
     // treatment entity in the treatment table.
-    var sql = `UPDATE PCM.Treatment 
+    var sql = `UPDATE Treatment 
                 SET TreatmentName = ?, TreatmentRequirements = ?, TreatmentDescription = ?, TreatmentRiskIndex = ?, TreatmentTools = ?
                WHERE TreatmentID = ?;`;
 
@@ -245,7 +245,7 @@ treatmentRouter.post("/treatment-remove", function(req, res) {
 
     // Include the SQL query that will remove the selected treatment
     // entity from the treatment table in the database.
-    var sql = `DELETE FROM PCM.Treatment WHERE TreatmentID = ?;`;
+    var sql = `DELETE FROM Treatment WHERE TreatmentID = ?;`;
 
     // Complete the query in the database and remove the
     // treatment that the user selected from the database. 

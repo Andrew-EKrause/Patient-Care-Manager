@@ -18,16 +18,347 @@
 
 <%- include('./partials/header.ejs') %>
 
-    <!-- 
-        Section for the list of urgent cases and other stats 
-        obtained through the three complex queries on the 
-        webpage 
-    -->
-    <section id="patients-page">
-        <div class="patient-section fade-in">
+    <!-- Section for the list of different statistics on the webpage -->
+    <section id="statistics-page">
+        <div class="fade-in">
             <header>
-                <h1 class="patient-page-text">Statistics</h1>
+                <h1 class="statistic-page-text">Statistics</h1>
             </header>
+            <div class="statistic-ordering">
+                <!-- Create an anchor tag to process when the user clicks the "Back" button -->
+                <div class="statistic-buttons">
+                    <a id="statistic-back-arrow" class="all-button-container-one" href="/views">
+                        <span class="provider-button-icon"><i class="fa-solid fa-arrow-left-long"></i></span> Back
+                    </a>
+                    <a id="provider-add-icon" class="all-button-container-two" href="/provider-new">
+                        <span class="provider-button-icon"><i class="fa-solid fa-circle-plus"></i></span> New
+                    </a>
+                </div>
+
+                <!-- 
+                    This is the section where the statistics
+                    are loaded to be displayed on the page
+                -->
+                <div class="statistic-items">
+                    
+                    <!-- LEFT OFF HERE; WILL NEED TO FIX THE POSITION OF THE BACK BUTTON BEING DISPLAYED!!!!!!!!!!!!!!! -->
+
+                    <!-- 
+                        Include a function to simplify any dates that may be displayed
+                        in the data existent on this page of the web application
+                     -->
+                    <% function simplifyDate(birthDate) { %>
+
+                        <% // First split the event into the components that directly %>
+                        <% // involve the numberical representations of a date. %>
+                        <% var date = birthDate.toISOString().split("T")[0]; %>
+                    
+                        <% // Create variables for workring with %>
+                        <% // the nubmers in the date variable. %>
+                        <% var arrayDate = date.split('-'); %>
+                        <% var day = arrayDate[2]; %>
+                        <% var getMonth = arrayDate[1]; %>
+                        <% var month = ""; %>
+                        <% var year = arrayDate[0]; %>
+                        <% var simplifiedDate = ""; %>
+                    
+                        <% // Use a series of conditionals to determine %>
+                        <% // what the name of the month is based on the %>
+                        <% // numerical representation of it. %>
+                        <% if(getMonth.localeCompare('01') == 0) { %>
+                            <% month = 'Jan'; %>
+                        <% } else if(getMonth.localeCompare('02') == 0) { %>
+                            <% month = 'Feb'; %>
+                        <% } else if(getMonth.localeCompare('03') == 0) { %>
+                            <% month = 'Mar'; %>
+                        <% } else if(getMonth.localeCompare('04') == 0) { %>
+                            <% month = 'Apr'; %>
+                        <% } else if(getMonth.localeCompare('05') == 0) { %>
+                            <% month = 'May'; %>
+                        <% } else if(getMonth.localeCompare('06') == 0) { %>
+                            <% month = 'Jun'; %>
+                        <% } else if(getMonth.localeCompare('07') == 0) { %>
+                            <% month = 'Jul'; %>
+                        <% } else if(getMonth.localeCompare('08') == 0) { %>
+                            <% month = 'Aug'; %>
+                        <% } else if(getMonth.localeCompare('09') == 0) { %>
+                            <% month = 'Sep'; %>
+                        <% } else if(getMonth.localeCompare('10') == 0) { %>
+                            <% month = 'Oct'; %>
+                        <% } else if(getMonth.localeCompare('11') == 0) { %>
+                            <% month = 'Nov'; %>
+                        <% } else if(getMonth.localeCompare('12') == 0) { %>
+                            <% month = 'Dec'; %>
+                        <% } else { %>
+                            <% month = 'ERROR'; %>
+                        <% } %>
+                    
+                        <% // Create the simplified date and return it. %>
+                        <% simplifiedDate = month + " " + day + ", " + year; %>
+                        <% return simplifiedDate; %>
+                    <% } %>
+
+                    <!-- 
+                        If there is data that resulted from the first
+                        complex query, then display that data
+                    -->
+                    <% if(highestRiskPatient.length != 0) { %>
+
+                        <!-- 
+                            Loop through all of the providers in the 
+                            database and display them on the page 
+                        -->
+                        <% highestRiskPatient.forEach(function(data) { %>
+
+                            <!--
+                                Create a div to hold the button collapse function layout. 
+                                The main components within this div include the main button
+                                and the content that appears when the user clicks the button.
+                            -->
+                            <div>
+
+                                <!-- Create a card for each provider -->
+                                <!-- First, create a heading that displays the name of each provider -->
+                                <div class="provider-name">
+
+                                    <!-- 
+                                        If the provider is no longer employed at the hospital, indicate 
+                                        that they not employed there. Otherwise, indicate that they are
+                                        currently employed.
+                                    -->
+                                    <h2 class="provider-name-text">
+
+                                        <!-- Include a div to show the provider name and action buttons -->
+                                        <div class="provider-name-and-buttons">
+
+                                            <!-- 
+                                                Display an icon indicating whether or not the provider has 
+                                                been discharged from the hospital. Also include the provider's
+                                                full name. // !!! MAY NOT HAVE LATER ON !!!
+                                            -->
+                                            <div class="provider-full-name">
+                                                <!-- 
+                                                    If the provider is not employed at the hospital anymore,
+                                                    indicate that they are not working there. Otherwise, indicate
+                                                    that they are working there. // !!! MAY NOT HAVE LATER ON !!!
+                                                -->
+                                                <i class="fa-solid fa-stethoscope"></i>
+
+                                                <!-- <% // if(data.ProviderEndDate) { %>
+                                                    <i class="fa-solid fa-heart-circle-check"></i>
+                                                <% // } else { %>
+                                                    <i class="fa-solid fa-heart-pulse"></i>
+                                                <% // } %>  -->
+
+                                                <%= data.ProviderFirstName %> <%= data.ProviderMiddleName %> <%= data.ProviderLastName %>, <%= data.ProviderTitle %>
+                                            </div>
+
+                                            <!-- Include action (edit and remove) buttons here -->
+                                            <div class="provider-edit-remove-buttons">
+                                                
+                                                <!-- 
+                                                    Include a button for expanding any provider's information.
+                                                    This button is used to expand any provider module that is
+                                                    listed in the database.
+                                                -->
+                                                <a class="provider-edit-white provider-edit-remove" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-providers<%= data.ProviderID %>" aria-expanded="false" aria-controls="collapse-providers<%= data.ProviderID %>">
+                                                    <i class="fa-solid fa-circle-info"></i>
+                                                </a>
+
+                                                <!-- Include a button for the user to click when they wish to edit a provider -->
+                                                <a class="provider-edit-white provider-edit-remove provider-edit-pencil" href="/provider-edit/<%= data.ProviderID %>">
+                                                    <i class="fa-solid fa-pencil"></i>
+                                                </a>
+
+                                                <!-- 
+                                                    Include a button for the user to click when they wish to remove a provider.
+                                                    Clicking this button will open a modal that asks the user if they are sure
+                                                    that they want to remove the provider. The user can then either confirm 
+                                                    delete the provider from the database, or cancel the removal action.
+                                                -->
+                                                <a id="<%= data.ProviderID %>" class="remove-the-provider provider-edit-red provider-edit-remove" onClick="getProviderID(this.id)" href="#providerModal_<%= data.ProviderID %>">
+                                                    
+                                                    <!-- 
+                                                        Include a script tag inside of the anchor tag to add event handlers to the
+                                                        different elements associated with the "delete" button on each provider of
+                                                        the providers page of the web application.
+                                                    -->
+                                                    <script>
+
+                                                        // Utilize a query selector with JavaScript to add an event listener
+                                                        // to each trash bin icon that is clicked by the user on the application.
+                                                        [...document.querySelectorAll('.remove-the-provider')].forEach(function(trashBin) {
+                                                            
+                                                            // Add a click event listener to the trash bin icon
+                                                            // so that when it is clicked, a modal pops up with
+                                                            // a confirm delete option.
+                                                            trashBin.addEventListener('click', function() {
+                                                            
+                                                                // Create variables for selecting 
+                                                                // the correct confirm delete modal.
+                                                                var modalValue = "providerModal_" + trashBin.id;
+                                                                var exitModal = "provider-exit-" + trashBin.id;
+
+                                                                // Add selectors for the confirm delete modal.
+                                                                var confirmModal = document.getElementById(modalValue);
+
+                                                                // When the user clicks the button, open 
+                                                                // the provider confirm delete modal.
+                                                                confirmModal.classList.add('provider-bg-active');
+                                                                document.body.classList.add('overflowHidden');
+
+                                                                // Select the exit icon on the confirm delete modal.
+                                                                var exitIcon = document.getElementById(exitModal);
+
+                                                                // When the user clicks the exit icon on the confirm 
+                                                                // delete modal, close the modal on the screen.
+                                                                exitIcon.onclick = function() {
+                                                                    confirmModal.classList.remove('provider-bg-active');
+                                                                    document.body.classList.remove('overflowHidden');
+                                                                }
+
+                                                                // If the user clicks anywhere outside
+                                                                // the modal, close it and do not execute
+                                                                // any of the functions in it.
+                                                                window.onclick = function(event) {
+
+                                                                    // When anything outside of the modal is clicked, 
+                                                                    // close the modal. You can also click the "Cancel"
+                                                                    // button to close the modal.
+                                                                    if (event.target == confirmModal) {
+                                                                        confirmModal.classList.remove('provider-bg-active');
+                                                                        document.body.classList.remove('overflowHidden');
+                                                                
+                                                                    }
+                                                                }
+                                                            });
+                                                        });
+                                                    </script>
+
+                                                    <!-- Include a trash bin icon for each provider -->
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </a>
+
+                                                <!-- 
+                                                    Include a MODAL that the user can click to confirm whether or not not they 
+                                                    wish to remove the selected provider entity from the database 
+                                                -->
+                                                <div id="providerModal_<%= data.ProviderID %>" role="dialog" class="provider-modal-bg">
+                                                    <div class="provider-modal-dialog">
+                                                        <div class="provider-modal-container"> 
+                                                            <!-- Modal Information and Content -->
+                                                            <div class="provider-modal-information">
+                                                                <div class="provider-modal-content">
+                                                                    <div>
+                                                                        <div class="provider-modal-body">
+                                                                            <!-- Include a div for showing the "Cancel" and "Confirm" button on the modal -->
+                                                                            <div>
+                                                                                <!-- Heading -->
+                                                                                <div class="provider-modal-heading-background">
+                                                                                    <h2 class="provider-modal-heading">Confirm</h2>
+                                                                                </div>      
+                                                                                
+                                                                                <!-- Description -->
+                                                                                <div class="provider-modal-text-background">
+                                                                                    <p class="provider-modal-text">Are you sure you want to delete provider: <strong><%= data.ProviderFirstName %> <%= data.ProviderMiddleName %> <%= data.ProviderLastName %> <%= data.ProviderTitle %></strong>?</p>
+                                                                                </div>
+
+                                                                                <!-- Include a div for the two buttons on the modal -->
+                                                                                <div class="provider-confirm-delete-select">
+                                                                                    <!-- Provide a "Cancel" button if the user wishes to cancel the delete action -->
+                                                                                    <a id="provider-exit-<%= data.ProviderID %>" class="provider-edit-white-modal provider-edit-remove-modal" href="#close">
+                                                                                        Cancel
+                                                                                    </a>
+                                                                                    <!-- Makes POST request to the remove-provider route if the "Confirm Delete" button is clicked -->
+                                                                                    <form class="form-horizontal" action="/provider-remove" method="POST">
+                                                                                        <input id="remove_<%= data.ProviderID %>" type="hidden" class="providerclass" name="provideridentifier" value="<%= data.ProviderID %>" onChange="getRemoveValue()">
+                                                                                        <button type="submit" class="provider-edit-red-modal provider-edit-remove-modal">Delete</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> 
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </h2>
+                                </div>
+
+                                <!-- Create the main-content portion of the provider card -->
+                                <div id="collapse-providers<%= data.ProviderID %>" class="collapse">
+                                   
+                                    <!-- 
+                                        Include a wrapper div for the collapse div. This helps 
+                                        ensure that the transition from closed to open is smooth.
+                                    -->
+                                    <div class="provider-card">
+                                        <!-- Each column of the card displays different amounts of data -->
+                                        <div class="provider-column">
+                                            <p class="provider-text-info"><b>Phone:</b> <%= data.ProviderPhone %></p>
+                                            <p class="provider-text-info"><b>Email:</b> <%= data.ProviderEmail %></p>
+                                            <p class="provider-text-info"><b>Description:</b> <%= data.ProviderDescription %></p> 
+                                        </div>
+                                        <!-- Each column of the card displays different amounts of data -->
+                                        <div class="provider-column">
+
+                                            <!-- 
+                                                Determine if the duration of time at the hospital that the 
+                                                provider has been employed for is less than a year. If the 
+                                                provider has been employed for less than a year, print out 
+                                                that they have been employed for less than a year 
+                                            -->
+                                            <% var providerTimeAtHospital = getProviderTimeAtHospital(data.ProviderStartDate); %>
+                                            
+                                            <!-- Determine if the provider has been at the hospital for less than a year -->
+                                            <% if(providerTimeAtHospital < 1) { %>
+                                                <p class="provider-text-info"><b>Time at Hospital:</b> Less than a year</p>
+                                            <% } else { %>
+                                                <p class="provider-text-info"><b>Time at Hospital:</b> <%= getProviderTimeAtHospital(data.ProviderStartDate) %>yrs</p>
+                                            <% } %>
+
+                                            <!-- Print out the rest of the provider information -->
+                                            <p class="provider-text-info"><b>Start Date:</b> <%= simplifyDate(data.ProviderStartDate) %></p>
+                                            
+                                            <!--
+                                                If the provider does not have an end/discharge 
+                                                date, display a message instead
+                                            -->
+                                            <% if(data.ProviderEndDate) { %>
+                                                <p class="provider-text-info"><b>End Date:</b> <%= simplifyDate(data.ProviderEndDate) %></p> 
+                                            <% } else { %>
+                                                <p class="provider-text-info"><b>End Date:</b> Currently employed.</p> 
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }); %>
+
+                    <!-- 
+                        If there is no data for the query that 
+                        was executed, display the message
+                     -->
+                    <% } else { %>
+                        <h2 class="no-provider-data">There is currently no data.</h2>
+                    <% } %>
+                </div>
+            </div>
+
+            <!-- 
+                Include a div that displays a chevron that the
+                user can click to return to the top of the page
+            -->
+            <div>
+                <!-- Include a button for the user to click to go to the top of the page -->
+                <a class="statistic-bottom statistic-bottom-color" href="#statistics-page">
+                    <i class="fa-solid fa-chevron-up fa-1.5x"></i>
+                </a>
+            </div>
         </div>
     </section>
 

@@ -51,7 +51,7 @@ providerRouter.get("/providers", function(req, res, next) {
 
     // Create a query to SELECT all of the providers in
     // the Provider table.
-    var sql = `SELECT * FROM PCM.Provider`;
+    var sql = `SELECT * FROM Provider`;
 
     // Get all of the providers from the providers table.
     database.query(sql, function(error, data, fields) {
@@ -86,8 +86,8 @@ providerRouter.get("/provider-edit/:providerId", function(req, res) {
 
     // Complete a query to obtain the provider that the
     // user wishes to edit from the Provider table.
-    var sql = `SELECT * FROM PCM.Provider 
-                WHERE PCM.Provider.ProviderID = ?`;
+    var sql = `SELECT * FROM Provider 
+                WHERE Provider.ProviderID = ?`;
 
     // Complete the query in the database and display the provider
     // data that the user wants to edit on a page for that provider.
@@ -168,15 +168,15 @@ providerRouter.post("/provider-add", function(req, res) {
 
     // Include the SQL query that will add the provider entity
     // to the provider table.
-    var sql = `INSERT INTO PCM.Provider (ProviderFirstName,
-                                         ProviderMiddleName,
-                                         ProviderLastName,
-                                         ProviderTitle,
-                                         ProviderDescription,
-                                         ProviderPhone,
-                                         ProviderEmail,
-                                         ProviderStartDate,
-                                         ProviderEndDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+    var sql = `INSERT INTO Provider (ProviderFirstName,
+                                     ProviderMiddleName,
+                                     ProviderLastName,
+                                     ProviderTitle,
+                                     ProviderDescription,
+                                     ProviderPhone,
+                                     ProviderEmail,
+                                     ProviderStartDate,
+                                     ProviderEndDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`;
 
     // Complete the query in the database and add the provider
     // data entered by the user into the provider table of the
@@ -340,7 +340,7 @@ providerRouter.post("/provider-update", function(req, res) {
 
     // Include the SQL query that will update the provider entity
     // in the provider table.
-    var sql = `UPDATE PCM.Provider 
+    var sql = `UPDATE Provider 
                 SET ProviderFirstName = ?, ProviderMiddleName = ?, ProviderLastName = ?, ProviderTitle = ?, ProviderDescription = ?, ProviderPhone = ?, ProviderEmail = ?, ProviderStartDate = ?, ProviderEndDate = ?
                WHERE ProviderID = ?;`;
 
@@ -382,7 +382,7 @@ providerRouter.post("/provider-remove", function(req, res) {
 
     // Include the SQL query that will remove the selected
     // provider entity from the provider table in the database.
-    var sql = `DELETE FROM PCM.Provider WHERE ProviderID = ?;`;
+    var sql = `DELETE FROM Provider WHERE ProviderID = ?;`;
 
     // Complete the query in the database and remove the provider
     // that the user selected from the database. 

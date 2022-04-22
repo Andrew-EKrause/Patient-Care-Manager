@@ -51,7 +51,7 @@ departmentRouter.get("/departments", function(req, res, next) {
 
     // Create a query to SELECT all of the departments in
     // the Department table.
-    var sql = `SELECT * FROM PCM.Department`;
+    var sql = `SELECT * FROM Department`;
 
     // Get all of the departments from the departments table.
     database.query(sql, function(error, data, fields) {
@@ -86,8 +86,8 @@ departmentRouter.get("/department-edit/:departmentId", function(req, res) {
 
     // Complete a query to obtain the department that the
     // user wishes to edit from the Department table.
-    var sql = `SELECT * FROM PCM.Department 
-                WHERE PCM.Department.DepartmentID = ?`;
+    var sql = `SELECT * FROM Department 
+                WHERE Department.DepartmentID = ?`;
 
     // Complete the query in the database and display the department
     // data that the user wants to edit on a page for that department.
@@ -138,10 +138,10 @@ departmentRouter.post("/department-add", function(req, res) {
 
     // Include the SQL query that will add the department entity
     // to the department table.
-    var sql = `INSERT INTO PCM.Department (DepartmentName, 
-                                           DepartmentLocation, 
-                                           DepartmentMembers, 
-                                           DepartmentDescription) VALUES (?, ?, ?, ?);`;
+    var sql = `INSERT INTO Department (DepartmentName, 
+                                       DepartmentLocation, 
+                                       DepartmentMembers, 
+                                       DepartmentDescription) VALUES (?, ?, ?, ?);`;
 
     // Complete the query in the database and add the department
     // data entered by the user into the department table of the
@@ -200,7 +200,7 @@ departmentRouter.post("/department-update", function(req, res) {
 
     // Include the SQL query that will update the
     // department entity in the department table.
-    var sql = `UPDATE PCM.Department 
+    var sql = `UPDATE Department 
                 SET DepartmentName = ?, DepartmentLocation = ?, DepartmentMembers = ?, DepartmentDescription = ?
                WHERE DepartmentID = ?;`;
 
@@ -237,7 +237,7 @@ departmentRouter.post("/department-remove", function(req, res) {
 
     // Include the SQL query that will remove the selected department
     // entity from the department table in the database.
-    var sql = `DELETE FROM PCM.Department WHERE DepartmentID = ?;`;
+    var sql = `DELETE FROM Department WHERE DepartmentID = ?;`;
 
     // Complete the query in the database and remove the
     // department that the user selected from the database. 

@@ -2356,72 +2356,6 @@ html {
         transform: scale(1.15);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /* ====================================================================
                                 PROVIDERS Page
     ==================================================================== */
@@ -3201,69 +3135,6 @@ html {
         color: var(--blue-font);
         transform: scale(1.15);
     }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /* ====================================================================
                                 DEPARTMENTS Page
@@ -4063,94 +3934,274 @@ html {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /* ====================================================================
                                 STATISTICS Page
     ==================================================================== */
 
-    #idnamehere {
-        padding-top: 60px;
+    #statistics-page {
+        padding-top: 130px;
         color: var(--whiter-color);
         background-color: var(--black-color);
+        flex: 1 0 auto;
         /* height: 100vh; */
     }
 
-    .resume-container {
-        max-width: 900px;
-        padding: 1.5rem;
+    .statistic-page-text {
+        font-size: clamp(2.5rem, 2.85rem, 3.5rem); 
+        text-align: center;
         margin-left: auto;
         margin-right: auto;
-        background-color: var(--black-color);
+        padding-left: 40px;
+        padding-right: 40px;
     }
 
-    .resume-section-heading {
-        text-align: center;
+    .statistic-ordering {
+        margin-top: 20px;
+        padding-right: 20px;
+        padding-left: 20px;
     }
 
-    .resume-center {
-        text-align: center;
+    .statistic-buttons {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        margin: 0;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
-    .resume-heading {
-        margin-top: 1rem;
-        font-size: 3rem;
-        text-align: center;
-        margin-bottom: 0.5rem;
-    }
-
-    .resume-content {
-        text-align: left;
-        margin-bottom: 1rem;
-    }
-
-    .resume-top-content {
-        text-align: center;
-    }
-
-    .resume-page-link {
-        color: var(--bluer-color);
-        text-decoration: none;
-    }
-
-    .resume-row {
-        display: flex;
-        flex-wrap: wrap; 
-        flex-direction: column;
-        min-width: fit-content;
-    }
-
-    .fas.black-file {
-        color: var(--black-color);
-    }
-
-    .resume-courses {
-        margin-top: 15px;
-        min-width: fit-content;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .resume-file {
+    #statistic-back-arrow span i {
         display: inline-block;
-        margin-top: 5px;
-        margin-bottom: 5px;
-        margin-right: 10px;
-        height: 60px; /* Should match line-height attribute */
-        width: 200px;
-        background-color: var(--bluer-color);
+        transition: 0.1s;
+    }
+    
+    #statistic-back-arrow:hover span i {
+        color: var(--blue-font);
+        transform: translateX(-30%);
+    }
+
+    .statistic-items {
+        margin-top: 30px;
+        margin-bottom: 60px;
+    }
+
+    .statistic-name {
+        max-width: 800px;
+        font-size: 25px;
         text-decoration: none;
-        color: var(--black-color);
+        color: var(--black-font);
+        background-color: var(--gray-color);
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-right: 20px;
+        padding-left: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+        border: 2px solid var(--gray-color);
+    }
+
+    .statistic-name-text {
+        margin: 0;
+    }
+
+    @media (max-width: 650px) { 
+
+        .statistic-name-and-buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .statistic-full-name {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        .statistic-edit-remove-buttons {
+            margin-top: 20px;
+        }
+
+        .statistic-form-horizontal {
+            display: inline-block;
+        }
+
+        .statistic-edit-remove {
+            text-decoration: none;
+            color: var(--black-font);
+            font-size: 25px;
+            padding: 10px;
+            padding-left: 25px;
+            padding-right: 25px;
+            margin-left: 10px;
+            border: 0;
+        }
+    }
+
+    @media (min-width: 650px) { 
+
+        .statistic-name-and-buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .statistic-full-name {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        .statistic-edit-remove-buttons {
+            margin-top: 0px;
+        }
+
+        .statistic-form-horizontal {
+            display: inline-block;
+        }
+
+        .statistic-edit-remove {
+            text-decoration: none;
+            color: var(--black-font);
+            font-size: 25px;
+            padding: 10px;
+            padding-left: 25px;
+            padding-right: 25px;
+            margin-left: 10px;
+            border: 0;
+        }
+    }
+
+    .statistic-edit-remove:hover {
+        text-decoration: none;
+        background-color: var(--edit-blue-color);
+        color: var(--black-font);
+    }
+
+    .statistic-edit-pencil {
+        margin-left: 4px;
+    }
+
+    .statistic-edit-white {
+        background-color: var(--white-background);
         border-radius: 0.5em;
-        border-style: none;
-        vertical-align: central;
-        align-items: center;
+    }
+
+    .statistic-edit-red {
+        background-color: rgb(235, 169, 169);
+        border-radius: 0.5em;
+    }
+
+    @media (max-width: 650px) { 
+
+        .statistic-card {
+            max-width: 800px;
+            font-size: 25px;
+            text-decoration: none;
+            color: var(--black-font);
+            background-color: var(--white-background);
+            margin: 0;
+            padding-right: 20px;
+            padding-left: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px solid var(--gray-color);
+            /* display: flex;
+            flex-direction: column;
+            justify-content: flex-start; */
+        }
+
+        .statistic-column {
+            margin-right: 10px;
+            width: 100%;
+            max-width: 400px;
+        }
+    }
+
+    @media (min-width: 650px) { 
+
+        .statistic-card {
+            max-width: 800px;
+            font-size: 25px;
+            text-decoration: none;
+            color: var(--black-font);
+            background-color: var(--white-background);
+            margin: 0;
+            padding-right: 20px;
+            padding-left: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px solid var(--gray-color);
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        .statistic-column {
+            margin-right: 10px;
+            width: 50%;
+            max-width: 400px;
+        }
+    }
+
+    .statistic-text-info {
+        text-decoration: none;
+        margin: 10px;
+    }
+
+    .no-statistic-data {
+        font-size: 25px;
         text-align: center;
-        line-height: 60px; /* Should match height attribute */
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 40px;
+        margin-bottom: 40px;
     }
 
-    .resume-file:hover {
-        background-color: var(--whiter-color);
+    .statistic-bottom {
+        position: fixed;
+        bottom: 0px;
+        right: 0px;
+        border-radius: 0.5em;
+    }
+
+    .statistic-bottom-color {
+        text-decoration: none;
+        background-color: var(--gray-color);
+        color: black;
+        opacity: 60%;
+        padding: 15px;
+        padding-right: 20px;
+        padding-left: 20px;
+        margin: 15px;
+    }
+
+    .statistic-bottom-color:hover {
+        text-decoration: none;
+        background-color: var(--edit-blue-color);
+        color: black;
+        opacity: 100%;
     }
 
 
@@ -4168,6 +4219,8 @@ html {
 
 
 
+
+    
 
 
 

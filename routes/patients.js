@@ -51,7 +51,7 @@ patientRouter.get("/patients", function(req, res, next) {
 
     // Create a query to SELECT all of the patients in
     // the Patient table.
-    var sql = `SELECT * FROM PCM.Patient`;
+    var sql = `SELECT * FROM Patient`;
 
     // Get all of the patients from the patients table.
     database.query(sql, function(error, data, fields) {
@@ -86,8 +86,8 @@ patientRouter.get("/patient-edit/:patientId", function(req, res) {
 
     // Complete a query to obtain the patient that the
     // user wishes to edit from the Patient table.
-    var sql = `SELECT * FROM PCM.Patient 
-                WHERE PCM.Patient.PatientID = ?`;
+    var sql = `SELECT * FROM Patient 
+                WHERE Patient.PatientID = ?`;
 
     // Complete the query in the database and display the patient
     // data that the user wants to edit on a page for that patient.
@@ -172,19 +172,19 @@ patientRouter.post("/patient-add", function(req, res) {
 
     // Include the SQL query that will add the patient entity
     // to the patient table.
-    var sql = `INSERT INTO PCM.Patient (PatientNotes, 
-                                        PatientFirstName, 
-                                        PatientMiddleName, 
-                                        PatientLastName, 
-                                        PatientBirthdate, 
-                                        PatientSex, 
-                                        PatientWeight, 
-                                        PatientRiskIndex,
-                                        PatientPhone, 
-                                        PatientEmail, 
-                                        PatientHeight,
-                                        PatientStartDate,
-                                        PatientEndDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+    var sql = `INSERT INTO Patient (PatientNotes, 
+                                    PatientFirstName, 
+                                    PatientMiddleName, 
+                                    PatientLastName, 
+                                    PatientBirthdate, 
+                                    PatientSex, 
+                                    PatientWeight, 
+                                    PatientRiskIndex,
+                                    PatientPhone, 
+                                    PatientEmail, 
+                                    PatientHeight,
+                                    PatientStartDate,
+                                    PatientEndDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
 
     // Complete the query in the database and add the patient
     // data entered by the user into the patient table of the
@@ -371,7 +371,7 @@ patientRouter.post("/patient-update", function(req, res) {
 
     // Include the SQL query that will update the patient entity
     // in the patient table.
-    var sql = `UPDATE PCM.Patient 
+    var sql = `UPDATE Patient 
                 SET PatientNotes = ?, PatientFirstName = ?, PatientMiddleName = ?, PatientLastName = ?, PatientBirthdate = ?, PatientSex = ?, PatientWeight = ?, PatientRiskIndex = ?, PatientPhone = ?, PatientEmail = ?, PatientHeight = ?, PatientStartDate = ?, PatientEndDate = ?
                WHERE PatientID = ?;`;
 
@@ -417,7 +417,7 @@ patientRouter.post("/patient-remove", function(req, res) {
 
     // Include the SQL query that will remove the selected
     // patient entity from the patient table in the database.
-    var sql = `DELETE FROM PCM.Patient WHERE PatientID = ?;`;
+    var sql = `DELETE FROM Patient WHERE PatientID = ?;`;
 
     // Complete the query in the database and remove the patient
     // that the user selected from the database. 

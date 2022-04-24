@@ -27,11 +27,8 @@
             <div class="statistic-ordering">
                 <!-- Create an anchor tag to process when the user clicks the "Back" button -->
                 <div class="statistic-buttons">
-                    <a id="statistic-back-arrow" class="all-button-container-one" href="/views">
-                        <span class="provider-button-icon"><i class="fa-solid fa-arrow-left-long"></i></span> Back
-                    </a>
-                    <a id="provider-add-icon" class="all-button-container-two" href="/provider-new">
-                        <span class="provider-button-icon"><i class="fa-solid fa-circle-plus"></i></span> New
+                    <a id="statistic-back-arrow" class="all-button-container-one" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;" href="/views">
+                        <span class="statistic-button-icon"><i class="fa-solid fa-arrow-left-long"></i></span> Back
                     </a>
                 </div>
 
@@ -41,7 +38,7 @@
                 -->
                 <div class="statistic-items">
                     
-                    <!-- LEFT OFF HERE; WILL NEED TO FIX THE POSITION OF THE BACK BUTTON BEING DISPLAYED!!!!!!!!!!!!!!! -->
+                    <!-- LEFT OFF HERE; WILL NEED TO FIX THE POSITION OF THE BACK BUTTON BEING DISPLAYED!!! -->
 
                     <!-- 
                         Include a function to simplify any dates that may be displayed
@@ -97,254 +94,399 @@
                         <% simplifiedDate = month + " " + day + ", " + year; %>
                         <% return simplifiedDate; %>
                     <% } %>
-
+                    
                     <!-- 
-                        If there is data that resulted from the first
-                        complex query, then display that data
+                        If there is data that resulted from any of 
+                        the complex queries for the hospital statistics,
+                        display that data below.
                     -->
-                    <% if(highestRiskPatient.length != 0) { %>
+                    <% if(highestRiskPatient.length != 0 || numberOfCareProviders.length != 0 || treatmentsAdministered != 0) { %>
 
-                        <!-- 
-                            Loop through all of the providers in the 
-                            database and display them on the page 
+                        <!-- ================================================================================== -->
+                                        <!-- DATA FOR COMPLEX QUERY 1: Top 5 Highest Risk Patients -->
+                        <!-- ================================================================================== -->
+
+                        <!--
+                            Create a div to hold the button collapse function layout. 
+                            The main components within this div include the main button
+                            and the content that appears when the user clicks the button.
                         -->
-                        <% highestRiskPatient.forEach(function(data) { %>
+                        <div>
 
-                            <!--
-                                Create a div to hold the button collapse function layout. 
-                                The main components within this div include the main button
-                                and the content that appears when the user clicks the button.
-                            -->
-                            <div>
+                            <!-- Create a card for the statistic -->
+                            <!-- First, create a heading that displays the name of the statistic -->
+                            <div class="statistic-name">
 
-                                <!-- Create a card for each provider -->
-                                <!-- First, create a heading that displays the name of each provider -->
-                                <div class="provider-name">
+                                <!-- 
+                                    Display the statistic name and text
+                                -->
+                                <h2 class="statistic-name-text">
 
-                                    <!-- 
-                                        If the provider is no longer employed at the hospital, indicate 
-                                        that they not employed there. Otherwise, indicate that they are
-                                        currently employed.
-                                    -->
-                                    <h2 class="provider-name-text">
+                                    <!-- Include a div to show the statistic name and action buttons -->
+                                    <div class="statistic-name-and-buttons">
 
-                                        <!-- Include a div to show the provider name and action buttons -->
-                                        <div class="provider-name-and-buttons">
-
+                                        <!-- 
+                                            Display an icon for the statistic
+                                        -->
+                                        <div class="statistic-full-name">
                                             <!-- 
-                                                Display an icon indicating whether or not the provider has 
-                                                been discharged from the hospital. Also include the provider's
-                                                full name. // !!! MAY NOT HAVE LATER ON !!!
+                                                Display the icon for the patients a high risk index.
                                             -->
-                                            <div class="provider-full-name">
-                                                <!-- 
-                                                    If the provider is not employed at the hospital anymore,
-                                                    indicate that they are not working there. Otherwise, indicate
-                                                    that they are working there. // !!! MAY NOT HAVE LATER ON !!!
-                                                -->
-                                                <i class="fa-solid fa-stethoscope"></i>
-
-                                                <!-- <% // if(data.ProviderEndDate) { %>
-                                                    <i class="fa-solid fa-heart-circle-check"></i>
-                                                <% // } else { %>
-                                                    <i class="fa-solid fa-heart-pulse"></i>
-                                                <% // } %>  -->
-
-                                                <%= data.ProviderFirstName %> <%= data.ProviderMiddleName %> <%= data.ProviderLastName %>, <%= data.ProviderTitle %>
-                                            </div>
-
-                                            <!-- Include action (edit and remove) buttons here -->
-                                            <div class="provider-edit-remove-buttons">
-                                                
-                                                <!-- 
-                                                    Include a button for expanding any provider's information.
-                                                    This button is used to expand any provider module that is
-                                                    listed in the database.
-                                                -->
-                                                <a class="provider-edit-white provider-edit-remove" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-providers<%= data.ProviderID %>" aria-expanded="false" aria-controls="collapse-providers<%= data.ProviderID %>">
-                                                    <i class="fa-solid fa-circle-info"></i>
-                                                </a>
-
-                                                <!-- Include a button for the user to click when they wish to edit a provider -->
-                                                <a class="provider-edit-white provider-edit-remove provider-edit-pencil" href="/provider-edit/<%= data.ProviderID %>">
-                                                    <i class="fa-solid fa-pencil"></i>
-                                                </a>
-
-                                                <!-- 
-                                                    Include a button for the user to click when they wish to remove a provider.
-                                                    Clicking this button will open a modal that asks the user if they are sure
-                                                    that they want to remove the provider. The user can then either confirm 
-                                                    delete the provider from the database, or cancel the removal action.
-                                                -->
-                                                <a id="<%= data.ProviderID %>" class="remove-the-provider provider-edit-red provider-edit-remove" onClick="getProviderID(this.id)" href="#providerModal_<%= data.ProviderID %>">
-                                                    
-                                                    <!-- 
-                                                        Include a script tag inside of the anchor tag to add event handlers to the
-                                                        different elements associated with the "delete" button on each provider of
-                                                        the providers page of the web application.
-                                                    -->
-                                                    <script>
-
-                                                        // Utilize a query selector with JavaScript to add an event listener
-                                                        // to each trash bin icon that is clicked by the user on the application.
-                                                        [...document.querySelectorAll('.remove-the-provider')].forEach(function(trashBin) {
-                                                            
-                                                            // Add a click event listener to the trash bin icon
-                                                            // so that when it is clicked, a modal pops up with
-                                                            // a confirm delete option.
-                                                            trashBin.addEventListener('click', function() {
-                                                            
-                                                                // Create variables for selecting 
-                                                                // the correct confirm delete modal.
-                                                                var modalValue = "providerModal_" + trashBin.id;
-                                                                var exitModal = "provider-exit-" + trashBin.id;
-
-                                                                // Add selectors for the confirm delete modal.
-                                                                var confirmModal = document.getElementById(modalValue);
-
-                                                                // When the user clicks the button, open 
-                                                                // the provider confirm delete modal.
-                                                                confirmModal.classList.add('provider-bg-active');
-                                                                document.body.classList.add('overflowHidden');
-
-                                                                // Select the exit icon on the confirm delete modal.
-                                                                var exitIcon = document.getElementById(exitModal);
-
-                                                                // When the user clicks the exit icon on the confirm 
-                                                                // delete modal, close the modal on the screen.
-                                                                exitIcon.onclick = function() {
-                                                                    confirmModal.classList.remove('provider-bg-active');
-                                                                    document.body.classList.remove('overflowHidden');
-                                                                }
-
-                                                                // If the user clicks anywhere outside
-                                                                // the modal, close it and do not execute
-                                                                // any of the functions in it.
-                                                                window.onclick = function(event) {
-
-                                                                    // When anything outside of the modal is clicked, 
-                                                                    // close the modal. You can also click the "Cancel"
-                                                                    // button to close the modal.
-                                                                    if (event.target == confirmModal) {
-                                                                        confirmModal.classList.remove('provider-bg-active');
-                                                                        document.body.classList.remove('overflowHidden');
-                                                                
-                                                                    }
-                                                                }
-                                                            });
-                                                        });
-                                                    </script>
-
-                                                    <!-- Include a trash bin icon for each provider -->
-                                                    <i class="fa-solid fa-trash-can"></i>
-                                                </a>
-
-                                                <!-- 
-                                                    Include a MODAL that the user can click to confirm whether or not not they 
-                                                    wish to remove the selected provider entity from the database 
-                                                -->
-                                                <div id="providerModal_<%= data.ProviderID %>" role="dialog" class="provider-modal-bg">
-                                                    <div class="provider-modal-dialog">
-                                                        <div class="provider-modal-container"> 
-                                                            <!-- Modal Information and Content -->
-                                                            <div class="provider-modal-information">
-                                                                <div class="provider-modal-content">
-                                                                    <div>
-                                                                        <div class="provider-modal-body">
-                                                                            <!-- Include a div for showing the "Cancel" and "Confirm" button on the modal -->
-                                                                            <div>
-                                                                                <!-- Heading -->
-                                                                                <div class="provider-modal-heading-background">
-                                                                                    <h2 class="provider-modal-heading">Confirm</h2>
-                                                                                </div>      
-                                                                                
-                                                                                <!-- Description -->
-                                                                                <div class="provider-modal-text-background">
-                                                                                    <p class="provider-modal-text">Are you sure you want to delete provider: <strong><%= data.ProviderFirstName %> <%= data.ProviderMiddleName %> <%= data.ProviderLastName %> <%= data.ProviderTitle %></strong>?</p>
-                                                                                </div>
-
-                                                                                <!-- Include a div for the two buttons on the modal -->
-                                                                                <div class="provider-confirm-delete-select">
-                                                                                    <!-- Provide a "Cancel" button if the user wishes to cancel the delete action -->
-                                                                                    <a id="provider-exit-<%= data.ProviderID %>" class="provider-edit-white-modal provider-edit-remove-modal" href="#close">
-                                                                                        Cancel
-                                                                                    </a>
-                                                                                    <!-- Makes POST request to the remove-provider route if the "Confirm Delete" button is clicked -->
-                                                                                    <form class="form-horizontal" action="/provider-remove" method="POST">
-                                                                                        <input id="remove_<%= data.ProviderID %>" type="hidden" class="providerclass" name="provideridentifier" value="<%= data.ProviderID %>" onChange="getRemoveValue()">
-                                                                                        <button type="submit" class="provider-edit-red-modal provider-edit-remove-modal">Delete</button>
-                                                                                    </form>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> 
-                                                </div>
-
-                                            </div>
+                                            <i class="fa-solid fa-heart-circle-exclamation"></i>
+                                            Patients with High Risk
                                         </div>
-                                    </h2>
-                                </div>
 
-                                <!-- Create the main-content portion of the provider card -->
-                                <div id="collapse-providers<%= data.ProviderID %>" class="collapse">
-                                   
-                                    <!-- 
-                                        Include a wrapper div for the collapse div. This helps 
-                                        ensure that the transition from closed to open is smooth.
-                                    -->
-                                    <div class="provider-card">
-                                        <!-- Each column of the card displays different amounts of data -->
-                                        <div class="provider-column">
-                                            <p class="provider-text-info"><b>Phone:</b> <%= data.ProviderPhone %></p>
-                                            <p class="provider-text-info"><b>Email:</b> <%= data.ProviderEmail %></p>
-                                            <p class="provider-text-info"><b>Description:</b> <%= data.ProviderDescription %></p> 
-                                        </div>
-                                        <!-- Each column of the card displays different amounts of data -->
-                                        <div class="provider-column">
-
+                                        <!-- Include action button here -->
+                                        <div class="statistic-edit-remove-buttons">
+                                            
                                             <!-- 
-                                                Determine if the duration of time at the hospital that the 
-                                                provider has been employed for is less than a year. If the 
-                                                provider has been employed for less than a year, print out 
-                                                that they have been employed for less than a year 
+                                                Include a button for expanding any statistics's information.
+                                                This button is used to expand any statistic module that is
+                                                listed in the database.
                                             -->
-                                            <% var providerTimeAtHospital = getProviderTimeAtHospital(data.ProviderStartDate); %>
-                                            
-                                            <!-- Determine if the provider has been at the hospital for less than a year -->
-                                            <% if(providerTimeAtHospital < 1) { %>
-                                                <p class="provider-text-info"><b>Time at Hospital:</b> Less than a year</p>
-                                            <% } else { %>
-                                                <p class="provider-text-info"><b>Time at Hospital:</b> <%= getProviderTimeAtHospital(data.ProviderStartDate) %>yrs</p>
-                                            <% } %>
-
-                                            <!-- Print out the rest of the provider information -->
-                                            <p class="provider-text-info"><b>Start Date:</b> <%= simplifyDate(data.ProviderStartDate) %></p>
-                                            
-                                            <!--
-                                                If the provider does not have an end/discharge 
-                                                date, display a message instead
-                                            -->
-                                            <% if(data.ProviderEndDate) { %>
-                                                <p class="provider-text-info"><b>End Date:</b> <%= simplifyDate(data.ProviderEndDate) %></p> 
-                                            <% } else { %>
-                                                <p class="provider-text-info"><b>End Date:</b> Currently employed.</p> 
-                                            <% } %>
+                                            <a class="statistic-edit-white statistic-edit-remove" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-statistics1" aria-expanded="false" aria-controls="collapse-statistics1">
+                                                <i class="fa-solid fa-circle-info"></i>
+                                            </a>
                                         </div>
                                     </div>
+                                </h2>
+                            </div>
+
+                            <!-- Create the main-content portion of the statistic card -->
+                            <div id="collapse-statistics1" class="collapse">
+                                
+                                <!-- 
+                                    Include a wrapper div for the collapse div. This helps 
+                                    ensure that the transition from closed to open is smooth.
+                                -->
+                                <div class="statistic-card">
+
+                                     <!-- Include a heading that explains the data that is being displayed -->
+                                     <h2 class="no-statistic-data" style="margin-top: 0;">Patients that have a risk index greater than or equal to 6.</h2>
+
+                                    <!-- 
+                                        If there is data that resulted from the first
+                                        complex query, then display that data
+                                    -->
+                                    <% if(highestRiskPatient.length != 0) { %>
+
+                                        <!-- 
+                                            Loop through all of the high risk patients in 
+                                            the database and display them on the page 
+                                        -->
+                                        <% highestRiskPatient.forEach(function(data) { %>
+
+                                            <!-- 
+                                                If the patient is currently in care at the hospital, then
+                                                display their data within the statistics card.
+                                            -->
+                                            <% if(data.PatientEndDate == null) { %>
+
+
+                                                <!-- Each column of the card displays different amounts of data -->
+                                                <div class="statistic-column">
+                                                    <p class="statistic-text-info"><b><%= data.PatientFirstName %> <%= data.PatientMiddleName %> <%= data.PatientLastName %></p></b>
+                                                    <p class="statistic-text-info">Patient has a risk index of <%= data.PatientRiskIndex %>.</p>
+                                                    <p class="statistic-text-info"><%= data.PatientNotes %></p>
+                                                </div>
+
+                                            <!-- 
+                                                If there is no data that resulted from the
+                                                complex query, then display the message below.
+                                            -->
+                                            <% } else { %>
+                                                <h2 class="no-statistic-data">There are currently no high-risk patients.</h2>
+                                            <% } %>
+
+                                        <% }); %>
+
+                                    <!-- 
+                                        If there is no data for the query that 
+                                        was executed, display the message
+                                    -->
+                                    <% } else { %>
+                                        <h2 class="no-statistic-data">There are currently no high-risk patients.</h2>
+                                    <% } %>
                                 </div>
                             </div>
-                        <% }); %>
+                        </div>
+
+                        <!-- ================================================================================== -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <!-- ================================================================================== -->
+                                <!-- DATA FOR COMPLEX QUERY 2: Providers Caring for 5 or More Patients -->
+                        <!-- ================================================================================== -->
+
+                        <!--
+                            Create a div to hold the button collapse function layout. 
+                            The main components within this div include the main button
+                            and the content that appears when the user clicks the button.
+                        -->
+                        <div>
+
+                            <!-- Create a card for the statistic -->
+                            <!-- First, create a heading that displays the name of the statistic -->
+                            <div class="statistic-name">
+
+                                <!-- 
+                                    Display the statistic name and text
+                                -->
+                                <h2 class="statistic-name-text">
+
+                                    <!-- Include a div to show the statistic name and action buttons -->
+                                    <div class="statistic-name-and-buttons">
+
+                                        <!-- 
+                                            Display an icon for the statistic
+                                        -->
+                                        <div class="statistic-full-name">
+                                            <!-- 
+                                                Display the icon for the providers   
+                                                caring for 5 or more patients.
+                                            -->
+                                            <i class="fa-solid fa-star-of-life"></i>
+                                            Providers Caring for 5 or More Patients
+                                        </div>
+
+                                        <!-- Include action button here -->
+                                        <div class="statistic-edit-remove-buttons">
+                                            
+                                            <!-- 
+                                                Include a button for expanding any statistics's information.
+                                                This button is used to expand any statistic module that is
+                                                listed in the database.
+                                            -->
+                                            <a class="statistic-edit-white statistic-edit-remove" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-statistics2" aria-expanded="false" aria-controls="collapse-statistics2">
+                                                <i class="fa-solid fa-circle-info"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </h2>
+                            </div>
+
+                            <!-- Create the main-content portion of the statistic card -->
+                            <div id="collapse-statistics2" class="collapse">
+                                
+                                <!-- 
+                                    Include a wrapper div for the collapse div. This helps 
+                                    ensure that the transition from closed to open is smooth.
+                                -->
+                                <div class="statistic-card">
+
+                                     <!-- Include a heading that explains the data that is being displayed -->
+                                     <h2 class="no-statistic-data" style="margin-top: 0;">Providers that are caring for 5 or more patients.</h2>
+
+                                    <!-- 
+                                        If there is data that resulted from the first
+                                        complex query, then display that data
+                                    -->
+                                    <% if(numberOfCareProviders.length == 0) { %> <!-- CHANGE THIS TO "!=" WHEN YOU FINISH THE QUERY AND THE DATA DISPLAY!!! -->
+
+                                        <!-- 
+                                            Loop through all of the high risk patients in 
+                                            the database and display them on the page 
+                                        -->
+                                        <% numberOfCareProviders.forEach(function(data) { %>
+
+                                            <!-- 
+                                                If the patient is currently in care at the hospital, then
+                                                display their data within the statistics card.
+                                            -->
+                                            <% if(data.PatientEndDate == null) { %>
+
+
+                                                <!-- Each column of the card displays different amounts of data -->
+                                                <div class="statistic-column">
+                                                    <p class="statistic-text-info"><b></p></b>
+                                                    <p class="statistic-text-info"></p>
+                                                </div>
+
+                                            <!-- 
+                                                If there is no data that resulted from the
+                                                complex query, then display the message below.
+                                            -->
+                                            <% } else { %>
+                                                <h2 class="no-statistic-data">There are currently no providers treating 5 or more patients.</h2>
+                                            <% } %>
+
+                                        <% }); %>
+
+                                    <!-- 
+                                        If there is no data for the query that 
+                                        was executed, display the message
+                                    -->
+                                    <% } else { %>
+                                        <h2 class="no-statistic-data">There are currently no providers treating 5 or more patients.</h2>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ================================================================================== -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <!-- ================================================================================== -->
+                       <!-- DATA FOR COMPLEX QUERY 3: What Providers Administered What Treatments 5 or More Times -->
+                        <!-- ================================================================================== -->
+
+                        <!--
+                            Create a div to hold the button collapse function layout. 
+                            The main components within this div include the main button
+                            and the content that appears when the user clicks the button.
+                        -->
+                        <div>
+
+                            <!-- Create a card for the statistic -->
+                            <!-- First, create a heading that displays the name of the statistic -->
+                            <div class="statistic-name">
+
+                                <!-- 
+                                    Display the statistic name and text
+                                -->
+                                <h2 class="statistic-name-text">
+
+                                    <!-- Include a div to show the statistic name and action buttons -->
+                                    <div class="statistic-name-and-buttons">
+
+                                        <!-- 
+                                            Display an icon for the statistic
+                                        -->
+                                        <div class="statistic-full-name">
+                                            <!-- 
+                                                Display the icon for the providers   
+                                                that administered treatments 5 or
+                                                more times.
+                                            -->
+                                            <i class="fa-solid fa-flask-vial"></i>
+                                            Providers Administering Treatments
+                                        </div>
+
+                                        <!-- Include action button here -->
+                                        <div class="statistic-edit-remove-buttons">
+                                            
+                                            <!-- 
+                                                Include a button for expanding any statistics's information.
+                                                This button is used to expand any statistic module that is
+                                                listed in the database.
+                                            -->
+                                            <a class="statistic-edit-white statistic-edit-remove" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-statistics3" aria-expanded="false" aria-controls="collapse-statistics3">
+                                                <i class="fa-solid fa-circle-info"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </h2>
+                            </div>
+
+                            <!-- Create the main-content portion of the statistic card -->
+                            <div id="collapse-statistics3" class="collapse">
+                                
+                                <!-- 
+                                    Include a wrapper div for the collapse div. This helps 
+                                    ensure that the transition from closed to open is smooth.
+                                -->
+                                <div class="statistic-card">
+
+                                    <!-- Include a heading that explains the data that is being displayed -->
+                                    <h2 class="no-statistic-data" style="margin-top: 0;">Providers that administered treatments 5 or more times.</h2>
+
+                                    <!-- 
+                                        If there is data that resulted from the first
+                                        complex query, then display that data
+                                    -->
+                                    <% if(treatmentsAdministered.length == 0) { %> <!-- CHANGE THIS TO "!=" WHEN YOU FINISH THE QUERY AND THE DATA DISPLAY!!! -->
+
+                                        <!-- <h2 class="no-statistic-data">Providers that administered treatments 5 or more times are listed here.</h2> -->
+
+                                        <!-- 
+                                            Loop through all of the high risk patients in 
+                                            the database and display them on the page 
+                                        -->
+                                        <% treatmentsAdministered.forEach(function(data) { %>
+
+                                            <!-- 
+                                                If the patient is currently in care at the hospital, then
+                                                display their data within the statistics card.
+                                            -->
+                                            <% if(data.PatientEndDate == null) { %>
+
+
+                                                <!-- Each column of the card displays different amounts of data -->
+                                                <div class="statistic-column">
+                                                    <p class="statistic-text-info"><b></p></b>
+                                                    <p class="statistic-text-info"></p>
+                                                </div>
+
+                                            <!-- 
+                                                If there is no data that resulted from the
+                                                complex query, then display the message below.
+                                            -->
+                                            <% } else { %>
+                                                <h2 class="no-statistic-data">There are currently no providers that administered 5 or more treatments.</h2>
+                                            <% } %>
+
+                                        <% }); %>
+
+                                    <!-- 
+                                        If there is no data for the query that 
+                                        was executed, display the message
+                                    -->
+                                    <% } else { %>
+                                        <h2 class="no-statistic-data">There are currently no providers that administered 5 or more treatments.</h2>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ================================================================================== -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                     <!-- 
                         If there is no data for the query that 
                         was executed, display the message
                      -->
                     <% } else { %>
-                        <h2 class="no-provider-data">There is currently no data.</h2>
+                        <h2 class="no-statistic-data">There is currently no data.</h2>
                     <% } %>
                 </div>
             </div>

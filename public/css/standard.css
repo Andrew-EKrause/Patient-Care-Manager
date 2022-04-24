@@ -3916,42 +3916,6 @@ html {
         transform: scale(1.15);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /* ====================================================================
                                 STATISTICS Page
     ==================================================================== */
@@ -3981,9 +3945,9 @@ html {
 
     .statistic-buttons {
         display: grid;
-        grid-template-columns: 50% 50%;
+        grid-template-columns: none;
         margin: 0;
-        max-width: 800px;
+        max-width: 400px;
         margin-left: auto;
         margin-right: auto;
     }
@@ -4154,14 +4118,16 @@ html {
             margin-right: auto;
             border: 2px solid var(--gray-color);
             display: flex;
+            flex-wrap: wrap;
             flex-direction: row;
-            justify-content: center;
+            justify-content: flex-start;
         }
 
         .statistic-column {
             margin-right: 10px;
-            width: 50%;
-            max-width: 400px;
+            /* width: 50%; */
+            /* min-width: 360px; */
+            max-width: 360px; 
         }
     }
 
@@ -4203,28 +4169,6 @@ html {
         color: black;
         opacity: 100%;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
 
     /* ====================================================================
                             FOOTER Section (All Pages)

@@ -85,11 +85,11 @@ statisticsRouter.get("/statistics", function(req, res, next) {
                             LIMIT 5`;
 
     // ==================================================================
-    // Complex Query <2> - Providers Caring for 10 or More Patients 
+    // Complex Query <2> - Providers Caring for 5 or More Patients 
     // ==================================================================
     // Create the second complex query. The second complex query 
-    // selects all of the providers who are caring for 10 or more
-    // patients. The providers who are caring for 10 or more patients
+    // selects all of the providers who are caring for 5 or more
+    // patients. The providers who are caring for 5 or more patients
     // are then displayed on the "Statistics" page.
     var complexQuery2 = `SELECT * FROM Treatment`; // --> NEED TO COMPLETE!!!
 

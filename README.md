@@ -12,7 +12,10 @@ The web application is called "Patient Care Manager" or "PCM". Through the websi
 
 The Patient Care Manager (PCM) site is hosted on a Heroku server and is accessible by anyone on the world wide web. The basic idea behind the creation of this project is that it could be deployed to a hospital to help improve current care system. By organizing the data in the database and displaying it on the website interface, users can easily interact with and change information to reflect the current state of the hospital care. With this project, the goal is that hospitals would be able to manage patient information more effectively as well as optimize the treatments they administer to individuals seeking medical assistance. A list of resources used for the website, functionalities, and future add-ons are listed below:
 
-INCLUDE IMAGE OF FINAL ER DIAGRAM HERE AT SOME POINT!!!
+
+###### Picture of the Database ER Diagram
+<img width="1101" alt="PCM-ER-Diagram" src="https://user-images.githubusercontent.com/57727121/165997115-fdfa4e0c-de10-49c5-964b-714bfb855c6e.png">
+
 
 **Resources for Project:**
 

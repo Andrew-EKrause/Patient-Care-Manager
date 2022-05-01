@@ -1,5 +1,22 @@
-/* ADD MORE...YOU WILL WANT TO COPY SOME THINGS OVER FROM THE PCM-Setup.sql FILE!!! */
+/**
+ * The MYSQL-PCM-Setup.sql file contains the
+ * scripts used to create the tables in the
+ * Patient Care Manager database. The scripts
+ * that exist in this file are used primarily
+ * for reference and backup. However, they can
+ * also be run using a script to create the
+* tables in the database if needed. This is 
+* useful in cases where the database tables
+* have not loaded or do not exist.
+* 
+* Project: Mayo Clinic (PCM) Web Application
+* Author: Andrew Krause
+* Class: CS 364
+* Date: 5/10/2022
+* 
+*/
 
+/* ADD MORE...YOU WILL WANT TO COPY SOME THINGS OVER FROM THE PCM-Setup.sql FILE!!! */
 
 /*
     Create the Patient Table using MYSQL. 
@@ -60,7 +77,7 @@ CREATE TABLE `Provider` (
   `ProviderEndDate` date DEFAULT NULL,
   PRIMARY KEY (`ProviderID`),
   UNIQUE KEY `ProviderID_UNIQUE` (`ProviderID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
 /* =========================================================================================== */
 
@@ -77,5 +94,69 @@ CREATE TABLE `Department` (
   PRIMARY KEY (`DepartmentID`),
   UNIQUE KEY `idDepartment_UNIQUE` (`DepartmentID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+/* =========================================================================================== */
+
+/*
+  Create the Cares_For Table using MySQL.
+  This table is a join relationship between the "Provider"
+  and "Patient" tables.
+*/
+CREATE TABLE `Cares_For` (
+  `Cares_PatientID` int NOT NULL,
+  `Cares_ProviderID` int NOT NULL,
+  PRIMARY KEY (`Cares_PatientID`,`Cares_ProviderID`),
+  KEY `Cares_ProviderID_idx` (`Cares_ProviderID`),
+  CONSTRAINT `Cares_PatientID` FOREIGN KEY (`Cares_PatientID`) REFERENCES `Patient` (`PatientID`),
+  CONSTRAINT `Cares_ProviderID` FOREIGN KEY (`Cares_ProviderID`) REFERENCES `Provider` (`ProviderID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+/* =========================================================================================== */
+
+/*
+  Create the Receives_Treatment Table using MySQL.
+  This table is a join relationship between the "Treatment"
+  and "Patient" tables.
+*/
+CREATE TABLE `Receives_Treatment` (
+  `Recieves_PatientID` int NOT NULL,
+  `Receives_TreatmentID` int NOT NULL,
+  PRIMARY KEY (`Recieves_PatientID`,`Receives_TreatmentID`),
+  KEY `Receives_TreatmentID_idx` (`Receives_TreatmentID`),
+  CONSTRAINT `Receives_PatientID` FOREIGN KEY (`Recieves_PatientID`) REFERENCES `Patient` (`PatientID`),
+  CONSTRAINT `Receives_TreatmentID` FOREIGN KEY (`Receives_TreatmentID`) REFERENCES `Treatment` (`TreatmentID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+/* =========================================================================================== */
+
+/*
+  Create the Administers_Treatment Table using MySQL.
+  This table is a join relationship between the "Provider"
+  and "Treatment" tables.
+*/
+CREATE TABLE `Administers_Treatment` (
+  `Administer_ProviderID` int NOT NULL,
+  `Administer_TreatmentID` int NOT NULL,
+  PRIMARY KEY (`Administer_ProviderID`,`Administer_TreatmentID`),
+  KEY `Administer_TreatmentID_idx` (`Administer_TreatmentID`),
+  CONSTRAINT `Administer_ProviderID` FOREIGN KEY (`Administer_ProviderID`) REFERENCES `Provider` (`ProviderID`),
+  CONSTRAINT `Administer_TreatmentID` FOREIGN KEY (`Administer_TreatmentID`) REFERENCES `Treatment` (`TreatmentID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+/* =========================================================================================== */
+
+/*
+  Create the Part_Of Table using MySQL.
+  This table is a join relationship between the "Provider"
+  and "Department" tables.
+*/
+CREATE TABLE `Part_Of` (
+  `Part_ProviderID` int NOT NULL,
+  `Part_DepartmentID` int NOT NULL,
+  PRIMARY KEY (`Part_ProviderID`,`Part_DepartmentID`),
+  KEY `Part_DepartmentID_idx` (`Part_DepartmentID`),
+  CONSTRAINT `Part_DepartmentID` FOREIGN KEY (`Part_DepartmentID`) REFERENCES `Department` (`DepartmentID`),
+  CONSTRAINT `Part_ProviderID` FOREIGN KEY (`Part_ProviderID`) REFERENCES `Provider` (`ProviderID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
 /* =========================================================================================== */

@@ -83,6 +83,6 @@ app.use('/', statisticsRoutes);
 /* SECTION: LISTEN FOR SERVER REQUESTS */
 
 // Begin listening for server requests on port 3000.
-app.listen(3000, function(){
+app.listen(3000, function() {
     console.log("Server for Mayo Clinic Patient Care Manager (PCM) Web App started on port 3000.");
 });

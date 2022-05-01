@@ -37,7 +37,7 @@
                         If there is data in the patient table 
                         of the database, display that data
                     -->
-                    <% if(patientEdit.length != 0) { %>
+                    <% if(patientEditData.length != 0) { %>
 
                         <!-- Create a form to process any data that is entered into the input fields by the user -->
                         <form class="form-edit-patient-horizontal" action="/patient-update" method="POST">
@@ -109,7 +109,7 @@
                                 Loop through all of the patients in the 
                                 database and display them on the page 
                             -->
-                            <% patientEdit.forEach(function(data) { %>
+                            <% patientEditData.forEach(function(data) { %>
 
                                 <!-- Create a card for each patient -->
                                 <!-- First, create a heading that displays the name of each patient -->
@@ -228,13 +228,325 @@
                                         <p class="patient-edit-text-info"><b>Height (feet/inches):</b> <input placeholder="Enter Height" value="<%= data.PatientHeight %>" type="number" class="" name="patientheight" size="5" min="1" max="1000" step="0.01"></p>
                                         <p class="patient-edit-text-info"><b>Weight (lbs):</b> <input placeholder="Enter Weight" value="<%= data.PatientWeight %>" type="number" class="" name="patientweight" size="5" min="1" max="1000" step="0.01"></p>
                                         <p class="patient-edit-text-info"><b>Description:</b> <input placeholder="Enter Description" value="<%= data.PatientNotes %>" type="text" class="name-input" name="patientdescription" size="10"></p>
+                                                   
+                                        <!-- ============================================================================= -->
+                                        <!-- SECTION FOR SELECTING ITEMS THAT WILL UPDATE THE JOIN PATIENT/PROVIDER TABLES -->
+                                        <!-- IN THE DATABASE  -->
+                                        <!-- ============================================================================= -->
+
+                                        <!-- PROVIDER -->
+                                        <!-- Include a script to add JavaScript for properly selecting/removing a given provider for the patient -->
+                                        <script>
+                                            // Create a variable for determining if the selector is expanded or not.
+                                            var expandedProvider = false;
+
+                                            // Create a function for showing the 
+                                            // checkboxes within the selector.
+                                            function showProviderEditCheckboxes() {
+
+                                                // Create a variable that obtains the provider checkbox dropdown section.
+                                                var checkboxes = document.getElementById("provider-edit-checkboxes");
+                                                
+                                                // If the selector is not expanded, display the checkboxes
+                                                // and set the expanded variable to the value of true.
+                                                if (!expandedProvider) {
+                                                    checkboxes.style.display = "block";
+                                                    expandedProvider = true;
+
+                                                // Otherwise, do not display the checkboxes and
+                                                // set the expanded variable to the value of false.
+                                                } else {
+                                                    checkboxes.style.display = "none";
+                                                    expandedProvider = false;
+                                                }
+                                            }
+                                        </script>
+
+                                        <!-- 
+                                            Provide the user with options to either select a provider or providers 
+                                            to caring for the given patient, or remove a provider or providers that
+                                            were assigned with caring for the given patient.
+                                        -->
+                                        <p class="patient-create-text-info" style="margin-top: 10px; margin-bottom: 0;"><b>Providers:</b></p>
+
+                                        <!-- 
+                                            If there are providers in the database, list them 
+                                            as options for the user to select in order to assign 
+                                            them to the patient 
+                                        -->
+                                        <% if(providerEditData.length != 0) { %>
+
+                                            <!-- 
+                                                Creae a div to show the provider options 
+                                                that the user can choose from
+                                            -->
+                                            <div>
+
+                                                <!-- Create dropdown element so the user can click it and view/edit the different providers -->
+                                                <div class="selectBox patient-create-text-info" onclick="showProviderEditCheckboxes()">
+                                                    <select>
+                                                        <option>Add/Remove Providers</option>
+                                                    </select>
+                                                    <div class="overSelect"></div>
+                                                </div>
+                                                <div id="provider-edit-checkboxes" class="all-selector-checkboxes patient-create-text-info" style="display: none;">
+
+                                                    <!-- 
+                                                        Create a variable to determine if a given 
+                                                        provider is assigned to the patient being 
+                                                        edited
+                                                    -->
+                                                    <% var relationshipPatientProviderYes = 0;%>
+                                                    
+                                                    <!-- 
+                                                        Create a second for-each loop to check each provider
+                                                        in the Providers table of the database. This helps 
+                                                        in listing out the options for the user to choose 
+                                                        from in the proper format.
+                                                    -->
+                                                    <% providerEditData.forEach(function(providerEditData) { %>
+
+                                                        <!-- 
+                                                            Set the variable that determines if a 
+                                                            given provider was assigned to a patient 
+                                                            to ZERO 
+                                                        -->
+                                                        <% relationshipPatientProviderYes = 0; %>
+
+                                                        <!-- 
+                                                            Create a for-each loop that checks each item in the Cares_For
+                                                            table in order to determine which providers can be assigned
+                                                            and which providers have already been assigned. 
+                                                        -->
+                                                        <% patientProviderJoinEditData.forEach(function(joinData) { %>
+                                                        
+                                                            <!-- 
+                                                                If the provider identifier matches the identifier in the Cares_For 
+                                                                table, and the patient identifier matches the identifier in the 
+                                                                Cares_For table, then that means the provider was previously assigned
+                                                                to the patient.
+                                                            -->
+                                                            <% if(joinData.Cares_ProviderID == providerEditData.ProviderID && joinData.Cares_PatientID == data.PatientID) { %>
+                                                                
+                                                                <!-- 
+                                                                    Set the variable that determines if a 
+                                                                    given provider was assigned to a patient 
+                                                                    to ONE if the provider was already assigned
+                                                                    to that patient. 
+                                                                -->
+                                                                <% relationshipPatientProviderYes = 1; %>
+
+                                                                <!-- 
+                                                                    If there is a relationship between the two entities in the
+                                                                    relationship table, then display the providers that were
+                                                                    assigned to the patient previously with the option to remove
+                                                                    them if the user wishes to do so. 
+                                                                -->
+                                                                <div class="checkbox-structure">
+                                                                    <div class="checkbox-item">
+                                                                        <input type="checkbox" id="providerAssign<%= providerEditData.ProviderID %>" class="checkbox-label" style="margin-top: 6px;" name="removeproviderforpatient" value="<%= providerEditData.ProviderID %>">
+                                                                    </div>
+                                                                    <div class="checkbox-item">
+                                                                        <label for="providerAssign<%= providerEditData.ProviderID %>"><b>Remove</b> <%= providerEditData.ProviderFirstName %> <%= providerEditData.ProviderLastName %>, <%= providerEditData.ProviderTitle %></label>
+                                                                    </div>
+                                                                </div>
+                                                            <% } %>
+                                                        <% }); %>
+
+                                                        <!-- 
+                                                            If the provider was not already assigned to the patient, 
+                                                            then list the provider with the option to assign that
+                                                            provider to the patient
+                                                        -->
+                                                        <% if(relationshipPatientProviderYes == 0) { %>
+
+                                                            <!-- 
+                                                                If there is NOT a relationship between the two entities in the
+                                                                relationship table, then display the providers that were not
+                                                                already assigned to the patient previously with the option to 
+                                                                assign them to the patient if the user wishes to do so. 
+                                                            -->
+                                                            <div class="checkbox-structure">
+                                                                <div class="checkbox-item">
+                                                                    <input type="checkbox" id="providerAssign<%= providerEditData.ProviderID %>" class="checkbox-label" style="margin-top: 6px;" name="addproviderforpatient" value="<%= providerEditData.ProviderID %>">
+                                                                </div>
+                                                                <div class="checkbox-item">
+                                                                    <label for="providerAssign<%= providerEditData.ProviderID %>"><b>Add</b> <%= providerEditData.ProviderFirstName %> <%= providerEditData.ProviderLastName %>, <%= providerEditData.ProviderTitle %></label>
+                                                                </div>
+                                                            </div>
+                                                        <% } %>
+                                                    <% }); %>
+                                                </div>
+                                            </div>
+
+                                        <% } else { %>
+                                            <p class="patient-create-text-info">There are no available providers.</p>
+                                        <% } %>
+                                        <!-- ============================================================================= -->
                                     </div>
+
                                     <!-- Each column of the card displays different amounts of data --> 
                                     <div class="patient-edit-column">
+
+                                        <!-- ============================================================================= -->
+                                        <!-- SECTION FOR SELECTING ITEMS THAT WILL UPDATE THE JOIN PATIENT/TREATMENT -->
+                                        <!-- TABLES IN THE DATABASE  -->
+                                        <!-- ============================================================================= -->
+
+                                        <!-- TREATMENT -->
+                                        <!-- Include a script to add JavaScript for properly selecting/removing a given treatment for the patient -->
+                                        <script>
+                                            // Create a variable for determining if the selector is expanded or not.
+                                            var expandedTreatment = false;
+
+                                            // Create a function for showing the 
+                                            // checkboxes within the selector.
+                                            function showTreatmentEditCheckboxes() {
+
+                                                // Create a variable that obtains the provider checkbox dropdown section.
+                                                var checkboxes = document.getElementById("treatment-edit-checkboxes");
+                                                
+                                                // If the selector is not expanded, display the checkboxes
+                                                // and set the expanded variable to the value of true.
+                                                if (!expandedTreatment) {
+                                                    checkboxes.style.display = "block";
+                                                    expandedTreatment = true;
+
+                                                // Otherwise, do not display the checkboxes and
+                                                // set the expanded variable to the value of false.
+                                                } else {
+                                                    checkboxes.style.display = "none";
+                                                    expandedTreatment = false;
+                                                }
+                                            }
+                                        </script>
+
+                                        <!-- 
+                                            Provide the user with options to either select a treatment or 
+                                            treatments for the given patient, or remove a treatment or
+                                             treatments that were assigned for the given patient.
+                                        -->
+                                        <p class="patient-create-text-info" style="margin-top: 10px; margin-bottom: 0;"><b>Treatments:</b></p>
+
+                                        <!-- 
+                                            If there are treatments in the database, list them 
+                                            as options for the user to select in order to assign 
+                                            them to the patient 
+                                        -->
+                                        <% if(treatmentEditData.length != 0) { %>
+
+                                            <!-- 
+                                                Creae a div to show the treatment options 
+                                                that the user can choose from
+                                            -->
+                                            <div>
+
+                                                <!-- Create dropdown element so the user can click it and view/edit the different treatments -->
+                                                <div class="selectBox patient-create-text-info" onclick="showTreatmentEditCheckboxes()">
+                                                    <select>
+                                                        <option>Add/Remove Treatments</option>
+                                                    </select>
+                                                    <div class="overSelect"></div>
+                                                </div>
+                                                <div id="treatment-edit-checkboxes" class="all-selector-checkboxes patient-create-text-info" style="display: none;">
+
+                                                    <!-- 
+                                                        Create a variable to determine if a given 
+                                                        treatment is assigned to the patient being 
+                                                        edited
+                                                    -->
+                                                    <% var relationshipPatientTreatmentYes = 0;%>
+                                                    
+                                                    <!-- 
+                                                        Create a second for-each loop to check each treatment
+                                                        in the Treatments table of the database. This helps 
+                                                        in listing out the options for the user to choose 
+                                                        from in the proper format.
+                                                    -->
+                                                    <% treatmentEditData.forEach(function(treatmentEditData) { %>
+
+                                                        <!-- 
+                                                            Set the variable that determines if a 
+                                                            given treatment was assigned to a patient 
+                                                            to ZERO 
+                                                        -->
+                                                        <% relationshipPatientTreatmentYes = 0; %>
+
+                                                        <!-- 
+                                                            Create a for-each loop that checks each item in the Receives_Treatment
+                                                            table in order to determine which treatments can be assigned and which
+                                                            treatments have already been assigned. 
+                                                        -->
+                                                        <% patientTreatmentJoinEditData.forEach(function(joinData) { %>
+                                                        
+                                                            <!-- 
+                                                                If the treatment identifier matches the identifier in the Receives_Treatment
+                                                                table, and the patient identifier matches the identifier in the 
+                                                                Receives_Treatment table, then that means the treatment was previously
+                                                                assigned to the patient.
+                                                            -->
+                                                            <% if(joinData.Receives_TreatmentID == treatmentEditData.TreatmentID && joinData.Receives_PatientID == data.PatientID) { %>
+                                                                
+                                                                <!-- 
+                                                                    Set the variable that determines if a 
+                                                                    given treatment was assigned to a patient 
+                                                                    to ONE if the treatment was already assigned
+                                                                    to that patient. 
+                                                                -->
+                                                                <% relationshipPatientTreatmentYes = 1; %>
+
+                                                                <!-- 
+                                                                    If there is a relationship between the two entities in the
+                                                                    relationship table, then display the treatments that were
+                                                                    assigned to the patient previously with the option to remove
+                                                                    them if the user wishes to do so. 
+                                                                -->
+                                                                <div class="checkbox-structure">
+                                                                    <div class="checkbox-item">
+                                                                        <input type="checkbox" id="treatmentAssign<%= treatmentEditData.TreatmentID %>" class="checkbox-label" style="margin-top: 6px;" name="removetreatmentforpatient" value="<%= treatmentEditData.TreatmentID %>">
+                                                                    </div>
+                                                                    <div class="checkbox-item">
+                                                                        <label for="treatmentAssign<%= treatmentEditData.TreatmentID %>"><b>Remove</b> <%= treatmentEditData.TreatmentName %></label>
+                                                                    </div>
+                                                                </div>
+                                                            <% } %>
+                                                        <% }); %>
+
+                                                        <!-- 
+                                                            If the treatment was not already assigned to the patient, 
+                                                            then list the treatment with the option to assign that
+                                                            treatment to the patient
+                                                        -->
+                                                        <% if(relationshipPatientTreatmentYes == 0) { %>
+
+                                                            <!-- 
+                                                                If there is NOT a relationship between the two entities in the
+                                                                relationship table, then display the treatments that were not
+                                                                already assigned to the patient previously with the option to 
+                                                                assign them to the patient if the user wishes to do so. 
+                                                            -->
+                                                            <div class="checkbox-structure">
+                                                                <div class="checkbox-item">
+                                                                    <input type="checkbox" id="treatmentAssign<%= treatmentEditData.TreatmentID %>" class="checkbox-label" style="margin-top: 6px;" name="addtreatmentforpatient" value="<%= treatmentEditData.TreatmentID %>">
+                                                                </div>
+                                                                <div class="checkbox-item">
+                                                                    <label for="treatmentAssign<%= treatmentEditData.TreatmentID %>"><b>Add</b> <%= treatmentEditData.TreatmentName %></label>
+                                                                </div>
+                                                            </div>
+                                                        <% } %>
+                                                    <% }); %>
+                                                </div>
+                                            </div>
+
+                                        <% } else { %>
+                                            <p class="patient-create-text-info">No available treatments.</p>
+                                        <% } %>
+                                        <!-- ============================================================================= -->
+
                                         <!-- Format the placeholder for the date admitted value -->
                                         <% var startDatePatient = simplifyDate(data.PatientStartDate); %>
 
-                                        <p class="patient-edit-text-info"><b>Risk Index:</b> <input placeholder="0-10" value="<%= data.PatientRiskIndex %>" type="number" class="" name="patientriskindex" size="5" maxlength="12" min="0" max="10" step="1"></p>
+                                        <p class="patient-edit-text-info"><b>Patient Risk Index:</b> <input placeholder="0-10" value="<%= data.PatientRiskIndex %>" type="number" class="" name="patientriskindex" size="5" maxlength="12" min="0" max="10" step="1"></p>
                                         <p class="patient-edit-text-info"><b>Phone:</b> <input placeholder="###-###-####" value="<%= data.PatientPhone %>" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="" name="patientphone" size="13" maxlength="12"></p>
                                         <p class="patient-edit-text-info"><b>Email:</b> <input placeholder="Enter Email" value="<%= data.PatientEmail %>" type="email" class="" name="patientemail" size="13"></p>
                                         <p class="patient-edit-text-info"><b>Admitted:</b> <input placeholder="<%= startDatePatient %>" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientstartdate" size="16"></p> 

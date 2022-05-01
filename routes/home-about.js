@@ -45,7 +45,7 @@ homeRouter.get("/about", function(req, res) {
 homeRouter.get("/download_info", function(req, res){
 
     // Download the help manual (PDF) file stored for website.
-    const file = `${__dirname}/public/files/krause-initial.pdf`;
+    const file = `./public/files/krause-initial.pdf`;
     res.download(file);
 });
 

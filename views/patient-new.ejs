@@ -89,15 +89,187 @@
                                 <p class="patient-create-text-info"><b>Height (feet/inches):</b> <input placeholder="Enter Height" type="number" class="" name="patientheight" size="5" min="1" max="1000" step="0.01" required></p>
                                 <p class="patient-create-text-info"><b>Weight (lbs):</b> <input placeholder="Enter Weight" type="number" class="" name="patientweight" size="5" min="1" max="1000" step="0.01" required></p>
                                 <p class="patient-create-text-info"><b>Description:</b> <input placeholder="Enter Description" type="text" class="name-input" name="patientdescription" size="10" required></p>
+                            
+                                <!-- ============================================================================= -->
+                                <!-- SECTION FOR SELECTING ITEMS THAT WILL BE ADDED TO THE JOIN PATIENT/PROVIDER -->
+                                <!-- TABLE IN THE DATABASE -->
+                                <!-- ============================================================================= -->
+
+                                <!-- PROVIDER -->
+                                <!-- Include a script to add JavaScript for properly selecting a given provider for the patient -->
+                                <script>
+                                    // Create a variable for determining if the selector is expanded or not.
+                                    var expandedProvider = false;
+
+                                    // Create a function for showing the 
+                                    // checkboxes within the selector.
+                                    function showProviderCheckboxes() {
+
+                                        // Create a variable that obtains the provider checkbox dropdown section.
+                                        var checkboxes = document.getElementById("provider-checkboxes");
+                                        
+                                        // If the selector is not expanded, display the checkboxes
+                                        // and set the expanded variable to the value of true.
+                                        if (!expandedProvider) {
+                                            checkboxes.style.display = "block";
+                                            expandedProvider = true;
+
+                                        // Otherwise, do not display the checkboxes and
+                                        // set the expanded variable to the value of false.
+                                        } else {
+                                            checkboxes.style.display = "none";
+                                            expandedProvider = false;
+                                        }
+                                    }
+                                </script>
+
+                                <!-- 
+                                    Provide the user with options to select the provider or providers 
+                                    that are assigned with caring for the given patient 
+                                -->
+                                <p class="patient-create-text-info" style="margin-bottom: 0;"><b>Providers:</b></p>
+
+                                <!-- 
+                                    If there are providers in the database, list them 
+                                    as options for the user to select in order to assign 
+                                    them to the patient 
+                                -->
+                                <% if(patientEditProvider.length != 0) { %>
+
+                                    <!-- 
+                                        Creae a div to show the provider options 
+                                        that the user can choose from
+                                     -->
+                                    <div>
+
+                                        <!-- Create dropdown element so the user can click it and view the different providers -->
+                                        <div class="selectBox patient-create-text-info" onclick="showProviderCheckboxes()">
+                                            <select>
+                                                <option>Select Providers</option>
+                                            </select>
+                                            <div class="overSelect"></div>
+                                        </div>
+                                        <div id="provider-checkboxes" class="all-selector-checkboxes patient-create-text-info" style="display: none;">
+
+                                            <!-- 
+                                                Create a for loop to display all of the providers
+                                                that the user can select for this input field.
+                                            -->
+                                            <% patientEditProvider.forEach(function(data) { %>
+
+                                                <!-- Finish adding the checkbox structure for the dropdown of provider checkboxes -->
+                                                <div class="checkbox-structure">
+                                                    <div class="checkbox-item">
+                                                        <input type="checkbox" id="providerAssign<%= data.ProviderID %>" class="checkbox-label" style="margin-top: 6px;" name="providerforpatient" value="<%= data.ProviderID %>">
+                                                    </div>
+                                                    <div class="checkbox-item">
+                                                        <label for="providerAssign<%= data.ProviderID %>"><%= data.ProviderFirstName %> <%= data.ProviderLastName %>, <%= data.ProviderTitle %></label>
+                                                    </div>
+                                                </div>
+                                            <% }); %>
+                                        </div>
+                                    </div>
+
+                                <% } else { %>
+                                    <p class="patient-create-text-info">There are no available providers</p>
+                                <% } %>
+                                <!-- ============================================================================= -->
                             </div>
+
                             <!-- Each column of the card displays different amounts of data -->  
                             <div class="patient-create-column">
-                                <p class="patient-create-text-info"><b>Risk Index:</b> <input placeholder="0-10" type="number" class="" name="patientriskindex" size="5" maxlength="12" min="0" max="10" step="1" required></p>
+
+                                <!-- ============================================================================= -->
+                                <!-- SECTION FOR SELECTING ITEMS THAT WILL BE ADDED TO THE JOIN PATIENT/TREATMENT -->
+                                <!-- TABLE IN THE DATABASE -->
+                                <!-- ============================================================================= -->
+
+                                <!-- TREATMENT -->
+                                <!-- Include a script to add JavaScript for properly selecting a given treatment for the patient -->
+                                <script>
+                                    // Create a variable for determining if the selector is expanded or not.
+                                    var expandedTreatment = false;
+
+                                    // Create a function for showing the 
+                                    // checkboxes within the selector.
+                                    function showTreatmentCheckboxes() {
+
+                                        // Create a variable that obtains the provider checkbox dropdown section.
+                                        var checkboxes = document.getElementById("treatment-checkboxes");
+                                        
+                                        // If the selector is not expanded, display the checkboxes
+                                        // and set the expanded variable to the value of true.
+                                        if (!expandedTreatment) {
+                                            checkboxes.style.display = "block";
+                                            expandedTreatment = true;
+
+                                        // Otherwise, do not display the checkboxes and
+                                        // set the expanded variable to the value of false.
+                                        } else {
+                                            checkboxes.style.display = "none";
+                                            expandedTreatment = false;
+                                        }
+                                    }
+                                </script>
+
+                                <!-- 
+                                    Provide the user with options to select the treatment
+                                    or treatments that are assigned to a given patient
+                                -->
+                                <p class="patient-create-text-info" style="margin-bottom: 0;"><b>Treatments:</b></p>
+
+                                <!-- 
+                                    If there are treatments in the database, list them 
+                                    as options for the user to select in order to assign 
+                                    them to the patient 
+                                -->
+                                <% if(patientEditTreatment.length != 0) { %>
+
+                                    <!-- 
+                                        Creae a div to show the treatment options 
+                                        that the user can choose from
+                                     -->
+                                    <div>
+
+                                        <!-- Create dropdown element so the user can click it and view the different treatments -->
+                                        <div class="selectBox patient-create-text-info" onclick="showTreatmentCheckboxes()">
+                                            <select>
+                                                <option>Select Treatments</option>
+                                            </select>
+                                            <div class="overSelect"></div>
+                                        </div>
+                                        <div id="treatment-checkboxes" class="all-selector-checkboxes patient-create-text-info" style="display: none;">
+
+                                            <!-- 
+                                                Create a for loop to display all of the treatments
+                                                that the user can select for this input field.
+                                            -->
+                                            <% patientEditTreatment.forEach(function(data) { %>
+
+                                                <!-- Finish adding the checkbox structure for the dropdown of treatment checkboxes -->
+                                                <div class="checkbox-structure">
+                                                    <div class="checkbox-item">
+                                                        <input type="checkbox" id="treatmentAssign<%= data.TreatmentID %>" class="checkbox-label" style="margin-top: 6px;" name="treatmentforpatient" value="<%= data.TreatmentID %>">
+                                                    </div>
+                                                    <div class="checkbox-item">
+                                                        <label for="treatmentAssign<%= data.TreatmentID %>"><%= data.TreatmentName %></label>
+                                                    </div>
+                                                </div>
+                                            <% }); %>
+                                        </div>
+                                    </div>
+
+                                <% } else { %>
+                                    <p class="patient-create-text-info">There are no available treatments</p>
+                                <% } %>
+                                <!-- ============================================================================= -->
+
+                                <p class="patient-create-text-info"><b>Patient Risk Index:</b> <input placeholder="0-10" type="number" class="" name="patientriskindex" size="5" maxlength="12" min="0" max="10" step="1" required></p>
                                 <p class="patient-create-text-info"><b>Phone:</b> <input placeholder="###-###-####" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="" name="patientphone" size="13" maxlength="12" required></p>
                                 <p class="patient-create-text-info"><b>Email:</b> <input placeholder="Enter Email" type="email" class="" name="patientemail" size="13" required></p>
                                 <p class="patient-create-text-info"><b>Admitted:</b> <input id="patientstartdatecalc" placeholder="Enter Start Date" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientstartdate" size="16" required></p> 
                                 
-                                <!-- MAYBE TRY IMPLEMENTING THE CODE BELOW AT A LATER TIME!!! -->
+                                <!-- MAYBE TRY IMPLEMENTING THE CODE BELOW AT A LATER TIME. PROBABLY NOT FOR A WHILE. -->
                                 <!-- ===================================================================== -->
                                 <!-- 
                                     Create a variable that determines if a value 

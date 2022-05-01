@@ -380,24 +380,87 @@ providerRouter.post("/provider-remove", function(req, res) {
     // store the provider ID in a variable.
     var removeProvider = req.body.provideridentifier;
 
+    // Include a SQL query that will remove the selected 
+    // provider entity from the "Cares_For" relationship
+    // table in the database.
+    var removeCaresJoinSQL = `DELETE FROM Cares_For WHERE Cares_ProviderID = ?;`;
+
+    // Include a SQL query that will remove the selected 
+    // provider entity from the "Administers_Treatment" 
+    // relationship table in the database.
+    var removeAdministersJoinSQL = `DELETE FROM Administers_Treatment WHERE Administers_ProviderID = ?;`;
+
+    // Include a SQL query that will remove the selected 
+    // provider entity from the "Part_Of" relationship
+    // table in the database.
+    var removePartOfJoinSQL = `DELETE FROM Part_Of WHERE Part_ProviderID = ?;`;
+
     // Include the SQL query that will remove the selected
     // provider entity from the provider table in the database.
-    var sql = `DELETE FROM Provider WHERE ProviderID = ?;`;
+    var removeProviderSQL = `DELETE FROM Provider WHERE ProviderID = ?;`;
 
-    // Complete the query in the database and remove the provider
-    // that the user selected from the database. 
-    database.query(sql, [removeProvider], function(error, data, fields) {
+    // Complete the first query in the database and remvoe the provider
+    // that the user selected frmo the "Cares_For" join relationship.
+    // Then complete the second query in the database and remove the
+    // provider that the user selected from the "Administers_Treatment"
+    // join relationship. Then complete the third query in the database
+    // and remove the provider that the user selected from the join
+    // "Part_Of" relationship table. All of this must be completed before 
+    // removing the provider from the "Provider" table.
+    database.query(removeCaresJoinSQL, [removeProvider], function(error, data, fields) {
 
         // If there is an error, log the error.
         if(error) {
             console.log(error);
+
+        // If there are no errors, then complete the second query.
         } else {
 
-            // Redirect the route back to the main providers page.
-            // Add a flash message indicating that the provider was
-            // successfully removed from the database.
-            req.flash("providerChange", "Provider removed.");
-            res.redirect("/providers");
+            // The second query removes the provider entity that
+            // the user selected from the "Administers_Treatment"
+            // table
+            database.query(removeAdministersJoinSQL, [removeProvider], function(error, data, fields) {
+
+                // If there is an error, log the error.
+                if(error) {
+                    console.log(error);
+        
+                // If there are no errors, then complete the third query.
+                } else {
+        
+                    // The third query removes the provider entity that
+                    // the user selected from the "Part_Of" table.
+                    database.query(removePartOfJoinSQL, [removeProvider], function(error, data, fields) {
+
+                        // If there is an error, log the error.
+                        if(error) {
+                            console.log(error);
+                
+                        // If there are no errors, then complete the fourth query.
+                        } else {
+
+                            // The fourth query removes the provider entity that
+                            // the user selected from the "Provider" table.
+                            database.query(removeProviderSQL, [removeProvider], function(error, data, fields) {
+
+                                // If there is an error, log the error.
+                                if(error) {
+                                    console.log(error);
+
+                                // Complete the final actions below.
+                                } else {
+
+                                    // Redirect the route back to the main providers page.
+                                    // Add a flash message indicating that the provider was
+                                    // successfully removed from the database.
+                                    req.flash("providerChange", "Provider removed.");
+                                    res.redirect("/providers");
+                                }
+                            });
+                        }
+                    });
+                }
+            });
         }
     });
 });

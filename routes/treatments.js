@@ -243,24 +243,66 @@ treatmentRouter.post("/treatment-remove", function(req, res) {
     // store the treatment ID in a variable.
     var removeTreatment = req.body.treatmentidentifier;
 
+    // Include the SQL query that will removce the selected treatment
+    // entity from the "Receives_Treatment" relationship table in the
+    // database.
+    var removeReceivesJoinSQL = `DELETE FROM Receives_Treatment WHERE Receives_TreatmentID = ?;`;
+
+    // Include the SQL query that will removce the selected treatment
+    // entity from the "Administers_Treatment" relationship table in the
+    // database.
+    var removeAdministersJoinSQL = `DELETE FROM Administers_Treatment WHERE Administers_TreatmentID = ?;`;
+
     // Include the SQL query that will remove the selected treatment
     // entity from the treatment table in the database.
-    var sql = `DELETE FROM Treatment WHERE TreatmentID = ?;`;
+    var removeTreatmentSQL = `DELETE FROM Treatment WHERE TreatmentID = ?;`;
 
-    // Complete the query in the database and remove the
-    // treatment that the user selected from the database. 
-    database.query(sql, [removeTreatment], function(error, data, fields) {
+    // Complete the first query in the database and remove the treatment that
+    // the user selected from the "Receives_Treatment" join relationship. Then
+    // complete the second query in the database and remove the treatment that
+    // the user selected from the "Administers_Treatment" join relationship.
+    // This must be completed before removing the treatment from the "Treatment"
+    // table.
+    database.query(removeReceivesJoinSQL, [removeTreatment], function(error, data, fields) {
 
         // If there is an error, log the error.
         if(error) {
             console.log(error);
+
+        // If there are no errors, then complete the second query.
         } else {
 
-            // Redirect the route back to the main treatments page.
-            // Add a flash message indicating that the treatment was
-            // successfully removed from the database.
-            req.flash("treatmentChange", "Treatment removed.");
-            res.redirect("/treatments");
+            // The second query removes the treatment entity that
+            // the user selected from the "Administers_Treatment" table.
+            database.query(removeAdministersJoinSQL, [removeTreatment], function(error, data, fields) {
+
+                // If there is an error, log the error.
+                if(error) {
+                    console.log(error);
+        
+                // If there are no errors, then complete the third query.
+                } else {
+
+                    // The third query removes the treatment entity that 
+                    // that the user selected from the "Treatment" table. 
+                    database.query(removeTreatmentSQL, [removeTreatment], function(error, data, fields) {
+
+                        // If there is an error, log the error.
+                        if(error) {
+                            console.log(error);
+
+                        // Otherwise, complete the final actions below.
+                        } else {
+
+                            // Redirect the route back to the main treatments page.
+                            // Add a flash message indicating that the treatment was
+                            // successfully removed from the database.
+                            req.flash("treatmentChange", "Treatment removed.");
+                            res.redirect("/treatments");
+                        }
+                    });
+                }
+            });
         }
     });
 });

@@ -546,7 +546,7 @@
                                         <!-- Format the placeholder for the date admitted value -->
                                         <% var startDatePatient = simplifyDate(data.PatientStartDate); %>
 
-                                        <p class="patient-edit-text-info"><b>Patient Risk Index:</b> <input placeholder="0-10" value="<%= data.PatientRiskIndex %>" type="number" class="" name="patientriskindex" size="5" maxlength="12" min="0" max="10" step="1"></p>
+                                        <p class="patient-edit-text-info"><b>Risk Index:</b> <input placeholder="0-10" value="<%= data.PatientRiskIndex %>" type="number" class="" name="patientriskindex" size="5" maxlength="12" min="0" max="10" step="1"></p>
                                         <p class="patient-edit-text-info"><b>Phone:</b> <input placeholder="###-###-####" value="<%= data.PatientPhone %>" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="" name="patientphone" size="13" maxlength="12"></p>
                                         <p class="patient-edit-text-info"><b>Email:</b> <input placeholder="Enter Email" value="<%= data.PatientEmail %>" type="email" class="" name="patientemail" size="13"></p>
                                         <p class="patient-edit-text-info"><b>Admitted:</b> <input placeholder="<%= startDatePatient %>" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="patientstartdate" size="16"></p> 

@@ -342,7 +342,7 @@
                                         <!-- Each column of the card displays different amounts of data -->
                                         <div class="patient-column">
                                             <p class="patient-text-info"><b>Birthdate:</b> <%= simplifyDate(data.PatientBirthdate) %></p>
-                                            <p class="patient-text-info"><b>Age:</b> <%= getPatientAge(data.PatientBirthdate) %>yrs</p>
+                                            <p class="patient-text-info"><b>Age:</b> <%= getPatientAge(data.PatientBirthdate) %> years</p>
                                             <p class="patient-text-info"><b>Sex:</b> <%= data.PatientSex %></p> 
                                             <p class="patient-text-info"><b>Height:</b> <%= data.PatientHeight %> feet/inches</p>
                                             <p class="patient-text-info"><b>Weight:</b> <%= data.PatientWeight %>lbs</p>
@@ -418,20 +418,7 @@
                                         </div>
 
                                         <!-- Each column of the card displays different amounts of data -->
-                                        <div class="patient-column">
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                        <div class="patient-column" style="margin-right: 0;">
 
                                             <!-- ========================================================== -->
                                             <!-- List out the TREATMENTS that were assigned to each patient -->
@@ -502,51 +489,7 @@
                                             <% } %>
                                             <!-- ========================================================== -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                            <p class="patient-text-info"><b>Patient Risk Index:</b> <%= data.PatientRiskIndex %>/10</p>
+                                            <p class="patient-text-info"><b>Risk Index:</b> <%= data.PatientRiskIndex %>/10</p>
                                             <p class="patient-text-info"><b>Phone:</b> <%= data.PatientPhone %></p>
                                             <p class="patient-text-info"><b>Email:</b> <%= data.PatientEmail %></p>
                                             <p class="patient-text-info"><b>Admitted:</b> <%= simplifyDate(data.PatientStartDate) %></p> 

@@ -91,18 +91,33 @@ statisticsRouter.get("/statistics", function(req, res, next) {
     // selects all of the providers who are caring for 5 or more
     // patients. The providers who are caring for 5 or more patients
     // are then displayed on the "Statistics" page.
-    var complexQuery2 = `SELECT * FROM Treatment`; // --> NEED TO COMPLETE!!!
+    var complexQuery2 = `SELECT Provider.ProviderFirstName, Provider.ProviderLastName, Provider.ProviderTitle, count(*) AS NumPatients 
+                            FROM Provider
+                            JOIN Cares_For
+                                ON Provider.ProviderID = Cares_For.Cares_ProviderID
+                            JOIN Patient
+                                ON Cares_For.Cares_PatientID = Patient.PatientID
+                            GROUP BY Provider.ProviderID
+                            HAVING count(*) >= 5`;
 
     // ==================================================================
     // Complex Query <3> - What Providers Administered What Treatments 5 
     //                     or More Times 
     // ==================================================================
     // Create the third complex query. The third complex query 
-    // selects all of the providers who have administered certain
-    // treatments 5 or more times. The providers who meet the 
-    // criteria of this complex query are obtained to be displayed
-    // on the "Statistics" page.
-    var complexQuery3 = `SELECT * FROM Provider`; // --> NEED TO COMPLETE!!!
+    // selects which providers administered which treatments 5 
+    // or more times. The providers who meet the criteria of 
+    // this complex query are obtained to be displayed on the 
+    // "Statistics" page.
+    var complexQuery3 = `SELECT Provider.ProviderID, Provider.ProviderFirstName, Provider.ProviderLastName, Provider.ProviderTitle, count(*) AS NumTimesAdministered, TreatmentName
+                            FROM Provider
+                            JOIN Administers_Treatment
+                                ON Provider.ProviderID = Administers_Treatment.Administers_ProviderID
+                            JOIN (SELECT Treatment.TreatmentID, Treatment.TreatmentName AS TreatmentName
+                                    FROM Treatment) AS TreatmentView
+                                ON Administers_Treatment.Administers_TreatmentID = TreatmentView.TreatmentID
+                            GROUP BY Provider.ProviderID, TreatmentName
+                            HAVING count(*) >= 5`; // --> NEED TO TEST TO MAKE SURE IT WORKS!!!
 
     // <1> Execute the first complex query. If the first complex query executes,
     // then execute the second complex query. Otherwise, log an error.

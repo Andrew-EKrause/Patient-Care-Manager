@@ -211,21 +211,6 @@
                         </div>
 
                         <!-- ================================================================================== -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        <!-- ================================================================================== -->
                                 <!-- DATA FOR COMPLEX QUERY 2: Providers Caring for 5 or More Patients -->
                         <!-- ================================================================================== -->
 
@@ -292,7 +277,7 @@
                                         If there is data that resulted from the first
                                         complex query, then display that data
                                     -->
-                                    <% if(numberOfCareProviders.length == 0) { %> <!-- CHANGE THIS TO "!=" WHEN YOU FINISH THE QUERY AND THE DATA DISPLAY!!! -->
+                                    <% if(numberOfCareProviders.length != 0) { %>
 
                                         <!-- 
                                             Loop through all of the high risk patients in 
@@ -306,11 +291,10 @@
                                             -->
                                             <% if(data.PatientEndDate == null) { %>
 
-
                                                 <!-- Each column of the card displays different amounts of data -->
                                                 <div class="statistic-column">
-                                                    <p class="statistic-text-info"><b></p></b>
-                                                    <p class="statistic-text-info"></p>
+                                                    <p class="statistic-text-info"><b><%= data.ProviderFirstName %> <%= data.ProviderLastName %>, <%= data.ProviderTitle %></p></b>
+                                                    <p class="statistic-text-info">Provider is caring for <%= data.NumPatients %> patients.</p>
                                                 </div>
 
                                             <!-- 
@@ -352,7 +336,7 @@
 
 
                         <!-- ================================================================================== -->
-                       <!-- DATA FOR COMPLEX QUERY 3: What Providers Administered What Treatments 5 or More Times -->
+                        <!-- DATA FOR COMPLEX QUERY 3: Which Providers Administered Which Treatments 5 or More Times -->
                         <!-- ================================================================================== -->
 
                         <!--
@@ -413,13 +397,13 @@
                                 <div class="statistic-card">
 
                                     <!-- Include a heading that explains the data that is being displayed -->
-                                    <h2 class="no-statistic-data" style="margin-top: 0;">Providers that administered 5 or more treatments 5 or more times.</h2>
+                                    <h2 class="no-statistic-data" style="margin-top: 0;">Which providers administered which treatments 5 or more times.</h2>
 
                                     <!-- 
                                         If there is data that resulted from the first
                                         complex query, then display that data
                                     -->
-                                    <% if(treatmentsAdministered.length == 0) { %> <!-- CHANGE THIS TO "!=" WHEN YOU FINISH THE QUERY AND THE DATA DISPLAY!!! -->
+                                    <% if(treatmentsAdministered.length > 0) { %> <!-- CHANGE THIS TO "!=" WHEN YOU FINISH THE QUERY AND THE DATA DISPLAY!!! -->
 
                                         <!-- <h2 class="no-statistic-data">Providers that administered treatments 5 or more times are listed here.</h2> -->
 
@@ -435,7 +419,6 @@
                                             -->
                                             <% if(data.PatientEndDate == null) { %>
 
-
                                                 <!-- Each column of the card displays different amounts of data -->
                                                 <div class="statistic-column">
                                                     <p class="statistic-text-info"><b></p></b>
@@ -447,7 +430,7 @@
                                                 complex query, then display the message below.
                                             -->
                                             <% } else { %>
-                                                <h2 class="no-statistic-data">There are currently no providers that administered 5 or more treatments 5 or more times.</h2>
+                                                <h2 class="no-statistic-data">There are currently no providers that administered treatments 5 or more times.</h2>
                                             <% } %>
 
                                         <% }); %>
@@ -457,7 +440,7 @@
                                         was executed, display the message
                                     -->
                                     <% } else { %>
-                                        <h2 class="no-statistic-data">There are currently no providers that administered 5 or more treatments 5 or more times.</h2>
+                                        <h2 class="no-statistic-data">There are currently no providers that administered treatments 5 or more times.</h2>
                                     <% } %>
                                 </div>
                             </div>

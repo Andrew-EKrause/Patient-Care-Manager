@@ -226,8 +226,8 @@ departmentRouter.post("/department-update", function(req, res) {
     });
 });
 
-// Create a post request for when the user wants to
-// remove a given department.
+// Create a post request for when the user
+// wants to remove a given department.
 departmentRouter.post("/department-remove", function(req, res) {
 
     // Obtain the department identifier of the department that
@@ -235,24 +235,46 @@ departmentRouter.post("/department-remove", function(req, res) {
     // store the department ID in a variable.
     var removeDepartment = req.body.departmentidentifier;
 
+    // Include a SQL query that will remove the selected 
+    // department entity from the "Part_Of" relationship
+    // table in the database.
+    var removeDepartmentJoin = `DELETE FROM Part_Of WHERE Part_DepartmentID = ?;`;
+
     // Include the SQL query that will remove the selected department
     // entity from the department table in the database.
-    var sql = `DELETE FROM Department WHERE DepartmentID = ?;`;
+    var removeDepartmentSQL = `DELETE FROM Department WHERE DepartmentID = ?;`;
 
-    // Complete the query in the database and remove the
-    // department that the user selected from the database. 
-    database.query(sql, [removeDepartment], function(error, data, fields) {
+    // Complete the first query in the database and remove the department
+    // that the user selected from the "Part_Of" join relationship. Then
+    // complete the second query in the database and remove the department
+    // that the user selected from the "Department" table.
+    database.query(removeDepartmentJoin, [removeDepartment], function(error, data, fields) {
 
         // If there is an error, log the error.
         if(error) {
             console.log(error);
+
+        // If there are no errors, then complete the second query.
         } else {
 
-            // Redirect the route back to the main departments page.
-            // Add a flash message indicating that the department was
-            // successfully removed from the database.
-            req.flash("departmentChange", "Department removed.");
-            res.redirect("/departments");
+            // The second query removes the department entity that
+            // the user selected from the "Department" table.
+            database.query(removeDepartmentSQL, [removeDepartment], function(error, data, fields) {
+
+                // If there is an error, log the error.
+                if(error) {
+                    console.log(error);
+
+                // Complete the final actions below.
+                } else {
+
+                    // Redirect the route back to the main departments page.
+                    // Add a flash message indicating that the department was
+                    // successfully removed from the database.
+                    req.flash("departmentChange", "Department removed.");
+                    res.redirect("/departments");
+                }
+            });
         }
     });
 });

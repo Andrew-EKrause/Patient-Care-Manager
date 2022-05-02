@@ -44,11 +44,22 @@ function connectDatabase() {
     // connect the database to the PCM web application.
     if (!pcmDB) {
 
-        // Create a new connection with the PCM SQL database.
-        // Make use of a JSON file you stored in the settings
-        // variable. The JSON file contains the setup info
-        // for the PCM database.
-        pcmDB = mysql.createConnection(settings);
+        // First check if you are connecting to the remote JawsDB
+        // database. If you are, set up the connection that way.
+        if(process.env.JAWSDB_URL) {
+
+            // Connect to the remote JawsDB database.
+            pcmDB = mysql.createConnection(process.env.JAWSDB_URL);
+
+        // Otherwise, connect using your local settings.
+        } else {
+
+            // Create a new connection with the PCM SQL database.
+            // Make use of a JSON file you stored in the settings
+            // variable. The JSON file contains the setup info
+            // for the PCM database.
+            pcmDB = mysql.createConnection(settings);
+        }
 
         // Finalize the connection and check if there are
         // any errors in connecting.

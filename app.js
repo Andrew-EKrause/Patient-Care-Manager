@@ -71,7 +71,7 @@ const statisticsRoutes = require('./routes/statistics.js');
 /* SECTION: INCLUDE ROUTE MODULES */ 
 
 // Use the route modules via app.use() below.
-// --> WE NEED TO USE THE DATABASE ROUTE IN THE OTHER FILES
+// We use the database route in the other files.
 app.use('/', homeRoutes);
 app.use('/', viewRoutes);
 app.use('/', departmentRoutes);
@@ -82,7 +82,11 @@ app.use('/', statisticsRoutes);
 
 /* SECTION: LISTEN FOR SERVER REQUESTS */
 
+// Create a variable for listening on a port
+// for Heroku or on the localhost port 3000.
+const port = process.env.PORT || 3000;
+
 // Begin listening for server requests on port 3000.
-app.listen(3000, function() {
+app.listen(port, function() {
     console.log("Server for Mayo Clinic Patient Care Manager (PCM) Web App started on port 3000.");
 });

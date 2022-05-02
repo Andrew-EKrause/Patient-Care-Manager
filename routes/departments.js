@@ -51,23 +51,71 @@ departmentRouter.get("/departments", function(req, res, next) {
 
     // Create a query to SELECT all of the departments in
     // the Department table.
-    var sql = `SELECT * FROM Department`;
+    var selectDepartmentSQL = `SELECT * FROM Department`;
 
-    // Get all of the departments from the departments table.
-    database.query(sql, function(error, data, fields) {
+    // Create a query to SELECT all of the relationships between
+    // departments and providers represented in the Part_Of table.
+    var selectDepartmentProviderJoinSQL = `SELECT * FROM Part_Of`;
+
+    // Create a query to SELECT all of the providers in
+    // the Provider table.
+    var selectProvidersSQL = `SELECT * FROM Provider`;
+
+    // Execute the first query to get all of the departments from 
+    // the department table of the database. Next, execute the
+    // second query and get all of the items in the "Part_Of" table
+    // of the database. Lastly, execute the third query and obtain
+    // all of the providers in the database.
+    database.query(selectDepartmentSQL, function(error, departmentData, fields) {
 
         // If there is an error, log the error.
         if(error) {
             console.log(error);
+
+        // Otherwise, execute the second query
+        // and obtain all of the items in the
+        // "Part_Of" table of the database.
         } else {
 
-            // Otherwise, send the data to the
-            // departments.ejs page in order to 
-            // display that data.
-            res.render("departments", {
-                title: "Department List", 
-                departmentData: data,
-                departmentChange: req.flash("departmentChange")
+            // Execute the second query and obtain all of the
+            // items in the "Part_Of" table of the database.
+            database.query(selectDepartmentProviderJoinSQL, function(error, departmentProviderJoinData, fields) {
+
+                // If there is an error, log the error.
+                if(error) {
+                    console.log(error);
+        
+                // Otherwise, execute the third query
+                // and obtain all of the items in the
+                // Provider table of the database.
+                } else {
+        
+                    // Execute the third query and obtain all of the
+                    // providers in the Provider table of the database.
+                    database.query(selectProvidersSQL, function(error, providerData, fields) {
+
+                        // If there is an error, log the error.
+                        if(error) {
+                            console.log(error);
+                
+                        // Otherwise, execute the third query
+                        // and obtain all of the items in the
+                        // Provider table of the database.
+                        } else {
+                
+                            // Otherwise, send the data to the
+                            // departments.ejs page in order to 
+                            // display that data.
+                            res.render("departments", {
+                                title: "Department List", 
+                                departmentData: departmentData,
+                                departmentProviderJoinData: departmentProviderJoinData,
+                                providerData: providerData,
+                                departmentChange: req.flash("departmentChange")
+                            });
+                        }
+                    });
+                }
             });
         }
     });
@@ -133,22 +181,19 @@ departmentRouter.post("/department-add", function(req, res) {
     // values entered into the input or the default values.
     var departmentName = req.body.departmentname.trim();
     var departmentLocation = req.body.departmentlocation.trim();
-    var deparmentMembers = req.body.departmentmembers;
     var departmentDescription = req.body.departmentdescription.trim(); 
 
     // Include the SQL query that will add the department entity
     // to the department table.
     var sql = `INSERT INTO Department (DepartmentName, 
                                        DepartmentLocation, 
-                                       DepartmentMembers, 
-                                       DepartmentDescription) VALUES (?, ?, ?, ?);`;
+                                       DepartmentDescription) VALUES (?, ?, ?);`;
 
     // Complete the query in the database and add the department
     // data entered by the user into the department table of the
     // database.
     database.query(sql, [departmentName, 
                          departmentLocation, 
-                         deparmentMembers, 
                          departmentDescription], function(error, data, fields) {
 
         // If there is an error, log the error.
@@ -179,7 +224,6 @@ departmentRouter.post("/department-update", function(req, res) {
     // values entered into the input or the default values.
     var departmentName = req.body.departmentname.trim();
     var departmentLocation = req.body.departmentlocation.trim();
-    var departmentMembers = req.body.departmentmembers;
     var departmentDescription = req.body.departmentdescription.trim(); 
 
     // Include a series of conditionals to determine if any of
@@ -191,9 +235,6 @@ departmentRouter.post("/department-update", function(req, res) {
     if(!departmentLocation) {
         departmentLocation = req.body.defaultdepartmentlocation.trim();
     }
-    if(!departmentMembers) {
-        departmentMembers = req.body.defaultdepartmentmembers;
-    }
     if(!departmentDescription) {
         departmentDescription = req.body.defaultdepartmentdescription.trim();
     }
@@ -201,14 +242,13 @@ departmentRouter.post("/department-update", function(req, res) {
     // Include the SQL query that will update the
     // department entity in the department table.
     var sql = `UPDATE Department 
-                SET DepartmentName = ?, DepartmentLocation = ?, DepartmentMembers = ?, DepartmentDescription = ?
+                SET DepartmentName = ?, DepartmentLocation = ?, DepartmentDescription = ?
                WHERE DepartmentID = ?;`;
 
     // Complete the query in the database and display the department
     // data that the user wants to edit on a page for that department.
     database.query(sql, [departmentName, 
                          departmentLocation, 
-                         departmentMembers, 
                          departmentDescription,
                          updateDepartmentID], function(error, data, fields) {
 

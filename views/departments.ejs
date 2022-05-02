@@ -77,7 +77,7 @@
                             Loop through all of the department in the 
                             database and display them on the page 
                         -->
-                        <% departmentData.forEach(function(data) { %>
+                        <% departmentData.forEach(function(departmentData) { %>
 
                             <!--
                                 Create a div to hold the button collapse function layout. 
@@ -104,7 +104,7 @@
                                             <div class="department-full-name">
                                                 
                                                 <!-- The department name is displayed here -->
-                                                <i class="fa-solid fa-briefcase-medical"></i> <%= data.DepartmentName %>
+                                                <i class="fa-solid fa-briefcase-medical"></i> <%= departmentData.DepartmentName %>
                                             </div>
 
                                             <!-- Include action (edit and remove) buttons here -->
@@ -115,12 +115,12 @@
                                                     This button is used to expand any department module that is
                                                     listed in the database.
                                                 -->
-                                                <a class="department-edit-white department-edit-remove" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-departments<%= data.DepartmentID %>" aria-expanded="false" aria-controls="collapse-department<%= data.DepartmentID %>">
+                                                <a class="department-edit-white department-edit-remove" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-departments<%= departmentData.DepartmentID %>" aria-expanded="false" aria-controls="collapse-department<%= departmentData.DepartmentID %>">
                                                     <i class="fa-solid fa-circle-info"></i>
                                                 </a>
 
                                                 <!-- Include a button for the user to click when they wish to edit a department -->
-                                                <a class="department-edit-white department-edit-remove department-edit-pencil" href="/department-edit/<%= data.DepartmentID %>">
+                                                <a class="department-edit-white department-edit-remove department-edit-pencil" href="/department-edit/<%= departmentData.DepartmentID %>">
                                                     <i class="fa-solid fa-pencil"></i>
                                                 </a>
 
@@ -130,7 +130,7 @@
                                                     that they want to remove the department. The user can then either confirm 
                                                     delete the department from the database, or cancel the removal action.
                                                 -->
-                                                <a id="<%= data.DepartmentID %>" class="remove-the-department department-edit-red department-edit-remove" onClick="getDepartmentID(this.id)" href="#departmentModal_<%= data.DepartmentID %>">
+                                                <a id="<%= departmentData.DepartmentID %>" class="remove-the-department department-edit-red department-edit-remove" onClick="getDepartmentID(this.id)" href="#departmentModal_<%= departmentData.DepartmentID %>">
                                                     
                                                     <!-- 
                                                         Include a script tag inside of the anchor tag to add event handlers to the
@@ -197,7 +197,7 @@
                                                     Include a MODAL that the user can click to confirm whether or not not they 
                                                     wish to remove the selected department entity from the database 
                                                 -->
-                                                <div id="departmentModal_<%= data.DepartmentID %>" role="dialog" class="department-modal-bg">
+                                                <div id="departmentModal_<%= departmentData.DepartmentID %>" role="dialog" class="department-modal-bg">
                                                     <div class="department-modal-dialog">
                                                         <div class="department-modal-container"> 
                                                             <!-- Modal Information and Content -->
@@ -214,18 +214,18 @@
                                                                                 
                                                                                 <!-- Description -->
                                                                                 <div class="department-modal-text-background">
-                                                                                    <p class="department-modal-text">Are you sure you want to delete department: <strong><%= data.DepartmentName %></strong>?</p>
+                                                                                    <p class="department-modal-text">Are you sure you want to delete department: <strong><%= departmentData.DepartmentName %></strong>?</p>
                                                                                 </div>
 
                                                                                 <!-- Include a div for the two buttons on the modal -->
                                                                                 <div class="department-confirm-delete-select">
                                                                                     <!-- Provide a "Cancel" button if the user wishes to cancel the delete action -->
-                                                                                    <a id="department-exit-<%= data.DepartmentID %>" class="department-edit-white-modal department-edit-remove-modal" href="#close">
+                                                                                    <a id="department-exit-<%= departmentData.DepartmentID %>" class="department-edit-white-modal department-edit-remove-modal" href="#close">
                                                                                         Cancel
                                                                                     </a>
                                                                                     <!-- Makes POST request to the remove-department route if the "Confirm Delete" button is clicked -->
                                                                                     <form class="form-horizontal" action="/department-remove" method="POST">
-                                                                                        <input id="remove_<%= data.DepartmentID %>" type="hidden" class="departmentclass" name="departmentidentifier" value="<%= data.DepartmentID %>" onChange="getRemoveValue()">
+                                                                                        <input id="remove_<%= departmentData.DepartmentID %>" type="hidden" class="departmentclass" name="departmentidentifier" value="<%= departmentData.DepartmentID %>" onChange="getRemoveValue()">
                                                                                         <button type="submit" class="department-edit-red-modal department-edit-remove-modal">Delete</button>
                                                                                     </form>
                                                                                 </div>
@@ -244,7 +244,7 @@
                                 </div>
 
                                 <!-- Create the main-content portion of the department card -->
-                                <div id="collapse-departments<%= data.DepartmentID %>" class="collapse">
+                                <div id="collapse-departments<%= departmentData.DepartmentID %>" class="collapse">
                                    
                                     <!-- 
                                         Include a wrapper div for the collapse div. This helps 
@@ -253,13 +253,100 @@
                                     <div class="department-card">
                                         <!-- Each column of the card displays different amounts of data -->
                                         <div class="department-column">
-                                            <p class="department-text-info"><b>Location:</b> <%= data.DepartmentLocation %></p>
-                                            <p class="department-text-info"><b>Description:</b> <%= data.DepartmentDescription %></p>
+                                            <p class="department-text-info"><b>Location:</b> <%= departmentData.DepartmentLocation %></p>
+                                            <p class="department-text-info"><b>Description:</b> <%= departmentData.DepartmentDescription %></p>
                                         </div>
+
                                         <!-- Each column of the card displays different amounts of data -->
                                         <div class="department-column" style="margin-right: 0;">
-                                            <p class="department-text-info"><b>Members:</b> <%= data.DepartmentMembers %></p>
+
+                                            <!-- 
+                                                Create a variable for counting the 
+                                                number of members in each department 
+                                                and initialize it to zero.
+                                            -->
+                                            <% var numMembers = 0; %>
+
+                                            <!-- ========================================================== -->
+                                            <!-- List out the PROVIDERS that were assigned to the given department -->
+                                            <!-- ========================================================== -->
+                                            <p class="department-text-info" style="margin-bottom: 0;"><b>Members:</b></p>
                                             <!-- <p class="department-text-info"><b>Tools:</b> <%= //data.ANYTHING_ELSE? %></p> -->
+                                            
+                                            <!-- 
+                                                Check if there is any data in the Part_Of table. 
+                                                If there is no data in the Part_Of table, display
+                                                a message instead.
+                                            -->
+                                            <% if(departmentProviderJoinData.length != 0) { %>
+
+                                                <!-- Create a variable to determine if there are any providers assigned to a given department -->
+                                                <% var hasRelationshipProvider = 0; %>
+                                                
+                                                <!-- 
+                                                    Create a for-each loop that checks each provider ID 
+                                                    in the Part_Of table and determines if that provider 
+                                                    was assigned to a department
+                                                -->
+                                                <% departmentProviderJoinData.forEach(function(joinData) { %>
+                                                
+                                                    <!-- 
+                                                        If there is a provider identifier in the Part_Of table,
+                                                        then the provider was assigned to a department. Therefore,
+                                                        within the conditional, create another for-each loop
+                                                        that finds which department was assigned to the provider.
+                                                    -->
+                                                    <% if(joinData.Part_DepartmentID == departmentData.DepartmentID) { %>
+
+                                                        <!-- 
+                                                            Create a second for-each loop to determine which departments
+                                                            were assigned to the provider.
+                                                        -->
+                                                        <% providerData.forEach(function(providerData) { %>
+
+                                                            <!-- 
+                                                                If the department identifier matches the identifier in the Part_Of
+                                                                table, then list that departments as a provider for the given patient.
+                                                            -->
+                                                            <% if(joinData.Part_ProviderID == providerData.ProviderID) { %>
+
+                                                                <!-- 
+                                                                    Increment the counter showing the number 
+                                                                    of members in the given department 
+                                                                -->
+                                                                <% numMembers = numMembers + 1; %>
+
+                                                                <!-- 
+                                                                    If there is a relationship, indicating that a provider was 
+                                                                    added to the department, then set the variable checking for 
+                                                                    relationships to one. This will ensure that the message that 
+                                                                    indicates that no departments were added is NOT printed out 
+                                                                -->
+                                                                <% hasRelationshipProvider = 1; %>
+                                                                <p class="patient-text-info" style="margin-top: 0; margin-bottom: 0;"><%= providerData.ProviderFirstName %> <%= providerData.ProviderLastName %>, <%= providerData.ProviderTitle %></p>
+                                                            <% } %>
+
+                                                        <% }); %>
+
+                                                    <% } %>
+                                                <% }); %>
+
+                                                <!-- If there were no providers assigned to the department, print out a message instead -->
+                                                <% if(hasRelationshipProvider == 0) { %>
+                                                    <p class="patient-text-info" style="margin-top: 0; margin-bottom: 0;">No members.</p>
+                                                <% } %>
+
+                                            <!-- Display the message if no items exist in Part_Of table -->
+                                            <% } else { %>
+                                                <p class="patient-text-info" style="margin-top: 0; margin-bottom: 0;">No members.</p>
+                                            <% } %>
+                                            <!-- ========================================================== -->
+
+                                            <!-- ========================================================== -->
+                                            <!-- List out the PROVIDERS that were assigned to the given department -->
+                                            <!-- ========================================================== -->
+                                            <p class="department-text-info"><b>Total Members:</b> <%= numMembers %></p>
+                                            <!-- ========================================================== -->
                                         </div>
                                     </div>
                                 </div>

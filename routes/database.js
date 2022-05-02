@@ -48,7 +48,7 @@ function connectDatabase() {
         // database. If you are, set up the connection that way.
         if(process.env.JAWSDB_URL) {
 
-            // Connect to the remote JawsDB database.
+            // Connect to the remote JawsDB database with Heroku.
             pcmDB = mysql.createConnection(process.env.JAWSDB_URL);
 
         // Otherwise, connect using your local settings.

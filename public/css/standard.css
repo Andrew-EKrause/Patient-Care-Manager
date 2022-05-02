@@ -928,7 +928,6 @@ nav {
     }
 
     .patient-edit-remove-buttons {
-        margin-top: 0px;
         min-width: 260px;
         margin-top: auto;
         margin-bottom: auto;
@@ -1893,7 +1892,6 @@ input[type="checkbox"]:checked::before {
     }
 
     .treatment-edit-remove-buttons {
-        margin-top: 0px;
         min-width: 260px;
         margin-top: auto;
         margin-bottom: auto;
@@ -2634,7 +2632,6 @@ input[type="checkbox"]:checked::before {
     }
 
     .provider-edit-remove-buttons {
-        margin-top: 0px;
         min-width: 260px;
         margin-top: auto;
         margin-bottom: auto;
@@ -3375,7 +3372,6 @@ input[type="checkbox"]:checked::before {
     }
 
     .department-edit-remove-buttons {
-        margin-top: 0px;
         min-width: 260px;
         margin-top: auto;
         margin-bottom: auto;
@@ -4107,7 +4103,8 @@ input[type="checkbox"]:checked::before {
     }
 
     .statistic-edit-remove-buttons {
-        margin-top: 0px;
+        margin-top: auto;
+        margin-bottom: auto;
     }
 
     .statistic-form-horizontal {

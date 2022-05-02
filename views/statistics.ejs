@@ -319,24 +319,7 @@
                         </div>
 
                         <!-- ================================================================================== -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        <!-- ================================================================================== -->
-                        <!-- DATA FOR COMPLEX QUERY 3: Which Providers Administered Which Treatments 5 or More Times -->
+                        <!-- DATA FOR COMPLEX QUERY 3: Which Providers Administer High-Risk Treatments -->
                         <!-- ================================================================================== -->
 
                         <!--
@@ -368,7 +351,7 @@
                                                 more times.
                                             -->
                                             <i class="fa-solid fa-flask-vial"></i>
-                                            Providers Administering Treatments
+                                            Providers and High-Risk Treatments
                                         </div>
 
                                         <!-- Include action button here -->
@@ -397,13 +380,13 @@
                                 <div class="statistic-card">
 
                                     <!-- Include a heading that explains the data that is being displayed -->
-                                    <h2 class="no-statistic-data" style="margin-top: 0;">Which providers administered which treatments 5 or more times.</h2>
+                                    <h2 class="no-statistic-data" style="margin-top: 0;">Providers that administer high-risk treatments.</h2>
 
                                     <!-- 
                                         If there is data that resulted from the first
                                         complex query, then display that data
                                     -->
-                                    <% if(treatmentsAdministered.length > 0) { %> <!-- CHANGE THIS TO "!=" WHEN YOU FINISH THE QUERY AND THE DATA DISPLAY!!! -->
+                                    <% if(treatmentsAdministered.length != 0) { %>
 
                                         <!-- <h2 class="no-statistic-data">Providers that administered treatments 5 or more times are listed here.</h2> -->
 
@@ -421,8 +404,8 @@
 
                                                 <!-- Each column of the card displays different amounts of data -->
                                                 <div class="statistic-column">
-                                                    <p class="statistic-text-info"><b></p></b>
-                                                    <p class="statistic-text-info"></p>
+                                                    <p class="statistic-text-info"><b><%= data.ProviderFirstName %> <%= data.ProviderLastName %>, <%= data.ProviderTitle %></p></b>
+                                                    <p class="statistic-text-info">Provider administers <%= data.TreatmentName %>.</p>
                                                 </div>
 
                                             <!-- 
@@ -430,7 +413,7 @@
                                                 complex query, then display the message below.
                                             -->
                                             <% } else { %>
-                                                <h2 class="no-statistic-data">There are currently no providers that administered treatments 5 or more times.</h2>
+                                                <h2 class="no-statistic-data">There are currently no providers that administered high-risk treatments.</h2>
                                             <% } %>
 
                                         <% }); %>
@@ -440,28 +423,13 @@
                                         was executed, display the message
                                     -->
                                     <% } else { %>
-                                        <h2 class="no-statistic-data">There are currently no providers that administered treatments 5 or more times.</h2>
+                                        <h2 class="no-statistic-data">There are currently no providers that administered high-risk treatments.</h2>
                                     <% } %>
                                 </div>
                             </div>
                         </div>
 
                         <!-- ================================================================================== -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                     <!-- 
                         If there is no data for the query that 

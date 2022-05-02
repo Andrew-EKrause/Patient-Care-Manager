@@ -104,20 +104,18 @@ statisticsRouter.get("/statistics", function(req, res, next) {
     // Complex Query <3> - What Providers Administered What Treatments 5 
     //                     or More Times 
     // ==================================================================
-    // Create the third complex query. The third complex query 
-    // selects which providers administered which treatments 5 
-    // or more times. The providers who meet the criteria of 
-    // this complex query are obtained to be displayed on the 
+    // Create the third complex query. The third complex query selects
+    // which providers are currently authorized to administer high-risk 
+    // treatments at the hospital. The providers who meet the criteria 
+    // of this complex query are obtained to be displayed on the
     // "Statistics" page.
-    var complexQuery3 = `SELECT Provider.ProviderID, Provider.ProviderFirstName, Provider.ProviderLastName, Provider.ProviderTitle, count(*) AS NumTimesAdministered, TreatmentName
+    var complexQuery3 = `SELECT Provider.ProviderID, Provider.ProviderFirstName, Provider.ProviderLastName, Provider.ProviderTitle, Treatment.TreatmentName
                             FROM Provider
                             JOIN Administers_Treatment
                                 ON Provider.ProviderID = Administers_Treatment.Administers_ProviderID
-                            JOIN (SELECT Treatment.TreatmentID, Treatment.TreatmentName AS TreatmentName
-                                    FROM Treatment) AS TreatmentView
-                                ON Administers_Treatment.Administers_TreatmentID = TreatmentView.TreatmentID
-                            GROUP BY Provider.ProviderID, TreatmentName
-                            HAVING count(*) >= 5`; // --> NEED TO TEST TO MAKE SURE IT WORKS!!!
+                            JOIN Treatment
+                                ON Administers_Treatment.Administers_TreatmentID = Treatment.TreatmentID
+                            WHERE Treatment.TreatmentName IN ('Chemotherapy', 'Immunotherapy', 'Heart Surgery', 'Brain Surgery')`; 
 
     // <1> Execute the first complex query. If the first complex query executes,
     // then execute the second complex query. Otherwise, log an error.

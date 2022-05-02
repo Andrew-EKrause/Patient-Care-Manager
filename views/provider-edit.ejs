@@ -37,7 +37,7 @@
                         If there is data in the provider table 
                         of the database, display that data
                     -->
-                    <% if(providerEdit.length != 0) { %>
+                    <% if(providerEditData.length != 0) { %>
 
                         <!-- Create a form to process any data that is entered into the input fields by the user -->
                         <form class="form-edit-provider-horizontal" action="/provider-update" method="POST">
@@ -109,7 +109,7 @@
                                 Loop through all of the providers in the 
                                 database and display them on the page 
                             -->
-                            <% providerEdit.forEach(function(data) { %>
+                            <% providerEditData.forEach(function(data) { %>
 
                                 <!-- Create a card for each provider -->
                                 <!-- First, create a heading that displays the name of each provider -->
@@ -219,9 +219,325 @@
                                         <p class="provider-edit-text-info"><b>Phone:</b> <input placeholder="###-###-####" value="<%= data.ProviderPhone %>" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="" name="providerphone" size="13" maxlength="12"></p>
                                         <p class="provider-edit-text-info"><b>Email:</b> <input placeholder="Enter Email" value="<%= data.ProviderEmail %>" type="email" class="" name="provideremail" size="13"></p>
                                         <p class="provider-edit-text-info"><b>Description:</b> <input placeholder="Enter Description" value="<%= data.ProviderDescription %>" type="text" class="name-input" name="providerdescription" size="10"></p>
+                                    
+                                        <!-- ============================================================================= -->
+                                        <!-- SECTION FOR SELECTING ITEMS THAT WILL UPDATE THE JOIN PROVIDER/DEPARTMENT -->
+                                        <!-- TABLE IN THE DATABASE -->
+                                        <!-- ============================================================================= -->
+                                    
+                                        <!-- DEPARTMENT -->
+                                        <!-- 
+                                            Include a dropdown menu of selections that the user can make 
+                                            to add a provider to a department. The user can only add the
+                                            provider to ONE department. 
+                                        -->
+                                        <p class="provider-create-text-info">
+                                            <label for="provider-department"><b>Department:</b></label>
+                                            <select id="" class="provider-department" name="updateproviderdepartment">
+
+                                                <!-- 
+                                                    Include a default option in case the user does not 
+                                                    want to assign the provider to any department or
+                                                    there are no departments that exist.
+                                                -->
+                                                <option value="-">-</option>
+
+                                                <!-- 
+                                                    If there are departments in the database, list them 
+                                                    as options for the user to select in order to assign 
+                                                    the provider to them.
+                                                -->
+                                                <% if(departmentEditData.length != 0) { %>
+
+                                                    <!-- 
+                                                        Create a variable to determine if a given 
+                                                        department is associated with the provider 
+                                                        being edited
+                                                    -->
+                                                    <% var relationshipProviderDepartmentYes = 0;%>
+
+                                                    <!-- 
+                                                        Create a for loop to display all of the departments
+                                                        that the user can select for this input field.
+                                                    -->
+                                                    <% departmentEditData.forEach(function(departmentEditData) { %>
+
+                                                        <!-- 
+                                                            Set the variable that determines if a 
+                                                            given provider was assigned to a patient 
+                                                            to ZERO 
+                                                        -->
+                                                        <% relationshipProviderDepartmentYes = 0; %>
+
+                                                        <!-- 
+                                                            Create a for-each loop that checks each item in the Cares_For
+                                                            table in order to determine which providers can be assigned
+                                                            and which providers have already been assigned. 
+                                                        -->
+                                                        <% providerDepartmentJoinEditData.forEach(function(joinData) { %>
+                                                        
+                                                            <!-- 
+                                                                If the provider identifier matches the identifier in the Cares_For 
+                                                                table, and the patient identifier matches the identifier in the 
+                                                                Cares_For table, then that means the provider was previously assigned
+                                                                to the patient.
+                                                            -->
+                                                            <% if(joinData.Part_DepartmentID == departmentEditData.DepartmentID && joinData.Part_ProviderID == data.ProviderID) { %>
+                                                                
+                                                                <!-- 
+                                                                    Set the variable that determines if a 
+                                                                    given provider was assigned to a patient 
+                                                                    to ONE if the provider was already assigned
+                                                                    to that patient. 
+                                                                -->
+                                                                <% relationshipProviderDepartmentYes = 1; %>
+
+                                                                <!-- 
+                                                                    If there is a relationship between the two entities in the
+                                                                    relationship table, then display the department that the
+                                                                    provider is currently part of with the option to remove
+                                                                    it if the user wishes to do so. 
+                                                                -->
+                                                                <option value="Remove-<%= departmentEditData.DepartmentID %>"><b>Remove</b> <%= departmentEditData.DepartmentName %></option>
+                                                            <% } %>
+                                                        <% }); %>
+
+                                                        <!-- 
+                                                            If the department was not already listed as associated
+                                                            with the provider, then list the department with the 
+                                                            option to associate that department with the provider
+                                                        -->
+                                                        <% if(relationshipProviderDepartmentYes == 0) { %>
+
+                                                            <!-- 
+                                                                If there is NOT a relationship between the two entities in the
+                                                                relationship table, then display the departments that are not
+                                                                already associated with the provider previously with the option
+                                                                to assign one of them to the provider if the user wishes to 
+                                                                do so. 
+                                                            -->
+                                                            <option value="<%= departmentEditData.DepartmentID %>"><%= departmentEditData.DepartmentName %></option>
+                                                        <% } %>
+                                                    <% }); %>
+                                                <% } %>
+                                            </select>
+                                        </p>
+                                        <!-- ============================================================================= -->
                                     </div>
+
                                     <!-- Each column of the card displays different amounts of data --> 
                                     <div class="provider-edit-column">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        <!-- ============================================================================= -->
+                                        <!-- SECTION FOR SELECTING ITEMS THAT WILL UPDATE THE JOIN PROVIDER/TREATMENT -->
+                                        <!-- TABLES IN THE DATABASE  -->
+                                        <!-- ============================================================================= -->
+
+                                        <!-- TREATMENT -->
+                                        <!-- Include a script to add JavaScript for properly selecting/removing a given treatment that the provider administers -->
+                                        <script>
+                                            // Create a variable for determining if the selector is expanded or not.
+                                            var expandedProviderTreatment = false;
+
+                                            // Create a function for showing the 
+                                            // checkboxes within the selector.
+                                            function showProviderTreatmentEditCheckboxes() {
+
+                                                // Create a variable that obtains the treatment checkbox dropdown section.
+                                                var checkboxes = document.getElementById("provider-treatment-edit-checkboxes");
+                                                
+                                                // If the selector is not expanded, display the checkboxes
+                                                // and set the expanded variable to the value of true.
+                                                if (!expandedProviderTreatment) {
+                                                    checkboxes.style.display = "block";
+                                                    expandedProviderTreatment = true;
+
+                                                // Otherwise, do not display the checkboxes and
+                                                // set the expanded variable to the value of false.
+                                                } else {
+                                                    checkboxes.style.display = "none";
+                                                    expandedProviderTreatment = false;
+                                                }
+                                            }
+                                        </script>
+
+                                        <!-- 
+                                            Provide the user with options to either select a treatment or 
+                                            treatments for the given provider, or remove a treatment or
+                                            treatments that the given provider can administer.
+                                        -->
+                                        <p class="provider-create-text-info" style="margin-top: 10px; margin-bottom: 0;"><b>Treatments:</b></p>
+
+                                        <!-- 
+                                            If there are treatments in the database, list them 
+                                            as options for the user to select in order to add 
+                                            them to the provider. 
+                                        -->
+                                        <% if(treatmentEditData.length != 0) { %>
+
+                                            <!-- 
+                                                Creae a div to show the treatment options 
+                                                that the user can choose from
+                                            -->
+                                            <div>
+
+                                                <!-- Create dropdown element so the user can click it and view/edit the different treatments -->
+                                                <div class="selectBox provider-create-text-info" onclick="showProviderTreatmentEditCheckboxes()">
+                                                    <select>
+                                                        <option>Add/Remove Treatments</option>
+                                                    </select>
+                                                    <div class="overSelect"></div>
+                                                </div>
+                                                <div id="provider-treatment-edit-checkboxes" class="all-selector-checkboxes provider-create-text-info" style="display: none;">
+
+                                                    <!-- 
+                                                        Create a variable to determine if a given 
+                                                        treatment is added to the provider being 
+                                                        edited.
+                                                    -->
+                                                    <% var relationshipProviderTreatmentYes = 0;%>
+                                                    
+                                                    <!-- 
+                                                        Create a second for-each loop to check each treatment
+                                                        in the Treatments table of the database. This helps 
+                                                        in listing out the options for the user to choose 
+                                                        from in the proper format.
+                                                    -->
+                                                    <% treatmentEditData.forEach(function(treatmentEditData) { %>
+
+                                                        <!-- 
+                                                            Set the variable that determines if a 
+                                                            given treatment was added to a provider 
+                                                            to ZERO.
+                                                        -->
+                                                        <% relationshipProviderTreatmentYes = 0; %>
+
+                                                        <!-- 
+                                                            Create a for-each loop that checks each item in the Administers_Treatment
+                                                            table in order to determine which treatments can be added and which
+                                                            treatments have already been added. 
+                                                        -->
+                                                        <% providerTreatmentJoinEditData.forEach(function(joinData) { %>
+                                                        
+                                                            <!-- 
+                                                                If the treatment identifier matches the identifier in the Administers_Treatment
+                                                                table, and the provider identifier also matches the identifier found in the 
+                                                                Administers_Treatment table, then that means the treatment was previously
+                                                                assigned to the provider.
+                                                            -->
+                                                            <% if(joinData.Administers_TreatmentID == treatmentEditData.TreatmentID && joinData.Administers_ProviderID == data.ProviderID) { %>
+                                                                
+                                                                <!-- 
+                                                                    Set the variable that determines if a 
+                                                                    given treatment was added to a provider 
+                                                                    to ONE if the treatment was already added
+                                                                    to that provider. 
+                                                                -->
+                                                                <% relationshipProviderTreatmentYes = 1; %>
+
+                                                                <!-- 
+                                                                    If there is a relationship between the two entities in the
+                                                                    relationship table, then display the treatments that were
+                                                                    added to the provider previously with the option to remove
+                                                                    them if the user wishes to do so. 
+                                                                -->
+                                                                <div class="checkbox-structure">
+                                                                    <div class="checkbox-item">
+                                                                        <input type="checkbox" id="treatmentAssign<%= treatmentEditData.TreatmentID %>" class="checkbox-label" style="margin-top: 6px;" name="removetreatmentforprovider" value="<%= treatmentEditData.TreatmentID %>">
+                                                                    </div>
+                                                                    <div class="checkbox-item">
+                                                                        <label for="treatmentAssign<%= treatmentEditData.TreatmentID %>"><b>Remove</b> <%= treatmentEditData.TreatmentName %></label>
+                                                                    </div>
+                                                                </div>
+                                                            <% } %>
+                                                        <% }); %>
+
+                                                        <!-- 
+                                                            If the treatment was not already added to the provider, 
+                                                            then list the treatment with the option to assign that
+                                                            treatment to the provider
+                                                        -->
+                                                        <% if(relationshipProviderTreatmentYes == 0) { %>
+
+                                                            <!-- 
+                                                                If there is NOT a relationship between the two entities in the
+                                                                relationship table, then display the treatments that were not
+                                                                already added to the provider previously with the option to 
+                                                                add them to the provider if the user wishes to do so. 
+                                                            -->
+                                                            <div class="checkbox-structure">
+                                                                <div class="checkbox-item">
+                                                                    <input type="checkbox" id="treatmentAssign<%= treatmentEditData.TreatmentID %>" class="checkbox-label" style="margin-top: 6px;" name="addtreatmentforprovider" value="<%= treatmentEditData.TreatmentID %>">
+                                                                </div>
+                                                                <div class="checkbox-item">
+                                                                    <label for="treatmentAssign<%= treatmentEditData.TreatmentID %>"><b>Add</b> <%= treatmentEditData.TreatmentName %></label>
+                                                                </div>
+                                                            </div>
+                                                        <% } %>
+                                                    <% }); %>
+                                                </div>
+                                            </div>
+
+                                        <% } else { %>
+                                            <p class="provider-create-text-info">No available treatments.</p>
+                                        <% } %>
+                                        <!-- ============================================================================= -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                         <!-- Format the placeholder for the start date value -->
                                         <% var startDateProvider = simplifyDate(data.ProviderStartDate); %>
 

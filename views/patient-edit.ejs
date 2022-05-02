@@ -228,7 +228,7 @@
                                         <p class="patient-edit-text-info"><b>Height (feet/inches):</b> <input placeholder="Enter Height" value="<%= data.PatientHeight %>" type="number" class="" name="patientheight" size="5" min="1" max="1000" step="0.01"></p>
                                         <p class="patient-edit-text-info"><b>Weight (lbs):</b> <input placeholder="Enter Weight" value="<%= data.PatientWeight %>" type="number" class="" name="patientweight" size="5" min="1" max="1000" step="0.01"></p>
                                         <p class="patient-edit-text-info"><b>Description:</b> <input placeholder="Enter Description" value="<%= data.PatientNotes %>" type="text" class="name-input" name="patientdescription" size="10"></p>
-                                                   
+                                        
                                         <!-- ============================================================================= -->
                                         <!-- SECTION FOR SELECTING ITEMS THAT WILL UPDATE THE JOIN PATIENT/PROVIDER TABLES -->
                                         <!-- IN THE DATABASE  -->
@@ -299,7 +299,7 @@
                                                     <% var relationshipPatientProviderYes = 0;%>
                                                     
                                                     <!-- 
-                                                        Create a second for-each loop to check each provider
+                                                        Create a for-each loop to check each provider
                                                         in the Providers table of the database. This helps 
                                                         in listing out the options for the user to choose 
                                                         from in the proper format.
@@ -314,9 +314,9 @@
                                                         <% relationshipPatientProviderYes = 0; %>
 
                                                         <!-- 
-                                                            Create a for-each loop that checks each item in the Cares_For
-                                                            table in order to determine which providers can be assigned
-                                                            and which providers have already been assigned. 
+                                                            Create a second for-each loop that checks each item in the 
+                                                            Cares_For table in order to determine which providers can 
+                                                            be assigned and which providers have already been assigned. 
                                                         -->
                                                         <% patientProviderJoinEditData.forEach(function(joinData) { %>
                                                         
@@ -453,7 +453,7 @@
                                                     <!-- 
                                                         Create a variable to determine if a given 
                                                         treatment is assigned to the patient being 
-                                                        edited
+                                                        edited.
                                                     -->
                                                     <% var relationshipPatientTreatmentYes = 0;%>
                                                     
@@ -468,7 +468,7 @@
                                                         <!-- 
                                                             Set the variable that determines if a 
                                                             given treatment was assigned to a patient 
-                                                            to ZERO 
+                                                            to ZERO.
                                                         -->
                                                         <% relationshipPatientTreatmentYes = 0; %>
 

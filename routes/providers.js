@@ -51,23 +51,138 @@ providerRouter.get("/providers", function(req, res, next) {
 
     // Create a query to SELECT all of the providers in
     // the Provider table.
-    var sql = `SELECT * FROM Provider`;
+    var selectProvidersSQL = `SELECT * FROM Provider`;
+
+    // Create a query to SELECT all of the relationships between
+    // providers and patients represented in the Cares_For table.
+    var selectPatientProviderJoinSQL = `SELECT * FROM Cares_For`;
+
+    // Create a query to SELECT all of the patients in
+    // the Patient table.
+    var selectPatientsSQL = `SELECT * FROM Patient`;
+
+    // Create a query to SELECT all of the relationships between
+    // providers and departments represented in the Part_Of table.
+    var selectProviderDepartmentJoinSQL = `SELECT * FROM Part_Of`;
+
+    // Create a query to SELECT all of the departments in
+    // the department table.
+    var selectDepartmentSQL = `SELECT * FROM Department`;
+
+    // Create a query to SELECT all of the relationships between
+    // providers and treatments represented in the Administers_Treatment 
+    // table.
+    var selectProviderTreatmentJoinSQL = `SELECT * FROM Administers_Treatment`;
+
+    // Create a query to SELECT all of the treatments in
+    // the treatment table.
+    var selectTreatmentSQL = `SELECT * FROM Treatment`;
 
     // Get all of the providers from the providers table.
-    database.query(sql, function(error, data, fields) {
+    database.query(selectProvidersSQL, function(error, providerData, fields) {
 
         // If there is an error, log the error.
         if(error) {
             console.log(error);
+
+        // Otherwise, execute the second query to
+        // obtain the items in the Cares_For table
+        // in the database.
         } else {
 
-            // Otherwise, send the data to the
-            // providers.ejs page in order to 
-            // display that data.
-            res.render("providers", {
-                title: "Provider List", 
-                providerData: data,
-                providerChange: req.flash("providerChange")
+            // Get all of the items from the Cares_For table.
+            database.query(selectPatientProviderJoinSQL, function(error, patientProviderJoinData, fields) {
+
+                // If there is an error, log the error.
+                if(error) {
+                    console.log(error);
+
+                // Otherwise, execute the third query to
+                // obtain the Patients in the database.
+                } else {
+
+                    // Get all of the patients from the patients table.
+                    database.query(selectPatientsSQL, function(error, patientData, fields) {
+
+                        // If there is an error, log the error.
+                        if(error) {
+                            console.log(error);
+
+                        // Otherwise, execute the fourth query to
+                        // obtain the items in the Part_Of table
+                        // in the database.
+                        } else {
+
+                            // Get all of the items from the Part_Of table.
+                            database.query(selectProviderDepartmentJoinSQL, function(error, providerDepartmentJoinData, fields) {
+
+                                // If there is an error, log the error.
+                                if(error) {
+                                    console.log(error);
+
+                                // Otherwise, execute the fifth query to
+                                // obtain the Departments in the database.
+                                } else {
+
+                                    // Get all of the departments from the department table.
+                                    database.query(selectDepartmentSQL, function(error, departmentData, fields) {
+
+                                        // If there is an error, log the error.
+                                        if(error) {
+                                            console.log(error);
+
+                                        // Otherwise, execute the sixth query to
+                                        // obtain the items in the Administers_Treatment
+                                        // table in the database.
+                                        } else {
+
+                                            // Get all of the items from the Administers_Treatment table.
+                                            database.query(selectProviderTreatmentJoinSQL, function(error, providerTreatmentJoinData, fields) {
+
+                                                // If there is an error, log the error.
+                                                if(error) {
+                                                    console.log(error);
+
+                                                // Otherwise, execute the seventh query to
+                                                // obtain the Treatments in the database.
+                                                } else {
+
+                                                    // Get all of the treatments from the treatment table.
+                                                    database.query(selectTreatmentSQL, function(error, treatmentData, fields) {
+
+                                                        // If there is an error, log the error.
+                                                        if(error) {
+                                                            console.log(error);
+
+                                                        // Otherwise, execute the seventh query to
+                                                        // obtain the Treatments in the database.
+                                                        } else {
+
+                                                            // Otherwise, send the data to the
+                                                            // providers.ejs page in order to 
+                                                            // display that data.
+                                                            res.render("providers", {
+                                                                title: "Provider List", 
+                                                                providerData: providerData,
+                                                                patientProviderJoinData: patientProviderJoinData,
+                                                                patientData: patientData,
+                                                                providerDepartmentJoinData: providerDepartmentJoinData,
+                                                                departmentData: departmentData,
+                                                                providerTreatmentJoinData: providerTreatmentJoinData,
+                                                                treatmentData: treatmentData,
+                                                                providerChange: req.flash("providerChange")
+                                                            });
+                                                        }
+                                                    });                                                    
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
             });
         }
     });
@@ -86,22 +201,111 @@ providerRouter.get("/provider-edit/:providerId", function(req, res) {
 
     // Complete a query to obtain the provider that the
     // user wishes to edit from the Provider table.
-    var sql = `SELECT * FROM Provider 
-                WHERE Provider.ProviderID = ?`;
+    var selectProviderSQL = `SELECT * FROM Provider 
+                                WHERE Provider.ProviderID = ?`;
+
+    // Create a query to SELECT all of the relationships between
+    // providers and departments represented in the Part_Of table.
+    // The relationships will be filtered out on the "provider-edit"
+    // page to display the department that the provider was assigned
+    // to.
+    var selectProviderDepartmentJoinSQL = `SELECT * FROM Part_Of`;
+
+    // Create a query to SELECT all of the departments in
+    // the Department table. The departments will be filtered
+    // out on the "provider-edit" page as well.
+    var selectDepartmentSQL = `SELECT * FROM Department`;
+
+    // Create a query to SELECT all of the relationships between
+    // providers and treatments represented in the Administers_Treatment
+    // table. The relationships will be filtered out on the "provider-edit"
+    // page to display treatments that the provider is listed as being
+    // authorized to administer.
+    var selectProviderTreatmentJoinSQL = `SELECT * FROM Receives_Treatment`;
+
+    // Create a query to SELECT all of the treatments in
+    // the Treatment table. The treatments will be filtered
+    // out on the "patient-edit" page as well.
+    var selectTreatmentsSQL = `SELECT * FROM Treatment`;
 
     // Complete the query in the database and display the provider
     // data that the user wants to edit on a page for that provider.
-    database.query(sql, [requestedProviderId], function(error, data, fields) {
+    // Also obtain all of the data associated with the given provider
+    // through the join relationships.
+    database.query(selectProviderSQL, [requestedProviderId], function(error, providerEditData, fields) {
 
         // If there is an error, log the error.
         if(error) {
             console.log(error);
+
+        // Otherwise, execute the second query to
+        // obtain the items in the Part_Of table 
+        // in the database.
         } else {
 
-            // Otherwise, send the data to the
-            // provider-edit.ejs page in order to 
-            // allow the user to edit that data.
-            res.render("provider-edit", {title: "Provider Edit", providerEdit: data});
+            // Get all of the items in the Part_Of table.
+            database.query(selectProviderDepartmentJoinSQL, [requestedProviderId], function(error, providerDepartmentJoinEditData, fields) {
+
+                // If there is an error, log the error.
+                if(error) {
+                    console.log(error);
+        
+                // Otherwise, execute the third query to
+                // obtain the Departments in the database.
+                } else {
+        
+                    // Get all of the departments from the Department table.
+                    database.query(selectDepartmentSQL, [requestedProviderId], function(error, departmentEditData, fields) {
+
+                        // If there is an error, log the error.
+                        if(error) {
+                            console.log(error);
+                
+                        // Otherwise, execute the fourth query to
+                        // obtain the items in the Administers_Treatment
+                        // table in the database.
+                        } else {
+                
+                            // Get all of the items in the Administers_Treatment table.
+                            database.query(selectProviderTreatmentJoinSQL, [requestedProviderId], function(error, providerTreatmentJoinEditData, fields) {
+
+                                // If there is an error, log the error.
+                                if(error) {
+                                    console.log(error);
+                        
+                                // Otherwise, execute the fifth query to
+                                // obtain Treatments in the database.
+                                } else {
+                        
+                                    // Get all of the treatments from the Treatment table.
+                                    database.query(selectTreatmentsSQL, [requestedProviderId], function(error, treatmentEditData, fields) {
+
+                                        // If there is an error, log the error.
+                                        if(error) {
+                                            console.log(error);
+
+                                        // Otherwise, display the provider-edit.ejs page.
+                                        } else {
+
+                                            // Otherwise, send the data to the
+                                            // provider-edit.ejs page in order to 
+                                            // allow the user to edit that data.
+                                            res.render("provider-edit", {
+                                                title: "Provider Edit", 
+                                                providerEditData: providerEditData,
+                                                providerDepartmentJoinEditData: providerDepartmentJoinEditData,
+                                                departmentEditData: departmentEditData,
+                                                providerTreatmentJoinEditData: providerTreatmentJoinEditData,
+                                                treatmentEditData: treatmentEditData
+                                            });
+                                        }
+                                    });                                    
+                                }
+                            });
+                        }
+                    });
+                }
+            });
         }
     });
 });
@@ -110,9 +314,48 @@ providerRouter.get("/provider-edit/:providerId", function(req, res) {
 // create a new provider.
 providerRouter.get("/provider-new", function(req, res) {
 
-    // Render the "provider-new" page to allow the user to 
-    // create a new provider entity and add it to the database.
-    res.render("provider-new");
+    // Complete the two queries to obtain the departments and treatments
+    // that the provider can be joined with in the database.
+    var departmentQuerySQL = `SELECT Department.DepartmentID, Department.DepartmentName FROM Department`;
+    var treatmentQuerySQL = `SELECT Treatment.TreatmentID, Treatment.TreatmentName FROM Treatment`;
+
+    // Complete the queries in the database and display the provider-new.ejs
+    // page on the website so that the user can create a new provider. Execute
+    // the first query to obtain all of the departments in the database.
+    database.query(departmentQuerySQL, function(error, providerEditDepartment, fields) {
+
+        // If there is an error, log the error.
+        if(error) {
+            console.log(error);
+
+        // If there are no errors, execute the second query.
+        } else {
+
+            // Complete the queries in the database and display the provider-new.ejs
+            // page on the website so that the user can create a new provider. Execute
+            // the second query to obtain all of the treatments in the database.
+            database.query(treatmentQuerySQL, function(error, providerEditTreatment, fields) {
+
+                // If there is an error, log the error.
+                if(error) {
+                    console.log(error);
+
+                // If there are no errors, display the 
+                // provider-new.ejs page to create a new 
+                // provider for the website.
+                } else {
+
+                    // Render the "provider-new" page to allow the user to 
+                    // create a new provider entity and add it to the database.
+                    res.render("provider-new", {
+                        title: "Provider New", 
+                        providerEditDepartment: providerEditDepartment, 
+                        providerEditTreatment: providerEditTreatment
+                    });
+                }
+            });
+        }
+    });
 });
 
 /* SECTION: PROCESS REQUESTS MADE TO SERVER (POST) */
@@ -168,7 +411,7 @@ providerRouter.post("/provider-add", function(req, res) {
 
     // Include the SQL query that will add the provider entity
     // to the provider table.
-    var sql = `INSERT INTO Provider (ProviderFirstName,
+    var addProviderSQL = `INSERT INTO Provider (ProviderFirstName,
                                      ProviderMiddleName,
                                      ProviderLastName,
                                      ProviderTitle,
@@ -181,7 +424,7 @@ providerRouter.post("/provider-add", function(req, res) {
     // Complete the query in the database and add the provider
     // data entered by the user into the provider table of the
     // database.
-    database.query(sql, [providerFirstName, 
+    database.query(addProviderSQL, [providerFirstName, 
                          providerMiddleName,
                          providerLastName,
                          providerTitle,
@@ -195,6 +438,155 @@ providerRouter.post("/provider-add", function(req, res) {
         if(error) {
             console.log(error);
         } else {
+
+            // ===============================================================================
+            // THIS SECTION WITHIN THE "provider-add" ROUTE IS FOR DEPARTMENT AND TREATMENT JOINS
+            // ===============================================================================
+
+            // Create a variable for storing the query that will
+            // add the provider ID to the "Part_Of" table and 
+            // the "Administers_Treatment" table along with
+            // any department and/or treatment IDs.
+            var providerIDSQL = `SELECT Provider.ProviderID FROM Provider
+                                    ORDER BY Provider.ProviderID DESC
+                                    LIMIT 1;`;
+
+            // Execute the query listed above in order to obtain the 
+            // identifier of the provider that was just inserted into
+            // the database. This is used for adding the provider along
+            // with any departments and/or treatments to their respective
+            // tables.
+            database.query(providerIDSQL, function(error, providerIdData, fields) {
+
+                // If there is an error, log the error.
+                if(error) {
+                    console.log(error);
+
+                // Otherwise, complete the JOIN operations below.
+                } else {
+                    
+                    // ===============================================================================
+                    // THIS SECTION WITHIN THE "provider-add" ROUTE IS FOR DEPARTMENT JOINS
+                    // FOR WHEN YOU ADD THE PROVIDER BEING CREATED TO THE DATABASE.
+                    // ===============================================================================
+
+                    // Create a variable to store the department data that may
+                    // have been entered by the user on the "provider-new" page.
+                    var departmentIdSelected = req.body.providerdepartment;
+
+                    // Check if the user selected a department that was
+                    // listed on the "provider-new.ejs" page. If there
+                    // was a department selected, complete the actions 
+                    // below.
+                    if(departmentIdSelected && departmentIdSelected != "-") {
+
+                        // Create a query variable for adding the provider 
+                        // and department identifiers to the "Part_Of" table.
+                        var joinProviderDepartmentSQL = `INSERT INTO Part_Of (Part_ProviderID, 
+                                                            Part_DepartmentID) VALUES (?, ?);`;
+
+                        // ======================================================================
+                        // NOTE: There should be no need to check if the user selected more
+                        // than on department because they can only ever select one department.
+                        // ======================================================================
+                        // Complete the query in the database and add the provider
+                        // data entered by the user into the "Part_Of" table of
+                        // the database.
+                        database.query(joinProviderDepartmentSQL, [providerIdData[0].ProviderID, departmentIdSelected], function(error, data, fields) {
+
+                            // If there is an error, log the error.
+                            if(error) {
+                                console.log(error);
+
+                            // Otherwise, complete the actions below.
+                            } else {
+
+                                // For now, do nothing.
+                            }
+                        });
+                    }
+
+                    // ===============================================================================
+                    // THIS SECTION WITHIN THE "provider-add" ROUTE IS FOR TREATMENT JOINS
+                    // FOR WHEN YOU ADD THE DEPARTMENT BEING CREATED TO THE DATABASE.
+                    // ===============================================================================
+
+                    // Create a variable to store the treatment data that may
+                    // have been entered by the user on the "provider-new" page.
+                    var treatmentsIdSelected = req.body.treatmentforprovider;
+
+                    // Check if the user selected any of the treatments that 
+                    // were listed on the "provider-new.ejs" page. If there
+                    // were treatments selected, complete the actions below.
+                    if(treatmentsIdSelected) {
+
+                        // Create a query variable for adding the provider and
+                        // treatment identifiers to the "Administers_Treatment" table.
+                        var joinProviderTreatmentSQL = `INSERT INTO Administers_Treatment (Administers_ProviderID, 
+                                                            Administers_TreatmentID) VALUES (?, ?);`;
+
+                        // If only one treatment was selected, then
+                        // execute the query to insert the treatment ID
+                        // and the provider ID in the "Administers_Treatment"
+                        // table to help show the relationship between
+                        // the provider and treatment entities.
+                        if(treatmentsIdSelected.length == 1) {
+
+                            // Complete the query in the database and add the provider
+                            // and treatment data entered by the user into the 
+                            // "Administers_Treatment" table of the database.
+                            database.query(joinProviderTreatmentSQL, [providerIdData[0].ProviderID, treatmentsIdSelected], function(error, data, fields) {
+
+                                // If there is an error, log the error.
+                                if(error) {
+                                    console.log(error);
+
+                                // Otherwise, complete the actions below.
+                                } else {
+
+                                    // For now, do nothing.
+                                }
+                            });
+
+                        // If more than one treatment was selected, then 
+                        // loop through each treatment that was selected 
+                        // and add their identifiers along with the provider 
+                        // ID to the "Administers_Treatment" table.
+                        } else if(treatmentsIdSelected.length > 1) {
+
+                            // Create a for loop to add each treatment that was selected,
+                            // assuming that there were multiple treatments selected, to
+                            // the "Administers_Treatment" table along with the provider
+                            // ID that was obtained.
+                            for(var i = 0; i < treatmentsIdSelected.length; i++) {
+
+                                // Complete the query in the database and add the treatment
+                                // data entered by the user into the "Administers_Treatment"
+                                // table of the database.
+                                database.query(joinProviderTreatmentSQL, [providerIdData[0].ProviderID, treatmentsIdSelected[i]], function(error, data, fields) {
+
+                                    // If there is an error, log the error.
+                                    if(error) {
+                                        console.log(error);
+
+                                    // Otherwise, complete the actions below.
+                                    } else {
+
+                                        // For now, do nothing.
+                                    }
+                                });
+                            }
+            
+                        // If there are no actions that were
+                        // taken, then do nothing for now.
+                        } else {
+
+                            // Otherwise, do nothing.
+                        }
+                    }
+                    // =============================================================================== 
+                }
+            });
             
             // Redirect the route back to the main providers page
             // after adding the provider to the database.
@@ -205,6 +597,31 @@ providerRouter.post("/provider-add", function(req, res) {
         }
     });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Create a post request for when the user wants to
 // update a given provider.
@@ -338,6 +755,32 @@ providerRouter.post("/provider-update", function(req, res) {
         providerEndDate = null;  
     }
 
+
+
+
+    // --> WILL NEED TO ADD THE UPDATES HERE!!!
+
+    // --> FOR UPDATING WHICH DEPARTMENT A PROVIDER BELONGS TO,
+    // --> USE THIS NAME: updateproviderdepartment. 
+
+    // --> ALSO, USE THE IN-BUILT JAVASCRIPT "includes()" FUNCTION TO 
+    // --> DETERMINE WHETHER TO SWITCH DEPARTMENTS OR SIMPLY
+    // --> REMOVE THE CURRENT ONE. YOU WILL ALSO NEED TO USE THE
+    // --> "split()" FUNCTION TO SEPARATE THE "Remove-" FROM THE
+    // --> REST OF THE REMOVE IDENTIFIER.
+
+    // --> SEE ALSO: removetreatmentforprovider
+    // --> SEE ALSO: addtreatmentforprovider
+
+    // --> ALSO, IF YOU SELECT A DIFFERENT DEPARTMENT FOR 
+    // --> A GIVEN PROVIDER IN THE UPDATE PROCESS, YOU WILL
+    // --> NEED TO FIRST REMOVE THE OLD DEPARTMENT DATA 
+    // --> FROM THE "Part_Of" TABLE WHERE THE THE PROVIDER 
+    // --> ID DATA IS FOUND.
+
+
+
+
     // Include the SQL query that will update the provider entity
     // in the provider table.
     var sql = `UPDATE Provider 
@@ -370,6 +813,33 @@ providerRouter.post("/provider-update", function(req, res) {
         }
     });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Create a post request for when the user wants to
 // remove a given provider.

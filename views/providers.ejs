@@ -353,9 +353,219 @@
                                             <p class="provider-text-info"><b>Phone:</b> <%= data.ProviderPhone %></p>
                                             <p class="provider-text-info"><b>Email:</b> <%= data.ProviderEmail %></p>
                                             <p class="provider-text-info"><b>Description:</b> <%= data.ProviderDescription %></p> 
+                                       
+                                            <!-- ========================================================== -->
+                                            <!-- List out the PATIENTS that the given provider was assigned to -->
+                                            <!-- ========================================================== -->
+                                            <p class="patient-text-info" style="margin-bottom: 0;"><b>Patients:</b></p>
+                                            
+                                            <!-- 
+                                                Check if there is any data in the Cares_For table. 
+                                                If there is no data in the Cares_For table, display
+                                                a message instead.
+                                            -->
+                                            <% if(patientProviderJoinData.length != 0) { %>
+
+                                                <!-- Create a variable to determine if there are any patients that the provider is caring for -->
+                                                <% var hasRelationshipPatients = 0; %>
+                                                
+                                                <!-- 
+                                                    Create a for-each loop that checks each provider ID 
+                                                    in the Cares_For table and determines if that provider 
+                                                    was assigned to a patient or multiple patients
+                                                -->
+                                                <% patientProviderJoinData.forEach(function(joinData) { %>
+                                                
+                                                    <!-- 
+                                                        If there is a patient identifier in the Cares_For table,
+                                                        then the patient was assigned a provider. Therefore,
+                                                        within the conditional, create another for-each loop
+                                                        that finds which provider was assigned to the patient.
+                                                    -->
+                                                    <% if(joinData.Cares_ProviderID == data.ProviderID) { %>
+
+                                                        <!-- 
+                                                            Create a second for-each loop to determine which patients
+                                                            are being cared for by the given provider.
+                                                        -->
+                                                        <% patientData.forEach(function(patientData) { %>
+
+                                                            <!-- 
+                                                                If the patient identifier matches the identifier in the Cares_For 
+                                                                table, then list that patient as a patient that the provider is
+                                                                caring for.
+                                                            -->
+                                                            <% if(joinData.Cares_PatientID == patientData.PatientID) { %>
+
+                                                                <!-- 
+                                                                    If there is a relationship, indicating that at least one patient 
+                                                                    is being cared for by the given provider, then set the variable 
+                                                                    checking forrelationships to one. This will ensure that the message
+                                                                    that indicates that no patients are being cared for by the given 
+                                                                    provider is NOT printed out 
+                                                                -->
+                                                                <% hasRelationshipPatients = 1; %>
+                                                                <p class="patient-text-info" style="margin-top: 0; margin-bottom: 0;"><%= patientData.PatientFirstName %> <%= patientData.PatientMiddleName %> <%= patientData.PatientLastName %></p>
+                                                            <% } %>
+
+                                                        <% }); %>
+
+                                                    <% } %>
+                                                <% }); %>
+
+                                                <!-- If there were no providers assigned to the patient, print out a message instead -->
+                                                <% if(hasRelationshipPatients == 0) { %>
+                                                    <p class="patient-text-info" style="margin-top: 0; margin-bottom: 0;">Assigned to no patients.</p>
+                                                <% } %>
+
+                                            <!-- Display the message if no items exist in Cares_For table -->
+                                            <% } else { %>
+                                                <p class="patient-text-info" style="margin-top: 0; margin-bottom: 0;">Assigned to no patients.</p>
+                                            <% } %>
+                                            <!-- ========================================================== -->
                                         </div>
+
                                         <!-- Each column of the card displays different amounts of data -->
                                         <div class="provider-column" style="margin-right: 0;">
+                                            
+                                            <!-- ========================================================== -->
+                                            <!-- List out the DEPARTMENTS that the provider belongs to -->
+                                            <!-- ========================================================== -->
+                                            <p class="patient-text-info" style="margin-bottom: 0;"><b>Department:</b></p>
+                                            
+                                            <!-- 
+                                                Check if there is any data in the Part_Of table. 
+                                                If there is no data in the Part_Of table, display
+                                                a message instead.
+                                            -->
+                                            <% if(providerDepartmentJoinData.length != 0) { %>
+
+                                                <!-- Create a variable to determine if there are any departments that a given provider belongs to -->
+                                                <% var hasRelationshipDepartment = 0; %>
+                                                
+                                                <!-- 
+                                                    Create a for-each loop that checks each provider ID 
+                                                    in the Part_Of table and determines if that provider
+                                                    belongs to a department.
+                                                -->
+                                                <% providerDepartmentJoinData.forEach(function(joinData) { %>
+                                                
+                                                    <!-- 
+                                                        If there is a provider identifier in the Part_Of table,
+                                                        then the provider belongs to a department. Therefore,
+                                                        within the conditional, create another for-each loop
+                                                        that finds which department the provider belongs to.
+                                                    -->
+                                                    <% if(joinData.Part_ProviderID == data.ProviderID) { %>
+
+                                                        <!-- 
+                                                            Create a second for-each loop to determine which
+                                                            department the provider belongs to.
+                                                        -->
+                                                        <% departmentData.forEach(function(departmentData) { %>
+
+                                                            <!-- 
+                                                                If the department identifier matches the identifier in the Part_Of
+                                                                table, then list that department as a department that the given 
+                                                                provider belongs to.
+                                                            -->
+                                                            <% if(joinData.Part_DepartmentID == departmentData.DepartmentID) { %>
+
+                                                                <!-- 
+                                                                    If there is a relationship, indicating that the provider  
+                                                                    belongs to the department, then set the variable checking 
+                                                                    relationships to one. This will ensure that the message 
+                                                                    that indicates that the provider does not belong to any 
+                                                                    departments is NOT printed out.
+                                                                -->
+                                                                <% hasRelationshipDepartment = 1; %>
+                                                                <p class="patient-text-info" style="margin-top: 0; margin-bottom: 0;"><%= departmentData.DepartmentName %></p>
+                                                            <% } %>
+
+                                                        <% }); %>
+
+                                                    <% } %>
+                                                <% }); %>
+
+                                                <!-- If there are no departments that the provider belongs to, print out a message instead -->
+                                                <% if(hasRelationshipDepartment == 0) { %>
+                                                    <p class="patient-text-info" style="margin-top: 0; margin-bottom: 0;">Assigned to no department.</p>
+                                                <% } %>
+
+                                            <!-- Display the message if no items exist in Part_Of table -->
+                                            <% } else { %>
+                                                <p class="patient-text-info" style="margin-top: 0; margin-bottom: 0;">Assigned to no department.</p>
+                                            <% } %>
+
+                                            <!-- ========================================================== -->
+                                            <!-- List out the TREATMENTS that the provider can administer -->
+                                            <!-- ========================================================== -->
+                                            <p class="patient-text-info" style="margin-bottom: 0;"><b>Authorized Treatments:</b></p>
+                                            
+                                            <!-- 
+                                                Check if there is any data in the Administers_Treatment table. 
+                                                If there is no data in the Administers_Treatment table, display
+                                                a message instead.
+                                            -->
+                                            <% if(providerTreatmentJoinData.length != 0) { %>
+
+                                                <!-- Create a variable to determine if there are any treatments that a given provider can administer -->
+                                                <% var hasRelationshipTreatment = 0; %>
+                                                
+                                                <!-- 
+                                                    Create a for-each loop that checks each provider ID 
+                                                    in the Administers_Treatment table and determines if 
+                                                    that provider can administer any treatments
+                                                -->
+                                                <% providerTreatmentJoinData.forEach(function(joinData) { %>
+                                                
+                                                    <!-- 
+                                                        If there is a provider identifier in the Administers_Treatmemt
+                                                        table, then the provider can administer at least one treatment.
+                                                        Therefore, within the conditional, create another for-each 
+                                                        loop that finds which treatments the provider can administer.
+                                                    -->
+                                                    <% if(joinData.Administers_ProviderID == data.ProviderID) { %>
+
+                                                        <!-- 
+                                                            Create a second for-each loop to determine which
+                                                            treatments the provider can administer.
+                                                        -->
+                                                        <% treatmentData.forEach(function(treatmentData) { %>
+
+                                                            <!-- 
+                                                                If the treatment identifier matches the identifier in the Administers_Treatment
+                                                                table, then list that treatment as a treatment that the given provider can 
+                                                                administer.
+                                                            -->
+                                                            <% if(joinData.Administers_TreatmentID == treatmentData.TreatmentID) { %>
+
+                                                                <!-- 
+                                                                    If there is a relationship, indicating that the provider  
+                                                                    can administer the given treatment, then set the variable  
+                                                                    checking relationships to one. This will ensure that the  
+                                                                    message that indicates that the provider can not administer 
+                                                                    any treatments is NOT printed out.
+                                                                -->
+                                                                <% hasRelationshipTreatment = 1; %>
+                                                                <p class="patient-text-info" style="margin-top: 0; margin-bottom: 0;"><%= treatmentData.TreatmentName %></p>
+                                                            <% } %>
+
+                                                        <% }); %>
+
+                                                    <% } %>
+                                                <% }); %>
+
+                                                <!-- If there are no treatments that the provider is authorized to administer, print out a message instead -->
+                                                <% if(hasRelationshipTreatment == 0) { %>
+                                                    <p class="patient-text-info" style="margin-top: 0; margin-bottom: 0;">None.</p>
+                                                <% } %>
+
+                                            <!-- Display the message if no items exist in Administers_Treatment table -->
+                                            <% } else { %>
+                                                <p class="patient-text-info" style="margin-top: 0; margin-bottom: 0;">None.</p>
+                                            <% } %>
+                                            <!-- ========================================================== -->
 
                                             <!-- 
                                                 Determine if the duration of time at the hospital that the 

@@ -92,9 +92,140 @@
                                 <p class="provider-create-text-info"><b>Phone:</b> <input placeholder="###-###-####" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="" name="providerphone" size="13" maxlength="12" required></p>
                                 <p class="provider-create-text-info"><b>Email:</b> <input placeholder="Enter Email" type="email" class="" name="provideremail" size="13" required></p>
                                 <p class="provider-create-text-info"><b>Description:</b> <input placeholder="Enter Description" type="text" class="name-input" name="providerdescription" size="10" required></p>
+                            
+                                <!-- ============================================================================= -->
+                                <!-- SECTION FOR SELECTING ITEMS THAT WILL BE ADDED TO THE JOIN PROVIDER/DEPARTMENT -->
+                                <!-- TABLE IN THE DATABASE -->
+                                <!-- ============================================================================= -->
+                            
+                                <!-- DEPARTMENT -->
+                                <!-- 
+                                    Include a dropdown menu of selections that the user can make 
+                                    to add a provider to a department. The user can only add the
+                                    provider to ONE department. 
+                                -->
+                                <p class="patient-create-text-info">
+                                    <label for="provider-department"><b>Department:</b></label>
+                                    <select id="" class="provider-department" name="providerdepartment">
+
+                                        <!-- 
+                                            Include a default option in case the user does not 
+                                            want to assign the provider to any department or
+                                            there are no departments that exist.
+                                        -->
+                                        <option value="-">-</option>
+
+                                        <!-- 
+                                            If there are departments in the database, list them 
+                                            as options for the user to select in order to assign 
+                                            the provider to them.
+                                        -->
+                                        <% if(providerEditDepartment.length != 0) { %>
+
+                                            <!-- 
+                                                Create a for loop to display all of the departments
+                                                that the user can select for this input field.
+                                            -->
+                                            <% providerEditDepartment.forEach(function(data) { %>
+                                                
+                                                <!-- List each department as an option that can be selected -->
+                                                <option value="<%= data.DepartmentID %>"><%= data.DepartmentName %></option>
+                                            <% }); %>
+                                        <% } %>
+                                    </select>
+                                </p>
+                                <!-- ============================================================================= -->
                             </div>
+
                             <!-- Each column of the card displays different amounts of data -->  
                             <div class="provider-create-column">
+
+                                <!-- ============================================================================= -->
+                                <!-- SECTION FOR SELECTING ITEMS THAT WILL BE ADDED TO THE JOIN PROVIDER/TREATMENT -->
+                                <!-- TABLE IN THE DATABASE -->
+                                <!-- ============================================================================= -->
+
+                                <!-- TREATMENT -->
+                                <!-- Include a script to add JavaScript for properly selecting a given treatment that the provider can administer -->
+                                <script>
+                                    // Create a variable for determining if the selector is expanded or not.
+                                    var expandedProviderTreatment = false;
+
+                                    // Create a function for showing the 
+                                    // checkboxes within the selector.
+                                    function showProviderTreatmentCheckboxes() {
+
+                                        // Create a variable that obtains the provider checkbox dropdown section.
+                                        var checkboxes = document.getElementById("departmenttreatment-checkboxes");
+                                        
+                                        // If the selector is not expanded, display the checkboxes
+                                        // and set the expanded variable to the value of true.
+                                        if (!expandedProviderTreatment) {
+                                            checkboxes.style.display = "block";
+                                            expandedProviderTreatment = true;
+
+                                        // Otherwise, do not display the checkboxes and
+                                        // set the expanded variable to the value of false.
+                                        } else {
+                                            checkboxes.style.display = "none";
+                                            expandedProviderTreatment = false;
+                                        }
+                                    }
+                                </script>
+
+                                <!-- 
+                                    Provide the user with options to select the treatment
+                                    or treatments so that the given provider is listed as 
+                                    administering them.
+                                -->
+                                <p class="provider-create-text-info" style="margin-bottom: 0;"><b>Treatments:</b></p>
+
+                                <!-- 
+                                    If there are treatments in the database, list them 
+                                    as options for the user to select in order to have 
+                                    the given provider listed as administering them.
+                                -->
+                                <% if(providerEditTreatment.length != 0) { %>
+
+                                    <!-- 
+                                        Creae a div to show the treatment options 
+                                        that the user can choose from
+                                     -->
+                                    <div>
+
+                                        <!-- Create dropdown element so the user can click it and view the different treatments -->
+                                        <div class="selectBox patient-create-text-info" onclick="showProviderTreatmentCheckboxes()">
+                                            <select>
+                                                <option>Select Treatments</option>
+                                            </select>
+                                            <div class="overSelect"></div>
+                                        </div>
+                                        <div id="departmenttreatment-checkboxes" class="all-selector-checkboxes provider-create-text-info" style="display: none;">
+
+                                            <!-- 
+                                                Create a for loop to display all of the treatments
+                                                that the user can select for this input field.
+                                            -->
+                                            <% providerEditTreatment.forEach(function(data) { %>
+
+                                                <!-- Finish adding the checkbox structure for the dropdown of treatment checkboxes -->
+                                                <div class="checkbox-structure">
+                                                    <div class="checkbox-item">
+                                                        <input type="checkbox" id="providerTreatmentAssign<%= data.TreatmentID %>" class="checkbox-label" style="margin-top: 6px;" name="treatmentforprovider" value="<%= data.TreatmentID %>">
+                                                    </div>
+                                                    <div class="checkbox-item">
+                                                        <label for="providerTreatmentAssign<%= data.TreatmentID %>"><%= data.TreatmentName %></label>
+                                                    </div>
+                                                </div>
+                                            <% }); %>
+                                        </div>
+                                    </div>
+
+                                <% } else { %>
+                                    <p class="provider-create-text-info">There are no available treatments.</p>
+                                <% } %>
+                                <!-- ============================================================================= -->
+
                                 <p class="provider-create-text-info"><b>Start Date:</b> <input id="providerstartdatecalc" placeholder="Enter Start Date" onfocus="(this.type='date')" onblur="(this.type='text')" class="date-input" name="providerstartdate" size="16" required></p> 
                                 
                                 <!-- MAYBE TRY IMPLEMENTING THE CODE BELOW AT A LATER TIME!!! -->

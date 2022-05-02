@@ -164,7 +164,7 @@ patientRouter.get("/patient-edit/:patientId", function(req, res) {
     // Complete a query to obtain the patient that the
     // user wishes to edit from the Patient table.
     var selectPatientSQL = `SELECT * FROM Patient 
-                WHERE Patient.PatientID = ?`;
+                                WHERE Patient.PatientID = ?`;
 
     // Create a query to SELECT all of the relationships between
     // patients and providers represented in the Cares_For table.
@@ -182,7 +182,6 @@ patientRouter.get("/patient-edit/:patientId", function(req, res) {
     // table. The relationships will be filtered out on the "patient-edit"
     // page to display treatments that the patient was assigned.
     var selectPatientTreatmentJoinSQL = `SELECT * FROM Receives_Treatment`;
-
 
     // Create a query to SELECT all of the treatments in
     // the Treatment table. The treatments will be filtered
@@ -245,7 +244,7 @@ patientRouter.get("/patient-edit/:patientId", function(req, res) {
                                         if(error) {
                                             console.log(error);
 
-                                        // Otherwise, display the patients.ejs page.
+                                        // Otherwise, display the patient-edit.ejs page.
                                         } else {
 
                                             // Otherwise, send the data to the
@@ -303,7 +302,7 @@ patientRouter.get("/patient-new", function(req, res) {
 
                 // If there are no errors, display the 
                 // patient-new.ejs page to create a new 
-                // pateint for the website.
+                // patient for the website.
                 } else {
 
                     // Render the "patient-new" page to allow the user to 
@@ -376,7 +375,7 @@ patientRouter.post("/patient-add", function(req, res) {
 
     // Include the SQL query that will add the patient entity
     // to the patient table.
-    var addPatient = `INSERT INTO Patient (PatientNotes, 
+    var addPatientSQL = `INSERT INTO Patient (PatientNotes, 
                                     PatientFirstName, 
                                     PatientMiddleName, 
                                     PatientLastName, 
@@ -393,7 +392,7 @@ patientRouter.post("/patient-add", function(req, res) {
     // Complete the query in the database and add the patient
     // data entered by the user into the patient table of the
     // database.
-    database.query(addPatient, [patientDescription, 
+    database.query(addPatientSQL, [patientDescription, 
                          patientFirstName, 
                          patientMiddleName, 
                          patientLastName, 
@@ -419,17 +418,19 @@ patientRouter.post("/patient-add", function(req, res) {
             // ===============================================================================
 
             // Create a variable for storing the query that will
-            // add the patient ID to the "Cares_For" table along
-            // with any provider IDs.
-            var patientID = `SELECT Patient.PatientID FROM Patient
+            // add the patient ID to the "Cares_For" table and
+            // the "Receives_Treatment" table along with any
+            // provider and/or treatment IDs.
+            var patientIDSQL = `SELECT Patient.PatientID FROM Patient
                                 ORDER BY Patient.PatientID DESC
                                 LIMIT 1;`;
 
             // Execute the query listed above in order to obtain the 
             // identifier of the patient that was just inserted into
             // the database. This is used for adding the patient along
-            // with any providers to the "Cares_For" table.
-            database.query(patientID, function(error, patientIdData, fields) {
+            // with any providers and/or treatments to their respective
+            // tables.
+            database.query(patientIDSQL, function(error, patientIdData, fields) {
 
                 // If there is an error, log the error.
                 if(error) {
@@ -534,18 +535,18 @@ patientRouter.post("/patient-add", function(req, res) {
                         // Create a query variable for adding the patient and
                         // treatment identifiers to the "Receives_Treatment" table.
                         var joinPatientTreatmentSQL = `INSERT INTO Receives_Treatment (Receives_PatientID, 
-                                                        Receives_TreatmentID) VALUES (?, ?);`;
+                                                            Receives_TreatmentID) VALUES (?, ?);`;
 
                         // If only one treatment was selected, then
                         // execute the query to insert the treatment ID
                         // and the patient ID in the "Receives_Treatment"
                         // table to help show the relationship between
-                        // the patient an treatment entities.
+                        // the patient and treatment entities.
                         if(treatmentsIdSelected.length == 1) {
 
                             // Complete the query in the database and add the patient
-                            // data entered by the user into the "Receives_Treatment"
-                            // table of the database.
+                            // and treatment data entered by the user into the 
+                            // "Receives_Treatment" table of the database.
                             database.query(joinPatientTreatmentSQL, [patientIdData[0].PatientID, treatmentsIdSelected], function(error, data, fields) {
 
                                 // If there is an error, log the error.
@@ -560,7 +561,7 @@ patientRouter.post("/patient-add", function(req, res) {
                             });
 
                         // If more than one treatment was selected, then 
-                        // loop through each provider that was selected 
+                        // loop through each treatment that was selected 
                         // and add their identifiers along with the patient 
                         // ID to the "Receives_Treatment" table.
                         } else if(treatmentsIdSelected.length > 1) {
@@ -572,8 +573,8 @@ patientRouter.post("/patient-add", function(req, res) {
                             for(var j = 0; j < treatmentsIdSelected.length; j++) {
 
                                 // Complete the query in the database and add the treatment
-                                // data entered by the user into the treatment table of the
-                                // database.
+                                // data entered by the user into the "Receives_Treatment"
+                                // table of the database.
                                 database.query(joinPatientTreatmentSQL, [patientIdData[0].PatientID, treatmentsIdSelected[j]], function(error, data, fields) {
 
                                     // If there is an error, log the error.
@@ -588,7 +589,7 @@ patientRouter.post("/patient-add", function(req, res) {
                                 });
                             }
             
-                        // There are no actions that were
+                        // If there are no actions that were
                         // taken, then do nothing for now.
                         } else {
 

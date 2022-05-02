@@ -4,7 +4,8 @@
   "description": "The project is a simple database for Mayo Clinic that organizes patient information.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
     "passport-local-mongoose": "^7.0.0",
     "path": "^0.12.7",
     "prompt-confirm": "^2.0.4",
+    "start": "^5.1.0",
     "window": "^4.2.7"
   }
 }

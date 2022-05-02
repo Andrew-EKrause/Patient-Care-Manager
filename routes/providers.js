@@ -221,7 +221,7 @@ providerRouter.get("/provider-edit/:providerId", function(req, res) {
     // table. The relationships will be filtered out on the "provider-edit"
     // page to display treatments that the provider is listed as being
     // authorized to administer.
-    var selectProviderTreatmentJoinSQL = `SELECT * FROM Receives_Treatment`;
+    var selectProviderTreatmentJoinSQL = `SELECT * FROM Administers_Treatment`;
 
     // Create a query to SELECT all of the treatments in
     // the Treatment table. The treatments will be filtered
@@ -598,31 +598,6 @@ providerRouter.post("/provider-add", function(req, res) {
     });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Create a post request for when the user wants to
 // update a given provider.
 providerRouter.post("/provider-update", function(req, res) {
@@ -755,32 +730,6 @@ providerRouter.post("/provider-update", function(req, res) {
         providerEndDate = null;  
     }
 
-
-
-
-    // --> WILL NEED TO ADD THE UPDATES HERE!!!
-
-    // --> FOR UPDATING WHICH DEPARTMENT A PROVIDER BELONGS TO,
-    // --> USE THIS NAME: updateproviderdepartment. 
-
-    // --> ALSO, USE THE IN-BUILT JAVASCRIPT "includes()" FUNCTION TO 
-    // --> DETERMINE WHETHER TO SWITCH DEPARTMENTS OR SIMPLY
-    // --> REMOVE THE CURRENT ONE. YOU WILL ALSO NEED TO USE THE
-    // --> "split()" FUNCTION TO SEPARATE THE "Remove-" FROM THE
-    // --> REST OF THE REMOVE IDENTIFIER.
-
-    // --> SEE ALSO: removetreatmentforprovider
-    // --> SEE ALSO: addtreatmentforprovider
-
-    // --> ALSO, IF YOU SELECT A DIFFERENT DEPARTMENT FOR 
-    // --> A GIVEN PROVIDER IN THE UPDATE PROCESS, YOU WILL
-    // --> NEED TO FIRST REMOVE THE OLD DEPARTMENT DATA 
-    // --> FROM THE "Part_Of" TABLE WHERE THE THE PROVIDER 
-    // --> ID DATA IS FOUND.
-
-
-
-
     // Include the SQL query that will update the provider entity
     // in the provider table.
     var sql = `UPDATE Provider 
@@ -804,7 +753,261 @@ providerRouter.post("/provider-update", function(req, res) {
         if(error) {
             console.log(error);
         } else {
+
+            // ===============================================================================
+            // THIS SECTION WITHIN THE "provider-update" ROUTE IS FOR PROVIDER AND DEPARTMENT 
+            // JOINS FOR CASES WHERE YOU WANT TO <REMOVE/ADD> A DEPARTMENT FROM THE PROVIDER.
+            // ===============================================================================
+
+            // Create a variable to store the department identifier for the
+            // department that the user wishes to REMOVE/ADD from the "Part_Of"
+            // table. This variable will be used in the remove/add queries.
+            var providerUpdateDepartmentsID = req.body.updateproviderdepartment;
+
+            // If the user selected any of the departments that
+            // were listed on the "provider-edit" page to be 
+            // updated (removed or added)
+            if(providerUpdateDepartmentsID && providerUpdateDepartmentsID != "-") {
+
+                // If the user selected a "Remove" option, then 
+                // simply remove the provider ID from the "Part_Of"
+                // table in the database.  
+                if(providerUpdateDepartmentsID.includes("Remove")) {
+
+                    // Create a variable for storing the query that will remove
+                    // the department from the "Part_Of" table in the database.
+                    var removeProviderDepartmentJoinSQL = `DELETE FROM Part_Of WHERE Part_ProviderID = ? AND Part_DepartmentID = ?;`;
+                    
+                    // If the user selected the "Remove" department option, then split
+                    // the string that was attached to the value passed into the request
+                    // and obtain the department ID that you want removed.
+                    providerUpdateDepartmentsID = providerUpdateDepartmentsID.split("-")[1];
+
+                    // Execute the query to remove the department that was previously
+                    // assigned to the provider.
+                    database.query(removeProviderDepartmentJoinSQL, [updateProviderID, providerUpdateDepartmentsID], function(error, data, fields) {
+
+                        // If there is an error, log the error.
+                        if(error) {
+                            console.log(error);
+
+                        // Otherwise, complete the actions below.
+                        } else {
+
+                            // For now, do nothing.
+                        }
+                    });
+
+                // If the user selected a different department
+                // to add the provider to, then first remove
+                // the provider from their original department
+                // that they were part of. Then add the provider
+                // the new department that was selected.
+                } else {
+
+                    // First, create a variable for storing the query that will
+                    // remove the department from the "Part_Of" table in the
+                    // database BEFORE adding the provider to the new department
+                    // that was selected.
+                    var firstRemoveProviderDepartmentJoinSQL = `DELETE FROM Part_Of WHERE Part_ProviderID = ?;`;
+
+                    // Next, create a variable for storing the query that will add
+                    // the provider and its department to the "Part_Of" table in the 
+                    // database.
+                    var addProviderDepartmentJoinSQL = `INSERT INTO Part_Of (Part_ProviderID, 
+                                                            Part_DepartmentID) VALUES (?, ?);`;
+
+                    // Execute the first query to remove the department that was previously
+                    // assigned to the provider before executing the second query to add
+                    // the provider to the new department that was selected.
+                    database.query(firstRemoveProviderDepartmentJoinSQL, [updateProviderID], function(error, data, fields) {
+
+                        // If there is an error, log the error.
+                        if(error) {
+                            console.log(error);
+
+                        // If there are no errors, the complete the
+                        // second query to add the new provider to
+                        // the department that was selected.
+                        } else {
+
+                            database.query(addProviderDepartmentJoinSQL, [updateProviderID, providerUpdateDepartmentsID], function(error, data, fields) {
+
+                                // If there is an error, log the error.
+                                if(error) {
+                                    console.log(error);
+        
+                                // Otherwise, complete the actions below.
+                                } else {
+        
+                                    // For now, do nothing.
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+
+            // ===============================================================================
+            // THIS SECTION WITHIN THE "provider-update" ROUTE IS FOR PROVIDER AND TREATMENT 
+            // JOINS FOR CASES WHERE YOU WANT TO <REMOVE> TREATMENTS FROM THE PROVIDERS.
+            // ===============================================================================
             
+            // Create a variable to store the treatment identifiers for the treatments
+            // that the user wishes to REMOVE from the "Administers_Treatment" table. This
+            // variable will be used in the remove query.
+            var providerUpdateRemoveTreatments = req.body.removetreatmentforprovider;
+
+            // Check if the user selected any of the treatments that
+            // were listed on the "provider-edit" page to be removed.
+            if(providerUpdateRemoveTreatments) {
+
+                // Create a variable for storing the query that will remove
+                // the treatment from the "Administers_Treatment" table in the database.
+                var removeProviderTreatmentJoinSQL = `DELETE FROM Administers_Treatment WHERE Administers_ProviderID = ? AND Administers_TreatmentID = ?;`;
+
+                // If only one treatment was selected, then execute
+                // the query to remove the treatment ID and the
+                // provider ID from the "Administers_Treatment" 
+                // table.
+                if(providerUpdateRemoveTreatments.length == 1) {
+
+                    // If only one treatment was selected to be removed 
+                    // in the update route, then execute the query to
+                    // remove the treatment associated with the given 
+                    // provider from the "Administers_Treatment" table.
+                    database.query(removeProviderTreatmentJoinSQL, [updateProviderID, providerUpdateRemoveTreatments], function(error, data, fields) {
+
+                        // If there is an error, log the error.
+                        if(error) {
+                            console.log(error);
+
+                        // Otherwise, complete the actions below.
+                        } else {
+
+                            // For now, do nothing.
+                        }
+                    });
+
+                // If more than one treatment was selected, then 
+                // loop through each treatment that was selected
+                // and remove their identifiers along with the
+                // corresponding provider identifier from the
+                // "Receives_Treatment" table.
+                } else if(providerUpdateRemoveTreatments.length > 1) {
+
+                    // Create a for loop to remove each treatment that was selected,
+                    // assuming that there were multiple treatments selected, from
+                    // the "Administers_Treatment" table along with the provider ID
+                    // that was obtained.
+                    for(var i = 0; i < providerUpdateRemoveTreatments.length; i++) {
+
+                        // Complete the query in the database and remove the treatment
+                        // data from the "Receives_Treatment" table in the database.
+                        database.query(removeProviderTreatmentJoinSQL, [updateProviderID, providerUpdateRemoveTreatments[i]], function(error, data, fields) {
+
+                            // If there is an error, log the error.
+                            if(error) {
+                                console.log(error);
+
+                            // Otherwise, complete the actions below.
+                            } else {
+
+                                // For now, do nothing.
+                            }
+                        });
+                    }
+
+                // There are no actions that were
+                // taken, then do nothing for now.
+                } else {
+
+                    // Otherwise, do nothing.
+                }
+            }
+
+            // ===============================================================================
+            // THIS SECTION WITHIN THE "provider-update" ROUTE IS FOR PROVIDER AND TREATMENT 
+            // JOINS FOR CASES WHERE YOU WANT TO <ADD> TREATMENTS TO THE PROVIDERS.
+            // ===============================================================================
+            
+            // Create a variable to store the treatment identifiers for the
+            // treatments that the user wishes to ADD to the "Administers_Treatment"
+            // table. This variable will be used in the add query. 
+            var providerUpdateAddTreatments = req.body.addtreatmentforprovider;
+
+            // Check if the user selected any of the treatments that
+            // were listed on the "provider-edit" page to be added.
+            if(providerUpdateAddTreatments) {
+
+                // Create a variable for storing the query that will add
+                // the treatment to the "Administers_Treatment" table in
+                // the database.
+                var addProviderTreatmentJoinSQL = `INSERT INTO Administers_Treatment (Administers_ProviderID, 
+                                                    Administers_TreatmentID) VALUES (?, ?);`;
+
+                // If only one treatment was selected, then 
+                // execute the query to add the treatment ID
+                // and the provider ID to the "Administers_Treatment" 
+                // table.
+                if(providerUpdateAddTreatments.length == 1) {
+
+                    // If only one treatment was selected to be added 
+                    // in the update route, then execute the query to
+                    // add the treatment associated with the given 
+                    // provider to the "Administers_Treatment" table.
+                    database.query(addProviderTreatmentJoinSQL, [updateProviderID, providerUpdateAddTreatments], function(error, data, fields) {
+
+                        // If there is an error, log the error.
+                        if(error) {
+                            console.log(error);
+
+                        // Otherwise, complete the actions below.
+                        } else {
+
+                            // For now, do nothing.
+                        }
+                    });
+
+                // If more than one treatment was selected, then 
+                // loop through each treatment that was selected
+                // and add their identifiers along with the
+                // corresponding provider identifier to the
+                // "Administers_Treatment" table.
+                } else if(providerUpdateAddTreatments.length > 1) {
+
+                    // Create a for loop to add each treatment that was selected,
+                    // assuming that there were multiple treatments selected, to
+                    // the "Administers_Treatment" table along with the provider
+                    // ID that was obtained.
+                    for(var j = 0; j < providerUpdateAddTreatments.length; j++) {
+
+                        // Complete the query in the database and add the treatment
+                        // data entered by the user into the "Administers_Treatment"
+                        // table of the database.
+                        database.query(addProviderTreatmentJoinSQL, [updateProviderID, providerUpdateAddTreatments[j]], function(error, data, fields) {
+
+                            // If there is an error, log the error.
+                            if(error) {
+                                console.log(error);
+
+                            // Otherwise, complete the actions below.
+                            } else {
+
+                                // For now, do nothing.
+                            }
+                        });
+                    }
+
+                // If there are no actions that were
+                // taken, then do nothing for now.
+                } else {
+
+                    // Otherwise, do nothing.
+                }
+            }
+            // ===============================================================================
+
             // Redirect the route back to the main providers page.
             // Add a flash message indicating that the provider was
             // successfully updated in the database.
@@ -813,33 +1016,6 @@ providerRouter.post("/provider-update", function(req, res) {
         }
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Create a post request for when the user wants to
 // remove a given provider.

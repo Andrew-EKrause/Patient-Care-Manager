@@ -1079,8 +1079,8 @@ patientRouter.post("/patient-update", function(req, res) {
                     for(var l = 0; l < patientUpdateAddTreatments.length; l++) {
 
                         // Complete the query in the database and add the treatment
-                        // data entered by the user into the treatment table of the
-                        // database.
+                        // data entered by the user into the "Receives_Treatment"
+                        // table of the database.
                         database.query(addTreatmentJoinSQL, [updatePatientID, patientUpdateAddTreatments[l]], function(error, data, fields) {
 
                             // If there is an error, log the error.
@@ -1095,7 +1095,7 @@ patientRouter.post("/patient-update", function(req, res) {
                         });
                     }
 
-                // There are no actions that were
+                // If there are no actions that were
                 // taken, then do nothing for now.
                 } else {
 

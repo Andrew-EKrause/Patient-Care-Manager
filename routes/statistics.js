@@ -71,7 +71,7 @@ statisticsRouter.get("/statistics", function(req, res, next) {
     // --> ALSO...CREATE THOSE JOIN TABLES IN THE DATABASE AT SOME POINT!!!
 
     // ==================================================================
-    // Complex Query <1> - Top 5 Highest Risk Patients
+    // Complex Query <1> - Top 5 High-Risk Patients
     // ==================================================================
     // Create the first complex query. The first complex query 
     // selects all of the patients that have a risk index greater

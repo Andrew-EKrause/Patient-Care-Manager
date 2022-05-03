@@ -26,6 +26,7 @@ The Patient Care Manager (PCM) site is hosted on a Heroku server and is accessib
 - Node.js
 - MySQL
 - MySQL Workbench
+- JawsDB
 - Draw.io (Flowcharts, UML Diagrams): https://app.diagrams.net/
 - Heroku: https://www.heroku.com/
 - Udemy: https://www.udemy.com/

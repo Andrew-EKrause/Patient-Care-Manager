@@ -197,45 +197,19 @@
                                             <!-- Include action (edit and remove) buttons here -->
                                             <div class="patient-edit-remove-buttons">
 
-
-
-
-
-                                            <!-- Include a button for the user to click when they wish to edit a patient -->
-                                            <a class="patient-edit-white patient-edit-remove patient-edit-pencil" href="/patient-edit/<%= data.PatientID %>">
-                                                <i class="fa-solid fa-pencil"></i>
-                                            </a>
-
-
-                                            <!--
-                                                Include a button for expanding any patient's information.
-                                                This button is used to expand any patient module that is
-                                                listed in the database.
-                                            -->
-                                            <a class="patient-edit-white patient-edit-remove" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-patients<%= data.PatientID %>" aria-expanded="false" aria-controls="collapse-patients<%= data.PatientID %>">
-                                                <i class="fa-solid fa-circle-info" style="text-align: center; width: 100%; height: 100%;"></i>
-                                            </a>
-
-
-
-                                           
-
-
-
-
                                                 <!-- 
                                                     Include a button for expanding any patient's information.
                                                     This button is used to expand any patient module that is
                                                     listed in the database.
                                                 -->
-                                                <!-- <a class="patient-edit-white patient-edit-remove" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-patients<%= data.PatientID %>" aria-expanded="false" aria-controls="collapse-patients<%= data.PatientID %>">
-                                                    <i class="fa-solid fa-circle-info" style="text-align: center; width: 100%; height: 100%;"></i>
-                                                </a> -->
+                                                <a class="patient-edit-white patient-edit-remove" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-patients<%= data.PatientID %>" aria-expanded="false" aria-controls="collapse-patients<%= data.PatientID %>">
+                                                    <i class="fa-solid fa-circle-info" style="height: 25px; vertical-align: center;"></i>
+                                                </a>
 
                                                 <!-- Include a button for the user to click when they wish to edit a patient -->
-                                                <!-- <a class="patient-edit-white patient-edit-remove patient-edit-pencil" href="/patient-edit/<%= data.PatientID %>">
+                                                <a class="patient-edit-white patient-edit-remove patient-edit-pencil" href="/patient-edit/<%= data.PatientID %>">
                                                     <i class="fa-solid fa-pencil"></i>
-                                                </a> -->
+                                                </a>
 
                                                 <!-- 
                                                     Include a button for the user to click when they wish to remove a patient.

@@ -896,6 +896,9 @@ nav {
 
     .patient-edit-remove-buttons {
         margin-top: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
     }
 
     .patient-form-horizontal {
@@ -909,8 +912,13 @@ nav {
         padding: 10px;
         padding-left: 25px;
         padding-right: 25px;
-        margin-left: 10px;
+        /* margin-left: 10px; */
         border: 0;
+    }
+
+    .patient-edit-pencil {
+        margin-left: 10px;
+        margin-right: 10px;
     }
 }
 
@@ -928,9 +936,11 @@ nav {
     }
 
     .patient-edit-remove-buttons {
-        min-width: 260px;
         margin-top: auto;
         margin-bottom: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
     }
 
     .patient-form-horizontal {
@@ -941,12 +951,15 @@ nav {
         text-decoration: none;
         color: var(--black-font);
         font-size: 25px;
-        padding-top: 10px;
-        padding-bottom: 10px;
+        padding: 10px;
         padding-left: 25px;
         padding-right: 25px;
         margin-left: 10px;
         border: 0;
+    }
+
+    .patient-edit-pencil {
+        margin-left: 10px;
     }
 }
 
@@ -954,10 +967,6 @@ nav {
     text-decoration: none;
     background-color: var(--edit-blue-color);
     color: var(--black-font);
-}
-
-.patient-edit-pencil {
-    /* margin-left: 10px; */
 }
 
 .patient-edit-white {
@@ -1861,6 +1870,9 @@ input[type="checkbox"]:checked::before {
 
     .treatment-edit-remove-buttons {
         margin-top: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
     }
 
     .treatment-form-horizontal {
@@ -1874,8 +1886,13 @@ input[type="checkbox"]:checked::before {
         padding: 10px;
         padding-left: 25px;
         padding-right: 25px;
-        margin-left: 10px;
+        /* margin-left: 10px; */
         border: 0;
+    }
+
+    .treatment-edit-pencil {
+        margin-left: 10px;
+        margin-right: 10px;
     }
 }
 
@@ -1893,9 +1910,11 @@ input[type="checkbox"]:checked::before {
     }
 
     .treatment-edit-remove-buttons {
-        min-width: 260px;
         margin-top: auto;
         margin-bottom: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
     }
 
     .treatment-form-horizontal {
@@ -1912,16 +1931,16 @@ input[type="checkbox"]:checked::before {
         margin-left: 10px;
         border: 0;
     }
+
+    .treatment-edit-pencil {
+        margin-left: 10px;
+    }
 }
 
 .treatment-edit-remove:hover {
     text-decoration: none;
     background-color: var(--edit-blue-color);
     color: var(--black-font);
-}
-
-.treatment-edit-pencil {
-    margin-left: 4px;
 }
 
 .treatment-edit-white {
@@ -2601,6 +2620,9 @@ input[type="checkbox"]:checked::before {
 
     .provider-edit-remove-buttons {
         margin-top: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
     }
 
     .provider-form-horizontal {
@@ -2614,8 +2636,13 @@ input[type="checkbox"]:checked::before {
         padding: 10px;
         padding-left: 25px;
         padding-right: 25px;
-        margin-left: 10px;
+        /* margin-left: 10px; */
         border: 0;
+    }
+
+    .provider-edit-pencil {
+        margin-left: 10px;
+        margin-right: 10px;
     }
 }
 
@@ -2633,9 +2660,11 @@ input[type="checkbox"]:checked::before {
     }
 
     .provider-edit-remove-buttons {
-        min-width: 260px;
         margin-top: auto;
         margin-bottom: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
     }
 
     .provider-form-horizontal {
@@ -2652,16 +2681,16 @@ input[type="checkbox"]:checked::before {
         margin-left: 10px;
         border: 0;
     }
+
+    .provider-edit-pencil {
+        margin-left: 10px;
+    }
 }
 
 .provider-edit-remove:hover {
     text-decoration: none;
     background-color: var(--edit-blue-color);
     color: var(--black-font);
-}
-
-.provider-edit-pencil {
-    margin-left: 4px;
 }
 
 .provider-edit-white {
@@ -3341,6 +3370,9 @@ input[type="checkbox"]:checked::before {
 
     .department-edit-remove-buttons {
         margin-top: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
     }
 
     .department-form-horizontal {
@@ -3354,8 +3386,13 @@ input[type="checkbox"]:checked::before {
         padding: 10px;
         padding-left: 25px;
         padding-right: 25px;
-        margin-left: 10px;
+        /* margin-left: 10px; */
         border: 0;
+    }
+
+    .department-edit-pencil {
+        margin-left: 10px;
+        margin-right: 10px;
     }
 }
 
@@ -3373,9 +3410,11 @@ input[type="checkbox"]:checked::before {
     }
 
     .department-edit-remove-buttons {
-        min-width: 260px;
         margin-top: auto;
         margin-bottom: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
     }
 
     .department-form-horizontal {
@@ -3392,16 +3431,16 @@ input[type="checkbox"]:checked::before {
         margin-left: 10px;
         border: 0;
     }
+
+    .department-edit-pencil {
+        margin-left: 10px;
+    }
 }
 
 .department-edit-remove:hover {
     text-decoration: none;
     background-color: var(--edit-blue-color);
     color: var(--black-font);
-}
-
-.department-edit-pencil {
-    margin-left: 4px;
 }
 
 .department-edit-white {

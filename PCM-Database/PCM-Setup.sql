@@ -26,7 +26,7 @@
 
 /*
     Simple code for creating the PCM database.
-    Here we creat and use the database if the
+    Here we create and use the database if the
     database does not already exist.
 */
 CREATE DATABASE IF NOT EXISTS PCM;
@@ -94,8 +94,6 @@ CREATE TABLE Provider (
     PRIMARY KEY (ProviderID),
     UNIQUE KEY ProviderID_UNIQUE (ProviderID)
 );
-
-/* --> REMEMBER THAT THE URGENT VIEW WILL BE CREATED VIA A COMPLEX QUERY!!! */
 
 /* 
     Create the DEPARTMENT table for the database. 

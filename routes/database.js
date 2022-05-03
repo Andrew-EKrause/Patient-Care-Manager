@@ -15,12 +15,6 @@
  * 
  */
 
-// --> MAYBE SEE IF YOU CAN ACTUALLY USE SQL SYNTAX TO CREATE
-// --> THE DATABASE (ADD A CHECK TO SEE IF IT ALREADY EXISTS).
-// --> ALSO, SEE IF YOU CAN ALSO USE SQL SYNTAX TO CREATE
-// --> TABLES FOR THE DATABASE (AGAIN, HAVE A CHECK THAT ONLY
-// --> DOES THIS IF THOSE TABLES DON'T ALREADY EXIST).
-
 // Add the packages required to complete the inital database 
 // setup in this file. Included in the required packages is
 // a JSON file in the routes folder that contains the PCM

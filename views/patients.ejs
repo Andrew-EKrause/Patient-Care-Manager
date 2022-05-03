@@ -196,17 +196,26 @@
 
                                             <!-- Include action (edit and remove) buttons here -->
                                             <div class="patient-edit-remove-buttons">
+
+
                                                 
                                                 <style>
-                                                    .icon {
-                                                        width: 100%;
-                                                        height: 100%;
+                                                    span.fa-circle-span {
+                                                        border: 1px solid #FF0000;
                                                         display: inline-block;
-                                                        -moz-border-radius: 0;
-                                                        -webkit-border-radius: 0;
-                                                        border-radius: 0;
+                                                        height: 38px;
+                                                        overflow: hidden;
+                                                        position: relative;
+                                                        width: 45px;
+                                                    }
+                                                    i.fa-circle-info:before {
+                                                        left: 0;
+                                                        position: absolute;
+                                                        top: -4px;
                                                     }
                                                 </style>
+
+
 
                                                 <!-- 
                                                     Include a button for expanding any patient's information.
@@ -214,10 +223,12 @@
                                                     listed in the database.
                                                 -->
                                                 <a class="patient-edit-white patient-edit-remove" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-patients<%= data.PatientID %>" aria-expanded="false" aria-controls="collapse-patients<%= data.PatientID %>">
-                                                    <div class="icon">
-                                                        <i class="fa-solid fa-fw fa-circle-info" style="text-align: center; width: 100%; height: 100%;"></i>
-                                                    </div>
+                                                    <span class="fa-circle-span">
+                                                        <i class="fa-solid fa-circle-info" style="text-align: center; width: 100%; height: 100%;"></i>
+                                                    </span>
                                                 </a>
+
+
 
                                                 <!-- Include a button for the user to click when they wish to edit a patient -->
                                                 <a class="patient-edit-white patient-edit-remove patient-edit-pencil" href="/patient-edit/<%= data.PatientID %>">

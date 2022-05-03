@@ -14,7 +14,7 @@ The Patient Care Manager (PCM) site is hosted on a Heroku server and is accessib
 
 
 ###### Picture of the Database ER Diagram
-<img width="1101" alt="PCM-ER-Diagram" src="https://user-images.githubusercontent.com/57727121/165997115-fdfa4e0c-de10-49c5-964b-714bfb855c6e.png">
+<img width="1069" alt="PCM-ER-Diagram" src="https://user-images.githubusercontent.com/57727121/166434710-7ba58ad7-adf7-47c2-9c9c-6ab58b85160e.png">
 
 
 **Resources for Project:**

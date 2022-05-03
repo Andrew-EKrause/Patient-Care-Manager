@@ -941,7 +941,8 @@ nav {
         text-decoration: none;
         color: var(--black-font);
         font-size: 25px;
-        padding: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
         padding-left: 25px;
         padding-right: 25px;
         margin-left: 10px;
@@ -956,7 +957,7 @@ nav {
 }
 
 .patient-edit-pencil {
-    margin-left: 4px;
+    /* margin-left: 10px; */
 }
 
 .patient-edit-white {

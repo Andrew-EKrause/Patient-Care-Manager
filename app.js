@@ -42,7 +42,6 @@ var expressValidator = require('express-validator');
 // Utilize the body parser package.
 var bodyParser = require('body-parser');
 
-
 // Use the file and error packages.
 const { appendFile } = require("fs");
 var createError = require('http-errors');

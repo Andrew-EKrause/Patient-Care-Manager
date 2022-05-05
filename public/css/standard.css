@@ -4111,6 +4111,9 @@ input[type="checkbox"]:checked::before {
     .statistic-edit-remove-buttons {
         margin-top: auto;
         margin-bottom: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
     }
 
     .statistic-form-horizontal {
@@ -4145,6 +4148,9 @@ input[type="checkbox"]:checked::before {
     .statistic-edit-remove-buttons {
         margin-top: auto;
         margin-bottom: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
     }
 
     .statistic-form-horizontal {
@@ -4204,6 +4210,17 @@ input[type="checkbox"]:checked::before {
         justify-content: flex-start; */
     }
 
+    .statistic-input-column {
+        margin-right: 10px;
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 10px;
+    }
+
+    .statistic-second-column {
+        margin-bottom: 35px;
+    }
+
     .statistic-column {
         margin-right: 10px;
         width: 100%;
@@ -4233,6 +4250,14 @@ input[type="checkbox"]:checked::before {
         justify-content: flex-start;
     }
 
+    .statistic-input-column {
+        margin-left: 20px;
+        margin-right: 8px;
+        margin-bottom: 20px;
+        width: 50%;
+        max-width: 350px; 
+    }
+
     .statistic-column {
         margin-left: 20px;
         margin-right: 8px;
@@ -4243,7 +4268,26 @@ input[type="checkbox"]:checked::before {
 
 .statistic-text-info {
     text-decoration: none;
-    margin: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.statistic-heading-content {
+    font-size: 25px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px !important;
+    margin-bottom: 30px;
+}
+
+.statistic-text-content {
+    font-size: 20px;
+    text-align: left;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-top: 10px;
+    margin-bottom: 30px;
 }
 
 .no-statistic-data {

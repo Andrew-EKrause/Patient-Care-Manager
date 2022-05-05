@@ -107,7 +107,7 @@ statisticsRouter.get("/statistics", function(req, res, next) {
         // If the user did not enter any input, set
         // the default value to 5 for the patient
         // risk index query limit.
-        applyPatientRiskIndexLimit = 5;
+        applyPatientRiskIndexLimit = 100;
     }
 
     // ===================================================================
@@ -130,7 +130,7 @@ statisticsRouter.get("/statistics", function(req, res, next) {
         // If the user did not enter any input, set
         // the default value to 5 for the provider
         // care query limit.
-        applyNumProviderCareLimit = 5;
+        applyNumProviderCareLimit = 100;
     }
 
     // ===================================================================
@@ -160,7 +160,7 @@ statisticsRouter.get("/statistics", function(req, res, next) {
         // If the user did not enter any input, set
         // the default value to 5 for the treatment
         // query limit.
-        applyProviderTreatmentLimit = 5;
+        applyProviderTreatmentLimit = 100;
     }
 
     // ==================================================================

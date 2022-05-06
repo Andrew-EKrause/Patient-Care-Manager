@@ -358,8 +358,8 @@ nav {
     .about-heading {
         font-size: clamp(2.5rem, 2.85rem, 3.5rem); 
         color: var(--black-font);
-        text-align: center;
-        padding-left: 50px;
+        text-align: left;
+        padding-left: 15px;
         padding-right: 50px;
         padding-top: 20px;
     }
@@ -375,7 +375,7 @@ nav {
     .about-info {
         padding: 15px;
         padding-top: 0;
-        padding-bottom: 40px;
+        padding-bottom: 50px;
         width: fit-content;
     }
 }

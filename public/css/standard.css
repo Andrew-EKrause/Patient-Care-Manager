@@ -353,20 +353,54 @@ nav {
     color: var(--black-font);
 }
 
-.about-heading {
-    font-size: clamp(2.5rem, 2.85rem, 3.5rem); 
-    color: var(--black-font);
-    text-align: center;
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-top: 20px;
+@media all and (max-width: 650px) {
+
+    .about-heading {
+        font-size: clamp(2.5rem, 2.85rem, 3.5rem); 
+        color: var(--black-font);
+        text-align: center;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 20px;
+    }
+
+    .about-text {
+        font-size: 20px;
+        padding: 15px;
+        padding-top: 20px;
+        margin-bottom: 0;
+    }
+
+    .about-info {
+        padding: 15px;
+        padding-top: 0;
+        width: fit-content;
+    }
 }
 
-.about-text {
-    font-size: 20px;
-    padding: 50px;
-    padding-top: 20px;
-    margin-bottom: 0;
+@media all and (min-width: 650px) { 
+
+    .about-heading {
+        font-size: clamp(2.5rem, 2.85rem, 3.5rem); 
+        color: var(--black-font);
+        text-align: center;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-top: 20px;
+    }
+
+    .about-text {
+        font-size: 20px;
+        padding: 50px;
+        padding-top: 20px;
+        margin-bottom: 0;
+    }
+
+    .about-info {
+        padding: 50px;
+        padding-top: 0;
+        width: fit-content;
+    }
 }
 
 .pcm-link {
@@ -379,19 +413,13 @@ nav {
     text-decoration: underline;
 }
 
-.about-info {
-    padding: 50px;
-    padding-top: 0;
-    width: fit-content;
-}
-
 .about-anchor {
     padding: 15px;
     background-color: var(--blue-background);
     text-decoration: none;
     color: var(--white-font);
     border-radius: 56px;
-    font-size: clamp(0.85rem, 2.5vw, 1.5rem); 
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem); 
     transition: 0.1s ease, color 50ms ease;
 }
 

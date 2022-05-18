@@ -77,7 +77,7 @@ body {
     margin: auto;
     background-color: var(--white-background);
     color: var(--black-font);
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Cardo', serif;
     font-size: 120%;
     scroll-behavior: smooth; /* KEEP AN EYE ON THIS */
 }

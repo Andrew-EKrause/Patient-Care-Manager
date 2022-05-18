@@ -1,0 +1,310 @@
+/**
+ * The CSS in this file provides styles for the
+ * STATISTICS page on the Mayo Clinic web application.
+ * The styles are applied to the statistics.ejs file
+ * to make the web application appear in a simple,
+ * clean format. 
+ *
+ * Author: Andrew Krause
+ * Date: 05/10/2022
+ *
+ */
+
+/* ====================================================================
+                            STATISTICS Page
+==================================================================== */
+
+#statistics-page {
+    padding-top: 130px;
+    color: var(--whiter-color);
+    background-color: var(--black-color);
+    flex: 1 0 auto;
+}
+
+.statistic-page-text {
+    font-size: clamp(2.5rem, 2.85rem, 3.5rem); 
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.statistic-ordering {
+    margin-top: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.statistic-buttons {
+    display: grid;
+    grid-template-columns: none;
+    margin: 0;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#statistic-back-arrow span i {
+    display: inline-block;
+    transition: 0.1s;
+}
+
+#statistic-back-arrow:hover span i {
+    color: var(--blue-font);
+    transform: translateX(-30%);
+}
+
+.statistic-items {
+    margin-top: 30px;
+    margin-bottom: 60px;
+}
+
+.statistic-name {
+    max-width: 800px;
+    font-size: 25px;
+    text-decoration: none;
+    color: var(--black-font);
+    background-color: var(--gray-color);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    border: 2px solid var(--gray-color);
+}
+
+.statistic-name-text {
+    margin: 0;
+}
+
+@media all and (max-width: 650px) { 
+
+    .statistic-name-and-buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .statistic-full-name {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .statistic-edit-remove-buttons {
+        margin-top: auto;
+        margin-bottom: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    .statistic-form-horizontal {
+        display: inline-block;
+    }
+
+    .statistic-edit-remove {
+        text-decoration: none;
+        color: var(--black-font);
+        font-size: 25px;
+        padding: 10px;
+        padding-left: 25px;
+        padding-right: 25px;
+        margin-left: 10px;
+        border: 0;
+    }
+}
+
+@media all and (min-width: 650px) { 
+
+    .statistic-name-and-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .statistic-full-name {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .statistic-edit-remove-buttons {
+        margin-top: auto;
+        margin-bottom: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    .statistic-form-horizontal {
+        display: inline-block;
+    }
+
+    .statistic-edit-remove {
+        text-decoration: none;
+        color: var(--black-font);
+        font-size: 25px;
+        padding: 10px;
+        padding-left: 25px;
+        padding-right: 25px;
+        margin-left: 10px;
+        border: 0;
+    }
+}
+
+.statistic-edit-remove:hover {
+    text-decoration: none;
+    background-color: var(--edit-blue-color);
+    color: var(--black-font);
+}
+
+.statistic-edit-pencil {
+    margin-left: 4px;
+}
+
+.statistic-edit-white {
+    background-color: var(--white-background);
+    border-radius: 0.5em;
+}
+
+.statistic-edit-red {
+    background-color: rgb(235, 169, 169);
+    border-radius: 0.5em;
+}
+
+@media all and (max-width: 650px) { 
+
+    .statistic-card {
+        max-width: 800px;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--black-font);
+        background-color: var(--white-background);
+        margin: 0;
+        padding-right: 20px;
+        padding-left: 20px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        border: 2px solid var(--gray-color);
+        /* display: flex;
+        flex-direction: column;
+        justify-content: flex-start; */
+    }
+
+    .statistic-input-column {
+        margin-right: 10px;
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 10px;
+    }
+
+    .statistic-second-column {
+        margin-bottom: 35px;
+    }
+
+    .statistic-column {
+        margin-right: 10px;
+        width: 100%;
+        max-width: 400px;
+    }
+}
+
+@media all and (min-width: 650px) { 
+
+    .statistic-card {
+        max-width: 800px;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--black-font);
+        background-color: var(--white-background);
+        margin: 0;
+        padding-right: 20px;
+        padding-left: 20px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        border: 2px solid var(--gray-color);
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    .statistic-input-column {
+        margin-left: 20px;
+        margin-right: 8px;
+        margin-bottom: 20px;
+        width: 50%;
+        max-width: 350px; 
+    }
+
+    .statistic-column {
+        margin-left: 20px;
+        margin-right: 8px;
+        width: 50%;
+        max-width: 350px; 
+    }
+}
+
+.statistic-text-info {
+    text-decoration: none;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.statistic-heading-content {
+    font-size: 25px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px !important;
+    margin-bottom: 30px;
+}
+
+.statistic-text-content {
+    font-size: 20px;
+    text-align: left;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.no-statistic-data {
+    font-size: 25px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.statistic-bottom {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    border-radius: 0.5em;
+}
+
+.statistic-bottom-color {
+    text-decoration: none;
+    background-color: var(--gray-color);
+    color: black;
+    opacity: 60%;
+    padding: 15px;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin: 15px;
+}
+
+.statistic-bottom-color:hover {
+    text-decoration: none;
+    background-color: var(--edit-blue-color);
+    color: black;
+    opacity: 100%;
+}

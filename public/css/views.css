@@ -1,0 +1,311 @@
+/**
+ * The CSS in this file provides styles for the
+ * VIEWS page on the Mayo Clinic web application.
+ * The styles are applied to the views.ejs file
+ * to make the web application appear in a simple,
+ * clean format. 
+ *
+ * Author: Andrew Krause
+ * Date: 05/10/2022
+ *
+ */
+
+/* ====================================================================
+                                VIEWS Page
+==================================================================== */
+
+@media all and (max-width: 650px) { 
+
+    #views-section {
+        padding-top: 130px;
+        padding-bottom: 75px;
+        margin-top: auto;
+        margin-bottom: auto;
+        color: var(--whiter-color);
+        background-color: var(--black-color);
+    }
+}
+
+@media all and (min-width: 650px) { 
+
+    #views-section {
+        padding-top: 155px;
+        padding-bottom: 75px;
+        margin-top: auto;
+        margin-bottom: auto;
+        color: var(--whiter-color);
+        background-color: var(--black-color);
+    }
+}
+
+.view-page-text {
+    font-size: clamp(2.5rem, 2.85rem, 3.5rem); 
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.view-ordering {
+    margin-top: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+@media all and (max-width: 850px) { 
+
+    .view-buttons {
+        display: grid;
+        grid-template-columns: 100%;
+        margin: 0;
+    }
+
+    .view-container1 {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border: 2px solid var(--gray-color);
+        border-bottom: 1px solid var(--gray-color);
+        border-left: 2px solid var(--gray-color);
+        border-right: 2px solid var(--gray-color);
+    }
+
+    .view-container2 {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border: 2px solid var(--gray-color);
+        border-top: 1px solid var(--gray-color);
+        border-bottom: 1px solid var(--gray-color);
+        border-left: 2px solid var(--gray-color);
+        border-right: 2px solid var(--gray-color);
+    }
+
+    .view-container3 {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border: 2px solid var(--gray-color);
+        border-top: 1px solid var(--gray-color);
+        border-top: 1px solid var(--gray-color);
+        border-bottom: 1px solid var(--gray-color);
+        border-left: 2px solid var(--gray-color);
+        border-right: 2px solid var(--gray-color);
+    }
+
+    .view-container4 {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border: 2px solid var(--gray-color);
+        border-top: 1px solid var(--gray-color);
+        border-bottom: 1px solid var(--gray-color);
+        border-left: 2px solid var(--gray-color);
+        border-right: 2px solid var(--gray-color);
+    }
+
+    .view-container5 {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border: 2px solid var(--gray-color);
+        border-top: 1px solid var(--gray-color);
+        border-bottom: 1px solid var(--gray-color);
+        border-left: 2px solid var(--gray-color);
+        border-right: 2px solid var(--gray-color);
+    }
+
+    .view-container6 {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border: 2px solid var(--gray-color);
+        border-top: 1px solid var(--gray-color);
+        border-bottom: 2px solid var(--gray-color);
+        border-left: 2px solid var(--gray-color);
+        border-right: 2px solid var(--gray-color);
+    }
+}
+
+@media all and (min-width: 850px) { 
+
+    .view-buttons {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        margin: 0;
+        max-width: 1100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .view-container1 {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border: 2px solid var(--gray-color);
+        border-bottom: 1px solid var(--gray-color);
+        border-left: 2px solid var(--gray-color);
+        border-right: 1px solid var(--gray-color);
+    }
+
+    .view-container2 {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border: 2px solid var(--gray-color);
+        border-bottom: 1px solid var(--gray-color);
+        border-left: 1px solid var(--gray-color);
+        border-right: 2px solid var(--gray-color);
+    }
+
+    .view-container3 {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border: 2px solid var(--gray-color);
+        border-top: 1px solid var(--gray-color);
+        border-bottom: 1px solid var(--gray-color);
+        border-left: 2px solid var(--gray-color);
+        border-right: 1px solid var(--gray-color);
+    }
+
+    .view-container4 {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border: 2px solid var(--gray-color);
+        border-top: 1px solid var(--gray-color);
+        border-bottom: 1px solid var(--gray-color);
+        border-left: 1px solid var(--gray-color);
+        border-right: 2px solid var(--gray-color);
+    }
+
+    .view-container5 {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border: 2px solid var(--gray-color);
+        border-top: 1px solid var(--gray-color);
+        border-bottom: 2px solid var(--gray-color);
+        border-left: 2px solid var(--gray-color);
+        border-right: 1px solid var(--gray-color);
+    }
+
+    .view-container6 {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border: 2px solid var(--gray-color);
+        border-top: 1px solid var(--gray-color);
+        border-bottom: 2px solid var(--gray-color);
+        border-left: 1px solid var(--gray-color);
+        border-right: 2px solid var(--gray-color);
+    }
+}
+
+.view-container1:hover {
+    background-color: var(--gray-color);
+    color: var(--blue-font);
+}
+
+.view-container2:hover {
+    background-color: var(--gray-color);
+    color: var(--blue-font);
+}
+
+.view-container3:hover {
+    background-color: var(--gray-color);
+    color: var(--blue-font);
+}
+
+.view-container4:hover {
+    background-color: var(--gray-color);
+    color: var(--blue-font);
+}
+
+.view-container5:hover {
+    background-color: var(--gray-color);
+    color: var(--blue-font);
+}
+
+.view-container6:hover {
+    background-color: var(--gray-color);
+    color: var(--blue-font);
+}
+
+.view-icon {
+    display: inline-block;
+}

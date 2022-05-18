@@ -1,0 +1,172 @@
+/**
+ * The CSS in this file provides styles for the
+ * DEPARTMENT-EDIT page on the Mayo Clinic web
+ * application. The styles are applied to the
+ * department-edit.ejs file to make the web 
+ * application appear in a simple, clean format. 
+ *
+ * Author: Andrew Krause
+ * Date: 05/10/2022
+ *
+ */
+
+/* ====================================================================
+                        EDIT DEPARTMENTS Page
+==================================================================== */
+
+#departments-edit-page {
+    padding-top: 130px;
+    color: var(--whiter-color);
+    background-color: var(--black-color);
+}
+
+.department-edit-page-text {
+    font-size: clamp(2.5rem, 2.85rem, 3.5rem); 
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.department-edit-ordering {
+    margin-top: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.department-edit-items {
+    margin-top: 30px;
+    margin-bottom: 60px;
+}
+
+.department-edit-name {
+    max-width: 800px;
+    font-size: 25px;
+    text-decoration: none;
+    color: var(--black-font);
+    background-color: var(--gray-color);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    border: 2px solid var(--gray-color);
+}
+
+.department-edit-name-text {
+    margin: 0;
+}
+
+@media all and (max-width: 650px) { 
+
+    .department-edit-card {
+        max-width: 800px;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--black-font);
+        background-color: var(--white-background);
+        margin: 0;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-right: 20px;
+        padding-left: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 30px;
+        border: 2px solid var(--gray-color);
+        /* display: flex;
+        flex-direction: column;
+        justify-content: flex-start; */
+    }
+}
+
+@media all and (min-width: 650px) { 
+
+    .department-edit-card {
+        max-width: 800px;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--black-font);
+        background-color: var(--white-background);
+        margin: 0;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-right: 20px;
+        padding-left: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 30px;
+        border: 2px solid var(--gray-color);
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+}
+
+.department-edit-inline {
+    display: inline-block;
+}
+
+@media all and (max-width: 650px) { 
+
+    .department-edit-column {
+        margin-right: 0px;
+        max-width: 400px;
+        width: 100%;
+    }
+}
+
+@media all and (min-width: 650px) { 
+
+    .department-edit-column {
+        margin-right: 10px;
+        max-width: 400px;
+        width: 50%;
+    }
+}
+
+.department-edit-text-info {
+    text-decoration: none;
+    margin: 10px;
+}
+
+.department-edit-buttons {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin: 0;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#department-edit-icon1 span i {
+    display: inline-block;
+    transition: 0.1s;
+}
+
+#department-edit-icon1:hover span i {
+    color: var(--blue-font);
+    transform: scale(1.15);
+}
+
+#department-edit-icon2 span i {
+    display: inline-block;
+    transition: 0.1s;
+}
+
+#department-edit-icon2:hover span i {
+    color: var(--blue-font);
+    transform: scale(1.15);
+}
+
+.no-department-edit-data {
+    font-size: 25px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}

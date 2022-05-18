@@ -1,0 +1,197 @@
+/**
+ * The CSS in this file provides styles for the
+ * ABOUT page on the Mayo Clinic web application. 
+ * The styles are applied to the about.ejs file 
+ * to make the web application appear in a simple, 
+ * clean format. 
+ *
+ * Author: Andrew Krause
+ * Date: 05/10/2022
+ *
+ */
+
+/* ====================================================================
+                                ABOUT Page
+==================================================================== */
+
+#about-page {
+    height: 100%;  
+    width: 100%;
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    padding-top: 160px;
+    padding-bottom: 100px;
+    padding-right: 50px;
+    padding-left: 50px; 
+}
+
+.about-card {
+    position: relative;
+    max-width: 800px;
+    min-width: 300px;
+    border-radius: 20px;
+    border-top: 2px solid var(--gray-color);
+    border-bottom: 2px solid var(--gray-color);
+    border-left: 2px solid var(--gray-color);
+    border-right: 2px solid var(--gray-color);
+    margin: auto;
+}
+
+.close-container {
+    position: absolute;
+    right: 0.5em;
+    top: 0.5em;
+    width: fit-content;
+    background-color: var(--gray-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transform: scale(1.2);
+}
+
+.close-container:hover {
+    transform: scale(1.3);
+}
+
+.about-close {
+    color: var(--black-font);
+    position: absolute;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.fa-solid-top {
+    margin-left: 10px;
+    margin-top: 4px;
+    color: var(--black-font);
+}
+
+@media all and (max-width: 650px) {
+
+    .about-heading {
+        font-size: clamp(2.5rem, 2.85rem, 3.5rem); 
+        color: var(--black-font);
+        text-align: left;
+        padding-left: 15px;
+        padding-right: 50px;
+        padding-top: 20px;
+    }
+
+    .about-text {
+        font-size: 20px;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 40px;
+        margin-bottom: 0;
+    }
+
+    .about-info {
+        padding: 15px;
+        padding-top: 0;
+        padding-bottom: 50px;
+        width: fit-content;
+    }
+}
+
+@media all and (min-width: 650px) { 
+
+    .about-heading {
+        font-size: clamp(2.5rem, 2.85rem, 3.5rem); 
+        color: var(--black-font);
+        text-align: center;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-top: 20px;
+    }
+
+    .about-text {
+        font-size: 20px;
+        padding: 50px;
+        padding-top: 20px;
+        margin-bottom: 0;
+    }
+
+    .about-info {
+        padding: 50px;
+        padding-top: 0;
+        width: fit-content;
+    }
+}
+
+.pcm-link {
+    color: var(--black-font);
+    text-decoration: underline;
+}
+
+.pcm-link:hover {
+    color: var(--blue-font);
+    text-decoration: underline;
+}
+
+.about-anchor {
+    padding: 15px;
+    background-color: var(--blue-background);
+    text-decoration: none;
+    color: var(--white-font);
+    border-radius: 56px;
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem); 
+    transition: 0.1s ease, color 50ms ease;
+}
+
+.about-anchor i {
+    text-decoration: none;
+    color: var(--white-font);
+}
+
+.about-anchor:hover {
+    padding: 15px;
+    background-color: var(--white-background);
+    border-top: 2px solid var(--blue-font);
+    border-bottom: 2px solid var(--blue-font);
+    border-left: 2px solid var(--blue-font);
+    border-right: 2px solid var(--blue-font);
+}
+
+.about-anchor:hover i {
+    text-decoration: none;
+    color: var(--blue-font);
+}
+
+.fade-in {
+    -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 1s; /* Firefox < 16 */
+    -ms-animation: fadein 1s; /* Internet Explorer */
+    -o-animation: fadein 1s; /* Opera < 12.1 */
+    animation: fadein 1s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}

@@ -1,0 +1,128 @@
+/**
+ * The CSS in this file provides styles for the
+ * HOME page on the Mayo Clinic web application.
+ * The styles are applied to the home.ejs file
+ * to make the web application appear in a simple, 
+ * clean format. 
+ *
+ * Author: Andrew Krause
+ * Date: 05/10/2022
+ *
+ */
+
+/* ====================================================================
+                            HOME/MAIN Page
+==================================================================== */
+
+#home-page {
+    padding-top: 0rem;
+    height: 100%; 
+    margin: auto; 
+}
+
+.home-section {
+    padding-top: 85px;
+    padding-bottom: 25px;
+    margin-top: 150px;
+    margin-bottom: 150px;
+    /* margin-top: 250px;
+    margin-bottom: 175px; */
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+@media all and (max-width: 650px) { 
+
+    .home-text {
+        font-size: 55px;
+        color: var(--black-font);
+        text-align: center;
+        overflow-wrap: break-word;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+@media all and (min-width: 650px) { 
+    
+    .home-text {
+        font-size: 75px;
+        color: var(--black-font);
+        text-align: center;
+        overflow-wrap: break-word;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+.home-buttons {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin: 0;
+}
+
+.buttons-container-one {
+    font-size: 25px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--black-font);
+    margin: 0;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-right: 30px;
+    padding-left: 30px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top: 2px solid var(--gray-color);
+    border-bottom: 2px solid var(--gray-color);
+    border-left: 2px solid var(--gray-color);
+    border-right: 1px solid var(--gray-color);
+}
+
+.buttons-container-one:hover {
+    background-color: var(--gray-color);
+    color: var(--blue-font);
+}
+
+.buttons-container-two {
+    font-size: 25px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--black-font);
+    margin: 0;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-right: 30px;
+    padding-left: 30px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top: 2px solid var(--gray-color);
+    border-bottom: 2px solid var(--gray-color);
+    border-left: 1px solid var(--gray-color);
+    border-right: 2px solid var(--gray-color);
+}
+
+.buttons-container-two:hover {
+    background-color: var(--gray-color);
+    color: var(--blue-font);
+}
+
+#first-arrow span i {
+    display: inline-block;
+    transition: 0.1s;
+}
+
+#first-arrow:hover span i {
+    color: var(--blue-font);
+    transform: translateX(30%);
+}
+
+#second-arrow span i {
+    display: inline-block;
+    transition: 0.1s;
+}
+
+#second-arrow:hover span i {
+    color: var(--blue-font);
+    transform: translateX(30%);
+}

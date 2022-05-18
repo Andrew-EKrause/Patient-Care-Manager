@@ -1,18 +1,10 @@
 /**
- * The CSS in this file provides universal styles
+ * The CSS in this file acts as BACKUP for all of
+ * the CSS that is used to provide various styles
  * for the entire Mayo Clinic web application. 
- * The styles are applied to all ejs files to make
- * the web application appear in a simple, clean 
- * format. 
- *
- * NOTE:
- * The file styles the website in a desktop view. In 
- * the future, additional CSS files along wth CSS
- * media queries will be used to make the web app
- * responsive so it can be viewed on smaller screens
- * (such as the screens of mobile devices). In the 
- * meantime, media queries are used in certain areas
- * of this file.
+ * The styles can be applied to all ejs files to 
+ * make the web application appear in a simple, 
+ * clean format. 
  *
  * Author: Andrew Krause
  * Date: 05/10/2022

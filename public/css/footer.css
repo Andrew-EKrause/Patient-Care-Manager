@@ -1,0 +1,75 @@
+/**
+ * The CSS in this file provides styles for the
+ * FOOTER page on the Mayo Clinic web application.
+ * The styles are applied to the footer.ejs file
+ * to make the web application appear in a simple, 
+ * clean format. 
+ *
+ * Author: Andrew Krause
+ * Date: 05/10/2022
+ *
+ */
+
+/* ====================================================================
+                        FOOTER Section (All Pages)
+==================================================================== */
+
+#footer {
+    width: 100%;
+    border-top: 2px solid var(--gray-color);
+    text-align: center;
+    padding: 12px 32px;
+    bottom: 0;
+    /* margin-top: auto; */
+    flex-shrink: 0;
+    margin-bottom: 0;
+}
+
+.footer-row {
+    /* max-width: 1000px; */
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.footer-content {
+    flex: 30%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-bottom: 12px;
+}
+
+.footer-icons {
+    flex: 30%;
+    width: 50;
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 12px;
+}
+
+.footer-icon {
+    color: var(--navbar-text-color);
+}
+
+.footer-icon:hover {
+    color: var(--navbar-text-color-hover);
+}
+
+ul {
+    text-align: center !important;
+    margin-bottom: 0;
+    list-style-type: none;
+    text-decoration: none;
+    padding: 0 !important;
+}
+
+ul li {
+    display: inline;
+    list-style-type: none;
+    text-decoration: none;
+    margin: 0.25rem;
+}

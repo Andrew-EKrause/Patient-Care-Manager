@@ -1,0 +1,188 @@
+/**
+ * The CSS in this file provides styles for all
+ * of the pages on the Mayo Clinic web application.
+ * The styles are applied to all of the .ejs files
+ * to make the web application appear in a simple,
+ * clean format. 
+ *
+ * Author: Andrew Krause
+ * Date: 05/10/2022
+ *
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap');
+
+/* ====================================================================
+                    INITIAL/UNIVERSAL SETTINGS Section
+==================================================================== */
+
+/* Create the root of the CSS file to make dynamic variables. */
+:root {
+    /* --> Navbar colors */
+    --navbar-bg-color: rgb(255, 255, 255);
+    --navbar-text-color: rgb(0, 0, 0); 
+    --navbar-text-color-hover: rgb(0,87,184);
+
+    /* --> Border colors */
+    --white-border: rgb(255, 255, 255);
+    --black-border: rgb(0, 0, 0); 
+    --blue-border: rgb(0,87,184);
+    --gray-color: rgb(230,230,230);
+    
+    /* --> Background colors */
+    --white-background: rgb(255, 255, 255);
+    --black-background: rgb(0, 0, 0); 
+    --blue-background: rgb(0,87,184);
+    
+    /* --> Card styles */
+    --card-black: rgb(34, 33, 33);
+    --card-white: white;
+    
+    /* --> Font colors */
+    --white-font: rgb(255, 255, 255);
+    --black-font: rgb(0, 0, 0); 
+    --blue-font: rgb(0,87,184);
+
+    /* --> Edit blueish color */
+    --edit-blue-color: rgb(133, 174, 221);
+   
+    /* --> Card shadows */
+    --card-shadow: 5px 5px 1em gray;
+    --card-shadow-hover: 5px 5px 2em gray;
+
+    /* --> Hover effects */
+    --hover-scale: scale(1.01);
+
+    /* --> Nav and card spacing */
+    --nav-spacing: 0.35em;
+    --card-padding: clamp(1em, 1vw, 2em);
+
+    /* --> Transitions */
+    --main-transition: all 0.25s;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Set the background color as well as some additional attributes of the website. */
+body {
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5; 
+    margin: auto;
+    background-color: var(--white-background);
+    color: var(--black-font);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 120%;
+    scroll-behavior: smooth; /* KEEP AN EYE ON THIS */
+}
+
+/* Set the font style for h1 tags. */
+h1 {
+    font-family: 'Cardo', serif;
+    font-size: 50px !important;
+}
+
+/* Set the font style for h2 tags. */
+h2 {
+    font-family: 'Cardo', serif;
+    font-size: 32px !important;
+}
+
+/* Set the font style for h3 tags. */
+h3 {
+    font-family: 'Cardo', serif;
+    font-size: 25px !important;
+}
+
+/* Set the font style for h4 tags. */
+h4 {
+    font-family: 'Cardo', serif;
+    font-size: 25px !important;
+}
+
+/* Set the font style for h5 tags. */
+h5 {
+    font-family: 'Cardo', serif;
+    font-size: 25px !important;
+}
+
+/* Set the font style for a tags. */
+a {
+    font-family: 'Cardo', serif;
+    font-size: 25px !important;
+}
+
+/* Set the font style for span tags. */
+span {
+    font-family: 'Cardo', serif;
+    font-size: 25px !important;
+}
+
+/* Set the font style for b tags. */
+b {
+    font-family: 'Cardo', serif;
+    font-size: 22px !important;
+}
+
+/* Set the font style for label tags. */
+label {
+    font-family: 'Cardo', serif;
+    font-size: 22px !important;
+}
+
+/* Set the font style for button tags. */
+button {
+    font-family: 'Cardo', serif;
+    font-size: 22px !important;
+}
+
+/* Set the font style for p tags. */
+p {
+    font-family: 'Cardo', serif;
+    font-size: 20px;
+}
+
+/* =============================== */
+/* LIST THE FONTS YOU CAN USE HERE */
+/* =============================== */
+/*
+font-family: 'Bitter', serif;
+font-family: 'Cardo', serif;
+font-family: 'Josefin Slab', serif;
+font-family: 'Libre Franklin', sans-serif;
+font-family: 'Lora', serif;
+font-family: 'Montserrat', sans-serif;
+font-family: 'Open Sans', sans-serif;
+font-family: 'Raleway', sans-serif;
+font-family: 'Rokkitt', serif;
+font-family: 'Rubik', sans-serif;
+font-family: 'Source Sans Pro', sans-serif;
+font-family: 'Unna', serif;
+font-family: 'Zilla Slab', serif;
+*/
+/* =============================== */
+
+/* Ensure that the footer always sticks to the bottom of the screen. */
+footer {
+    margin-top: auto;
+}
+
+/* Make the scroll behavior of the website smoother. */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Prevents scrolling in cases like when a modal is open. */
+.overflowHidden {
+    height: 100%;
+    touch-action: none;
+    -ms-touch-action: none;
+    position: inherit;
+    overflow: hidden;
+}

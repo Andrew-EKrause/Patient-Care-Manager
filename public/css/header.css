@@ -1,0 +1,79 @@
+/**
+ * The CSS in this file provides styles for the
+ * HEADER page on the Mayo Clinic web application.
+ * The styles are applied to the header.ejs file
+ * to make the web application appear in a simple, 
+ * clean format. 
+ *
+ * Author: Andrew Krause
+ * Date: 05/10/2022
+ *
+ */
+
+/* ====================================================================
+                    NAVBAR Section (All Pages)
+==================================================================== */
+
+.navbar-container {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.nav-heading {
+    color: var(--black-font);
+    font-size: 30px;
+    display: inline-block;
+    margin-top: 3px;
+    margin-left: 3.5px;
+}
+
+.nav-heading-text {
+    color: var(--black-font);
+    text-decoration: none;
+}
+
+.nav-heading:hover {
+    color: var(--blue-font);
+    text-decoration: none;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    background-color: var(--navbar-bg-color);
+    padding: 12px 32px;
+    border-bottom: 2px solid var(--gray-color);
+    color: var(--black-font);
+}
+
+.menu {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-end;
+    margin-right: 0;
+}
+
+.menu-link {
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--black-font);
+    position: relative;
+    margin-left: 30px;
+}
+
+.menu-link:hover {
+    color: var(--blue-font);
+}
+
+.menu-about {
+    margin-left: 0 !important;
+}

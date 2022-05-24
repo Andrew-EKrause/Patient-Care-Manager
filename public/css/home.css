@@ -31,7 +31,7 @@
     padding-right: 20px;
 }
 
-@media all and (max-width: 650px) { 
+@media all and (max-width: 650px) {
 
     .home-text {
         font-size: 55px;

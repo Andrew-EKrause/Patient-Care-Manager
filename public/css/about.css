@@ -121,6 +121,7 @@
 }
 
 .pcm-link {
+    font-size: 20px;
     color: var(--black-font);
     text-decoration: underline;
 }

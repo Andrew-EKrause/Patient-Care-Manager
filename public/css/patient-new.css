@@ -159,7 +159,10 @@
     }
 }
 
+/* THIS APPLIES TO ALL CREATE/EDIT TABLES ON THE WEBSITE */
 .patient-create-text-info {
+    font-family: 'Cardo', serif;
+    font-size: 25px;
     text-decoration: none;
     margin: 10px;
     margin-top: 0;

@@ -85,13 +85,13 @@ body {
 /* Set the font style for h1 tags. */
 h1 {
     font-family: 'Cardo', serif;
-    font-size: 50px !important;
+    font-size: 50px;
 }
 
 /* Set the font style for h2 tags. */
 h2 {
     font-family: 'Cardo', serif;
-    font-size: 32px !important;
+    font-size: 32px;
 }
 
 /* Set the font style for h3 tags. */
@@ -115,7 +115,7 @@ h5 {
 /* Set the font style for a tags. */
 a {
     font-family: 'Cardo', serif;
-    font-size: 25px !important;
+    font-size: 25px;
 }
 
 /* Set the font style for span tags. */
@@ -124,14 +124,21 @@ span {
     font-size: 25px !important;
 }
 
+/* Set the font style for label tags. */
+label {
+    font-family: 'Cardo', serif;
+    font-size: 25px;
+}
+
 /* Set the font style for b tags. */
 b {
     font-family: 'Cardo', serif;
+    font-weight: bold;
     font-size: 22px !important;
 }
 
-/* Set the font style for label tags. */
-label {
+/* Set the font style for option tags. */
+option {
     font-family: 'Cardo', serif;
     font-size: 22px !important;
 }
@@ -145,7 +152,7 @@ button {
 /* Set the font style for p tags. */
 p {
     font-family: 'Cardo', serif;
-    font-size: 20px;
+    font-size: 22px;
 }
 
 /* =============================== */

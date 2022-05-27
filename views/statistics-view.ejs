@@ -1,0 +1,50 @@
+<!-- 
+    The statistics-view.ejs file provides a selection
+    of different statistic view buttons that the user
+    can choose to view different statistics in the
+    database. Each view button allows the user to see
+    the entity type associated with that button in the
+    Patient Care Manager database. There are three 
+    statistics views: Patient Risk Index, Providers
+    Caring for Patients, and Providers and Treatments.
+    An "Exit" option is provided to bring the user back 
+    to the home page.
+    ...
+    Project: Mayo Clinic Patient Care Manager 
+             (PCM) Web Application
+    Author: Andrew Krause
+    Class: Introduction to Database 
+           Management Systems (CS 364)
+    Date: 5/10/2022
+    ...
+-->
+
+<%- include('./partials/header.ejs') %>
+
+    <!-- Section for the views page -->
+    <section id="statistics-view-section">
+        <div class="fade-in">
+            <header>
+                <h1 class="statistics-view-page-text">Select Statistic to View</h1>
+            </header>
+            <div class="statistics-view-ordering">
+                <!-- Create a div to organize all of the view buttons -->
+                <div class="statistics-view-buttons">
+                    <a id="statistics-patient-icon" class="statistics-view-container1" href="/statistics-query1">
+                        <span class="statistics-view-icon"><i class="fa-solid fa-heart-circle-exclamation"></i></span> Patient Risk                     
+                    </a>
+                    <a id="statistics-treatment-icon" class="statistics-view-container2" href="/statistics-query2">
+                        <span class="statistics-view-icon"><i class="fa-solid fa-star-of-life"></i></span> Providers and Patients                      
+                    </a>
+                    <a id="statistics-provider-icon" class="statistics-view-container3" href="/statistics-query3">
+                        <span class="statistics-view-icon"><i class="fa-solid fa-flask-vial"></i></span> Providers and Treatments                         
+                    </a>
+                    <a id="statistics-exit-view-icon" class="statistics-view-container4" href="/views">
+                        <span class="statistics-view-icon"><i class="fa-solid fa-circle-xmark"></i></span> Exit
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<%- include('./partials/footer.ejs') %>

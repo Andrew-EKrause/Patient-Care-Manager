@@ -1,0 +1,233 @@
+/**
+ * The CSS in this file provides styles for the
+ * STATISTICS VIEW page on the Mayo Clinic web
+ * application. The styles are applied to the
+ * statistics-view.ejs file to make the web
+ * application appear in a simple, clean format. 
+ *
+ * Author: Andrew Krause
+ * Date: 05/10/2022
+ *
+ */
+
+/* ====================================================================
+                        STATISTICS VIEWS Page
+==================================================================== */
+
+@media all and (max-width: 650px) { 
+
+    #statistics-view-section {
+        padding-top: 130px;
+        padding-bottom: 75px;
+        margin-top: auto;
+        margin-bottom: auto;
+        color: var(--whiter-color);
+        background-color: var(--black-color);
+    }
+}
+
+@media all and (min-width: 650px) { 
+
+    #statistics-view-section {
+        padding-top: 155px;
+        padding-bottom: 75px;
+        margin-top: auto;
+        margin-bottom: auto;
+        color: var(--whiter-color);
+        background-color: var(--black-color);
+    }
+}
+
+.statistics-view-page-text {
+    font-size: clamp(2.5rem, 2.85rem, 3.5rem); 
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.statistics-view-ordering {
+    margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+@media all and (max-width: 850px) { 
+
+    .statistics-view-buttons {
+        display: grid;
+        grid-template-columns: 100%;
+        margin: 0;
+    }
+
+    .statistics-view-container1 {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border: 2px solid var(--gray-color);
+        border-bottom: 1px solid var(--gray-color);
+        border-left: 2px solid var(--gray-color);
+        border-right: 2px solid var(--gray-color);
+    }
+
+    .statistics-view-container2 {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border: 2px solid var(--gray-color);
+        border-top: 1px solid var(--gray-color);
+        border-bottom: 1px solid var(--gray-color);
+        border-left: 2px solid var(--gray-color);
+        border-right: 2px solid var(--gray-color);
+    }
+
+    .statistics-view-container3 {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border: 2px solid var(--gray-color);
+        border-top: 1px solid var(--gray-color);
+        border-top: 1px solid var(--gray-color);
+        border-bottom: 1px solid var(--gray-color);
+        border-left: 2px solid var(--gray-color);
+        border-right: 2px solid var(--gray-color);
+    }
+
+    .statistics-view-container4 {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border: 2px solid var(--gray-color);
+        border-top: 1px solid var(--gray-color);
+        border-bottom: 1px solid var(--gray-color);
+        border-left: 2px solid var(--gray-color);
+        border-right: 2px solid var(--gray-color);
+    }
+}
+
+@media all and (min-width: 850px) { 
+
+    .statistics-view-buttons {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        margin: 0;
+        max-width: 1100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .statistics-view-container1 {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border: 2px solid var(--gray-color);
+        border-bottom: 1px solid var(--gray-color);
+        border-left: 2px solid var(--gray-color);
+        border-right: 1px solid var(--gray-color);
+    }
+
+    .statistics-view-container2 {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border: 2px solid var(--gray-color);
+        border-bottom: 1px solid var(--gray-color);
+        border-left: 1px solid var(--gray-color);
+        border-right: 2px solid var(--gray-color);
+    }
+
+    .statistics-view-container3 {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border: 2px solid var(--gray-color);
+        border-top: 1px solid var(--gray-color);
+        border-bottom: 1px solid var(--gray-color);
+        border-left: 2px solid var(--gray-color);
+        border-right: 1px solid var(--gray-color);
+    }
+
+    .statistics-view-container4 {
+        font-size: 25px;
+        text-align: center;
+        text-decoration: none;
+        color: var(--black-font);
+        margin: 0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border: 2px solid var(--gray-color);
+        border-top: 1px solid var(--gray-color);
+        border-bottom: 1px solid var(--gray-color);
+        border-left: 1px solid var(--gray-color);
+        border-right: 2px solid var(--gray-color);
+    }
+}
+
+.statistics-view-container1:hover {
+    background-color: var(--gray-color);
+    color: var(--blue-font);
+}
+
+.statistics-view-container2:hover {
+    background-color: var(--gray-color);
+    color: var(--blue-font);
+}
+
+.statistics-view-container3:hover {
+    background-color: var(--gray-color);
+    color: var(--blue-font);
+}
+
+.statistics-view-container4:hover {
+    background-color: var(--gray-color);
+    color: var(--blue-font);
+}
+
+.statistics-view-icon {
+    display: inline-block;
+}

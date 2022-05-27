@@ -1,9 +1,10 @@
 /**
  * The CSS in this file provides styles for the
- * STATISTICS page on the Mayo Clinic web application.
- * The styles are applied to the statistics.ejs file
- * to make the web application appear in a simple,
- * clean format. 
+ * STATISTICS pages on the Mayo Clinic web application.
+ * The styles are applied to the statistics-query1.ejs
+ * file, the statistics-query2 file, and lastly to the 
+ * statistics-query3.ejs file to make the web application 
+ * appear in a simple, clean format. 
  *
  * Author: Andrew Krause
  * Date: 05/10/2022
@@ -11,10 +12,24 @@
  */
 
 /* ====================================================================
-                            STATISTICS Page
+                STATISTICS (Used for all statistics pages)
 ==================================================================== */
 
-#statistics-page {
+#statistic-query1-page {
+    padding-top: 130px;
+    color: var(--whiter-color);
+    background-color: var(--black-color);
+    flex: 1 0 auto;
+}
+
+#statistic-query2-page {
+    padding-top: 130px;
+    color: var(--whiter-color);
+    background-color: var(--black-color);
+    flex: 1 0 auto;
+}
+
+#statistic-query3-page {
     padding-top: 130px;
     color: var(--whiter-color);
     background-color: var(--black-color);

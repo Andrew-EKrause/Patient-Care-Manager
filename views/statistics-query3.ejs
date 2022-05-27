@@ -1,0 +1,190 @@
+<!-- 
+    The statistics-query3.ejs file displays data obtained
+    through the third complex query, the Providers and 
+    Treatments, that is implemented in the database. The data 
+    returned from the query includes all of the providers  
+    who are currently administering any of the treatments
+    that are entered in as input by the user. This info is
+    obtained through the use of the third complex query.
+    ...
+    Project: Mayo Clinic Patient Care Manager 
+             (PCM) Web Application
+    Author: Andrew Krause
+    Class: Introduction to Database 
+           Management Systems (CS 364)
+    Date: 5/10/2022
+    ...
+-->
+
+<%- include('./partials/header.ejs') %>
+
+    <!-- Section for the list of different statistics on the webpage -->
+    <section id="statistic-query3-page">
+        <div class="fade-in">
+            <header>
+                <h1 class="statistic-page-text">Providers and Treatments</h1>
+            </header>
+            <div class="statistic-ordering">
+                <!-- Create an anchor tag to process when the user clicks the "Back" button -->
+                <div class="statistic-buttons">
+                    <a id="statistic-back-arrow" class="all-button-container-one" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;" href="/statistics-view">
+                        <span class="statistic-button-icon"><i class="fa-solid fa-arrow-left-long"></i></span> Statistics
+                    </a>
+                </div>
+
+                <!-- Include a form to process any user input that is entered to search for -->
+                <form class="form-create-provider-horizontal" action="/statistics-query3-update" method="POST">
+
+                    <!-- 
+                        This is the section where the statistics
+                        are loaded to be displayed on the page
+                    -->
+                    <div class="statistic-items">
+
+                        <!-- ================================================================================== -->
+                        <!-- DATA FOR COMPLEX QUERY 3: Which Providers Administer High-Risk Treatments -->
+                        <!-- ================================================================================== -->
+
+                        <!--
+                            Create a div to hold the title portion of the statistic
+                            card containing the query information for the user to 
+                            interact with.
+                        -->
+                        <div>
+
+                            <!-- Create a card for the statistic -->
+                            <!-- First, create a heading that displays the name of the statistic -->
+                            <div class="statistic-name">
+
+                                <!-- 
+                                    Display the statistic name and text
+                                -->
+                                <h2 class="statistic-name-text">
+
+                                    <!-- Include a div to show the statistic name and action buttons -->
+                                    <div class="statistic-name-and-buttons" style="display: flex; flex-direction: row;">
+
+                                        <!-- 
+                                            Display an icon for the statistic
+                                        -->
+                                        <div class="statistic-full-name">
+                                            <!-- 
+                                                Display the icon for the provider treatment section
+                                            -->
+                                            <i class="fa-solid fa-flask-vial"></i>
+                                            Fill out input fields then click search icon
+                                        </div>
+
+                                        <!-- Include action button here -->
+                                        <div class="statistic-edit-remove-buttons">
+                                            
+                                            <!-- 
+                                                Include a button in order to be able to search for the data
+                                                based on the input entered by the user.
+                                                This button is used to trigger the process of executing the
+                                                complex query on the database.
+                                            -->
+                                            <button class="statistic-edit-white statistic-edit-remove">
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </h2>
+                            </div>
+
+                            <!--
+                                Create a div to hold the main-content portion of the 
+                                statistic card containing the query information for
+                                the user to interact with.
+                            -->
+                            <div> 
+                                
+                                <!-- 
+                                    Include a wrapper div to hold the content of 
+                                    the statistic card, which includes the query 
+                                    information.
+                                -->
+                                <div class="statistic-card">
+
+                                    <!-- Create a div to contain the heading and text describing the first query -->
+                                    <div>
+                                        <!-- Include text that explains the data that is being displayed -->
+                                        <p class="statistic-text-content">
+                                            The search will return all of the providers who administered at least one of the treatments that is entered into 
+                                            the search value. The search value must be a comma separated list of treatments. You can enter up to ten treatments 
+                                            as a comma separated list in the search field. You can also limit the number of results returned by entering a 
+                                            value into the limit field below. <b>By default</b>, the search value is set to <b>"NULL"</b> and the limit value is set 
+                                            to <b>100</b>.
+                                        </p>
+                                    </div>
+
+                                    <!-- Add two input columns for the user to enter in their search value and limit values -->
+                                    <div class="statistic-input-column">
+                                        <p class="patient-create-text-info"><b>Treatments:</b> <input placeholder="Enter treatments" type="text" class="" name="applyprovidertreatment" size="10"></p> <!-- MAKE THIS REQUIRED LATER ON -->
+                                    </div>
+                                    <div class="statistic-input-column statistic-second-column">
+                                        <p class="patient-create-text-info"><b>Limit Results:</b> <input placeholder="Result limit value" type="number" class="" name="applyprovidertreatmentlimit" size="5" maxlength="12" min="1" max="100" step="1"></p>
+                                    </div>
+
+                                    <!-- 
+                                        If there is data that resulted from the
+                                        complex query, then display that data
+                                    -->
+                                    <% if(treatmentsAdministered.length != 0) { %>
+
+                                        <!-- 
+                                            Loop through all of the high risk patients in 
+                                            the database and display them on the page 
+                                        -->
+                                        <% treatmentsAdministered.forEach(function(data) { %>
+
+                                            <!-- 
+                                                If the patient is currently in care at the hospital, then
+                                                display their data within the statistics card.
+                                            -->
+                                            <% if(data.PatientEndDate == null) { %>
+
+                                                <!-- Each column of the card displays different amounts of data -->
+                                                <div class="statistic-column">
+                                                    <p class="statistic-text-info" style="margin-top: 10px; margin-bottom: 0px;"><b><%= data.ProviderFirstName %> <%= data.ProviderLastName %>, <%= data.ProviderTitle %></p></b>
+                                                    <p class="statistic-text-info" style="margin-bottom: 10px;">Provider administers <%= data.TreatmentName %>.</p>
+                                                </div>
+
+                                            <!-- 
+                                                If there is no data that resulted from the
+                                                complex query, then display the message below.
+                                            -->
+                                            <% } else { %>
+                                                <h2 class="no-statistic-data">There are currently no providers that administered the treatments that were entered.</h2>
+                                            <% } %>
+
+                                        <% }); %>
+
+                                    <!-- 
+                                        If there is no data for the query that 
+                                        was executed, display the message
+                                    -->
+                                    <% } else { %>
+                                        <h2 class="no-statistic-data">There are currently no providers that administered the treatments that were entered.</h2>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 
+                Include a div that displays a chevron that the
+                user can click to return to the top of the page
+            -->
+            <div>
+                <!-- Include a button for the user to click to go to the top of the page -->
+                <a class="statistic-bottom statistic-bottom-color" style="font-size: 16px !important;" href="#statistic-query3-page">
+                    <i class="fa-solid fa-chevron-up fa-1.5x"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+<%- include('./partials/footer.ejs') %>

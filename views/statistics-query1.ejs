@@ -1,0 +1,209 @@
+<!-- 
+    The statistics-query1.ejs file displays data obtained
+    through the first complex query, the Patient Risk Index, 
+    that is implemented in the database. The data returned 
+    from the query includes all of the patients with a risk 
+    index equal to the user search entered. This information 
+    is obtained through the use of the first complex query.
+    ...
+    Project: Mayo Clinic Patient Care Manager 
+             (PCM) Web Application
+    Author: Andrew Krause
+    Class: Introduction to Database 
+           Management Systems (CS 364)
+    Date: 5/10/2022
+    ...
+-->
+
+<%- include('./partials/header.ejs') %>
+
+    <!-- Section to list out the first statistic on the webpage -->
+    <section id="statistic-query1-page">
+        <div class="fade-in">
+            <header>
+                <h1 class="statistic-page-text">Patient Risk</h1>
+            </header>
+            <div class="statistic-ordering">
+                <!-- Create an anchor tag to process when the user clicks the "Statistics" button -->
+                <div class="statistic-buttons">
+                    <a id="statistic-back-arrow" class="all-button-container-one" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;" href="/statistics-view">
+                        <span class="statistic-button-icon"><i class="fa-solid fa-arrow-left-long"></i></span> Statistics
+                    </a>
+                </div>
+
+                <!-- Include a form to process any user input that is entered to search for -->
+                <form class="form-create-provider-horizontal" action="/statistics-query1-update" method="POST">
+
+                    <!-- 
+                        This is the section where the first statistic
+                        is loaded to be displayed on the page
+                    -->
+                    <div class="statistic-items">
+
+                        <!-- ================================================================================== -->
+                                        <!-- DATA FOR COMPLEX QUERY 1: Patients that have -->
+                                        <!-- a risk index equal to the entered user input -->
+                        <!-- ================================================================================== -->
+
+                        <!--
+                            Create a div to hold the title portion of the statistic
+                            card containing the query information for the user to 
+                            interact with.
+                        -->
+                        <div>
+
+                            <!-- Create a card for the statistic -->
+                            <!-- First, create a heading that displays the name of the statistic -->
+                            <div class="statistic-name">
+
+                                <!-- 
+                                    Display the statistic name and text
+                                -->
+                                <h2 class="statistic-name-text">
+
+                                    <!-- Include a div to show the statistic name and action buttons -->
+                                    <div class="statistic-name-and-buttons" style="display: flex; flex-direction: row;">
+
+                                        <!-- 
+                                            Display an icon for the statistic
+                                        -->
+                                        <div class="statistic-full-name">
+                                            <!-- 
+                                                Display the icon for the patient high risk index section
+                                            -->
+                                            <i class="fa-solid fa-heart-circle-exclamation"></i>
+                                            Fill out input fields then click search icon
+                                        </div>
+
+                                        <!-- Include action button here -->
+                                        <div class="statistic-edit-remove-buttons">
+                                            
+                                            <!-- 
+                                                Include a button in order to be able to search for the data
+                                                based on the input entered by the user.
+                                                This button is used to trigger the process of executing the
+                                                complex query on the database.
+                                            -->
+                                            <button class="statistic-edit-white statistic-edit-remove">
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </h2>
+                            </div>
+
+                            <!--
+                                Create a div to hold the main-content portion of the 
+                                statistic card containing the query information for
+                                the user to interact with.
+                            -->
+                            <div> 
+                                
+                                <!-- 
+                                    Include a wrapper div to hold the content of 
+                                    the statistic card, which includes the query 
+                                    information.
+                                -->
+                                <div class="statistic-card">
+
+                                    <!-- Create a div to contain the heading and text describing the first query -->
+                                    <div>
+                                        <!-- Include text that explains the data that is being displayed -->
+                                        <p class="statistic-text-content">
+                                            The search will return all of the patients in the database who are currently in treatment and have a risk index
+                                            equal to the search value. You can also limit the number of results returned by entering a value into the limit
+                                            field below. <b>By default</b>, the search value is set to <b>5</b> and the limit value is set to <b>100</b>.
+                                        </p>
+                                    </div>
+
+                                    <!-- Add two input columns for the user to enter in their search value and limit values -->
+                                    <div class="statistic-input-column">
+                                        <p class="patient-create-text-info"><b>Risk Index:</b> <input placeholder="0-10" type="number" class="" name="applypatientriskindex" size="5" maxlength="12" min="0" max="10" step="1"></p>
+                                    </div>
+                                    <div class="statistic-input-column statistic-second-column">
+                                        <p class="patient-create-text-info"><b>Limit Results:</b> <input placeholder="Result limit value" type="number" class="" name="applypatientrisklimit" size="5" maxlength="12" min="1" max="100" step="1"></p>
+                                    </div>
+
+                                    <!-- 
+                                        If there is data that resulted from the
+                                        complex query, then display that data
+                                    -->
+                                    <% if(highestRiskPatient.length != 0) { %>
+
+                                        <!-- 
+                                            Create a variable to determine whether or not to include 
+                                            a message to indicate that there are currently no patients
+                                            currently in care at the hospital that match the search
+                                        -->
+                                        <% var patientsInCare = 0; %>
+
+                                        <!-- 
+                                            Loop through all of the high risk patients in 
+                                            the database and display them on the page 
+                                        -->
+                                        <% highestRiskPatient.forEach(function(data) { %>
+
+                                            <!-- 
+                                                If the patient is currently in care at the hospital,
+                                                then display their data within the statistics card.
+                                            -->
+                                            <% if(data.PatientEndDate == null) { %>
+
+                                                <!-- 
+                                                    Increment the variable declared above to indicate 
+                                                    that the message that says "there are currently no 
+                                                    patients in care with a risk index equal to your 
+                                                    search" does not need to be printed out.
+                                                -->
+                                                <% patientsInCare = patientsInCare + 1; %>
+
+                                                <!-- Each column of the card displays different amounts of data -->
+                                                <div class="statistic-column">
+                                                    <p class="statistic-text-info" style="margin-top: 10px; margin-bottom: 0px;"><b><%= data.PatientFirstName %> <%= data.PatientMiddleName %> <%= data.PatientLastName %></p></b>
+                                                    <p class="statistic-text-info" style="margin-top: 5px; margin-bottom: 5px;">Patient has a risk index value of <%= data.PatientRiskIndex %>.</p>
+                                                    <p class="statistic-text-info" style="margin-bottom: 10px;"><%= data.PatientNotes %></p>
+                                                </div>
+
+                                            <!-- 
+                                                If there is no data that resulted from the
+                                                complex query, then display the message below.
+                                            -->
+                                            <% } %>
+                                        <% }); %>
+
+                                        <!-- 
+                                            If there are no patients that are currently in care
+                                            that match the search, print out the message below
+                                        -->
+                                        <% if(patientsInCare == 0) { %>
+                                            <h2 class="no-statistic-data">No patients have a risk index equal to your search.</h2>
+                                        <% } %>
+
+                                    <!-- 
+                                        If there is no data for the query that 
+                                        was executed, display the message
+                                    -->
+                                    <% } else { %>
+                                        <h2 class="no-statistic-data">No patients have a risk index equal to your search.</h2>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 
+                Include a div that displays a chevron that the
+                user can click to return to the top of the page
+            -->
+            <div>
+                <!-- Include a button for the user to click to go to the top of the page -->
+                <a class="statistic-bottom statistic-bottom-color" style="font-size: 16px !important;" href="#statistic-query1-page">
+                    <i class="fa-solid fa-chevron-up fa-1.5x"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+<%- include('./partials/footer.ejs') %>

@@ -3,6 +3,9 @@
 
 <p>&nbsp;</p>
 
+###### Home Page of Patient Care Manager
+<img width="1680" alt="Screen Shot 2022-09-08 at 12 40 02 AM" src="https://user-images.githubusercontent.com/57727121/189043094-d1617613-5135-4135-89c5-c16f6d8ebf34.png">
+
 ## **Description**
 
 **_Web Application with SQL Database Created for Mayo Clinic in CS 364 Course_** <br/>

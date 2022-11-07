@@ -139,7 +139,6 @@
     color: var(--white-font);
     border-radius: 56px;
     font-size: clamp(1.2rem, 2.5vw, 1.5rem); 
-    transition: 0.1s ease, color 50ms ease;
     border-top: 2px solid transparent;
     border-bottom: 2px solid transparent;
     border-left: 2px solid transparent;

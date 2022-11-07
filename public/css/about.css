@@ -49,6 +49,7 @@
     height: 40px;
     border-radius: 50%;
     transform: scale(1.2);
+    transition: 0.2s ease-in;
 }
 
 .close-container:hover {
@@ -139,11 +140,17 @@
     border-radius: 56px;
     font-size: clamp(1.2rem, 2.5vw, 1.5rem); 
     transition: 0.1s ease, color 50ms ease;
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
+    transition: 0.2s ease-in;
 }
 
 .about-anchor i {
     text-decoration: none;
     color: var(--white-font);
+    transition: 0.2s ease-in;
 }
 
 .about-anchor:hover {
